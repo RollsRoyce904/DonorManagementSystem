@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+table { // this somehow makes it work for td
+  table-layout:fixed;
+  width:100%;
+}
