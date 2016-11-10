@@ -1,0 +1,114 @@
+﻿@model testDMS.Models.DONOR
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DONOR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FNAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FNAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MINIT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MINIT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LNAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LNAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TITLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TITLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SUFFIX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUFFIX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EMAIL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMAIL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CELL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CELL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BIRTHDAY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BIRTHDAY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GENDER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GENDER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMPANY.COMPANYNAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMPANY.COMPANYNAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTACT.TYPEOF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTACT.TYPEOF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDENTITYMARKER.MARKERTYPE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDENTITYMARKER.MARKERTYPE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DONORID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
