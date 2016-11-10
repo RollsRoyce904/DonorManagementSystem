@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0f4c0123493c4452b75fc88513e1d972" Name="Diagram1">
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.AspNetRole" Width="1.5" PointX="7.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.AspNetUserClaim" Width="1.5" PointX="12.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.AspNetUserLogin" Width="1.5" PointX="12.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.AspNetUser" Width="1.5" PointX="10" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.CODE" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.COMPANY" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.CONTACT" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.DONATION" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.DONOR" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.IDENTITYMARKER" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.RELATIVE" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.database_firewall_rules" Width="1.5" PointX="5.75" PointY="10.75" IsExpanded="true" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK__DONATION__CodeId__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK__DONOR__COMPANYID__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK__DONOR__CONTACTID__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK__DONATION__DonorI__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK__DONOR__MARKERID__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK__RELATIVES__DONOR__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

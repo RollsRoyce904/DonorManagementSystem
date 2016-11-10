@@ -1,0 +1,100 @@
+﻿@model IEnumerable<testDMS.Models.DONOR>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FNAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MINIT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LNAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TITLE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SUFFIX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EMAIL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CELL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BIRTHDAY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GENDER)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COMPANY.COMPANYNAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CONTACT.TYPEOF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDENTITYMARKER.MARKERTYPE)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MINIT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TITLE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SUFFIX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMAIL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CELL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BIRTHDAY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GENDER)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COMPANY.COMPANYNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CONTACT.TYPEOF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDENTITYMARKER.MARKERTYPE)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.DONORID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.DONORID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.DONORID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

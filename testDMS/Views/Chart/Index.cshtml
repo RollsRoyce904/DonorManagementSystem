@@ -1,0 +1,51 @@
+﻿@model testDMS.Models.Report
+
+    @using (Ajax.BeginForm("GetChartParams", "Chart",
+        new AjaxOptions { UpdateTargetId = "updatable" }))
+    {
+        <fieldset>
+            <div id="updatable"></div>
+            <section class="panel panel-body">
+                <select class="form-control" id="criteria" name="Criteria">
+                    <option value=""> Choose Criteria</option>
+                    <option value="0"> Identity Marker</option>
+                    <option value="1"> Amount </option>
+                    <option value="2">Date</option>
+                    <option value="3"> Type </option>
+                    <option value="4">Method</option>
+                    <option value="5"> Appeal Code</option>
+                    <option value="6"> Department </option>
+                    <option value="7">Program Code</option>
+                    <option value="8"> Visit Type</option>
+                    <option value="9"> Birthday </option>
+                    <option value="10"> Zipcode </option>
+                </select>
+
+                <select class="form-control" id="equivalance" name="equivalance">
+                    <option value="0">=</option>
+                    <option value="1">></option>
+                    <option value="2"><</option>
+                    <option value="3">>=</option>
+                    <option value="4"><=</option>
+                </select>
+
+                <input type="text" id="Params" name="Params" />
+
+                <br />
+                <select class="form-control" id="Type" name="Type">
+                    <option value=""> Choose Type</option>
+                    <option value="0"> Pie Chart</option>
+                    <option value="1"> Line Graph</option>
+                    <option value="2"> Bar Graph</option>
+                    <option value="3"> Histogram </option>
+                    <option value="4">Original</option>
+                </select>
+            </section>
+
+            <p><input type="submit" name="Create Report" value="Create Report" /></p>
+        </fieldset>
+    }
+    
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
