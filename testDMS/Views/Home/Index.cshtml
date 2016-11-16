@@ -70,9 +70,9 @@
             <div class="panel-heading">Donor Demographic Management</div>
             <div class="panel-body">
                 @*Why is this doing it???*@
-                @*@Html.Action("Index", "DonorInfoes")
-                    @*<input type="submit" value="Export to Excel" class="button" />*@
-                @*@Html.ActionLink("Export To Excel", "ExportToExcel")*@
+                @Html.Action("Index", "DONORs")
+                  @*  @*<input type="submit" value="Export to Excel" class="button" />*@
+                @Html.ActionLink("Export To Excel", "ExportToExcel")
 
             </div>
 
@@ -93,16 +93,7 @@
     <div role="tabpanel" class="tab-pane" id="fourth">
         <div class="panel panel-default">
             <div class="panel-heading">Reports</div>
-            <div class="panel-body">
-                This tab will allow the administrator to run reports based on a variety of critera including:<br />
-                <ul>
-                    <li>Date range</li>
-                    <li>Zip Code</li>
-                    <li>Donation Amount</li>
-                    <li>Name</li>
-                </ul><br />
-                (this list is not all inclusive of reporting options)
-            </div>
+            @Html.Partial("~/Views/Chart/Index.cshtml")
         </div>
     </div>
 </div>
