@@ -28,7 +28,11 @@
                         {
                             @User.Identity.GetUserName()
                         }
-                        <h4>User Role</h4> @*pull user role here*@
+                        <h4>User Role:</h4> 
+                        
+                        Administrator<br/><br/>
+    
+    @*pull user role here*@
 <!--get the roles to display-->
                       @*  @if (Request.IsAuthenticated)
                         {
@@ -39,15 +43,7 @@
 <!--did it work, no... keep trying.-->
 
                         <!--just for UI design... need to implement the actual code here.-->
-                        <button type="submit" id="pwButton" class="btn btn-default">Change Password</button>
-                            <div>
-                                <form id="pwForm" onload="hideForm()">
-                                    <h4>New Password:</h4><input type="text" name="newPassword" />
-                                    <h4>Reenter Password</h4><input type="text" name="reenterPassword" /><br />
-                                    <button type="submit" id="cancelPassword" class="btn btn-default">Cancel</button>
-                                    <button type="submit" class="btn btn-default">Submit</button>
-                                </form>
-                           </div>
+
                     </div>
 
                 </div>
@@ -63,6 +59,7 @@
                 </div>
 
             </div>
+            @Html.Action("ChangePassword", "Manage")
         </div>
     </div>
     <div role="tabpanel" class="tab-pane" id="second">
@@ -99,19 +96,3 @@
 </div>
 
 
-
-<script type="text/javascript">
-    var theButton = document.getElementById('pwButton');
-
-    theButton.onclick = function() {
-        document.getElementById('pwForm').style.visibility='visible';
-    }
-
-    var cancelButton = document.getElementById('cancelButton');
-
-    cancelButton.onclick = function () {
-        document.getElementById("pwForm").reset();
-        document.getElementById("pwForm").style.visibility = "hidden";
-    }
-
-</script>
