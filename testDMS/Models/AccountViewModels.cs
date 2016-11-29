@@ -109,4 +109,9 @@ namespace testDMS.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+    public class ListUserViewModel
+    {
+        public IList<testDMS.Models.ApplicationUser> users { get; set; }
+        public IList<string> roles { get; set; }
+    }
 }

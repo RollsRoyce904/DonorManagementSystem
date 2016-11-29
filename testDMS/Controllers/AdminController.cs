@@ -681,7 +681,7 @@ namespace testDMS.Controllers
         #endregion
 
         #region private UserAndRolesDTO GetUserAndRoles(string UserName)
-        private UserAndRolesDTO GetUserAndRoles(string UserName)
+        public UserAndRolesDTO GetUserAndRoles(string UserName)
         {
             // Go get the User
             ApplicationUser user = UserManager.FindByName(UserName);
@@ -738,5 +738,7 @@ namespace testDMS.Controllers
             return colRolesUserInNotIn;
         }
         #endregion
+
+
     }
 }

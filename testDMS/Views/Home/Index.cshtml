@@ -1,6 +1,7 @@
 ﻿<!--had to delete viewbag, it just won't stop erroring out... perhaps will work later...or not-->
 @using Microsoft.AspNet.Identity
 @model testDMS.Models.UserAndRolesDTO
+  
 <script type="text/javascript">
   window.onload = function() {
         document.getElementById('pwForm').style.visibility = 'hidden';
@@ -28,26 +29,36 @@
                         {
                             @User.Identity.GetUserName()
                         }
-                        <h4>User Role:</h4> 
-                        
-                        Administrator<br/><br/>
-    
-    @*pull user role here*@
-<!--get the roles to display-->
-                      @*  @if (Request.IsAuthenticated)
-                        {
-                            var user = User.Identity.GetUserName().ToString();
-                            @Roles.GetRolesForUser(user);
-                        }*@
 
-<!--did it work, no... keep trying.-->
-
-                        <!--just for UI design... need to implement the actual code here.-->
-
+                      <!--this is not my ideal way of doing this, but it works now.  would like to actually link this properly--->
+                      <!--need to fix if statements (nest properly)-->
+                        <h4>User Role(s):</h4> 
+                        <ul>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <li>Administrator</li>
+                            }
+                            else if(User.IsInRole("Executive"))
+                            {
+                                <li>Executive</li>
+                            }
+                            else if (User.IsInRole("General"))
+                            {
+                                <li>General</li>
+                            }
+                            else
+                            {
+                                <li>No Role Assigned</li>
+                            }
+                        </ul>
+                        <br/>
+                        <hr />
+                        @Html.Action("_ChangePassword", "Manage")
+                      </div>
                     </div>
 
-                </div>
-                <div class="panel panel-default col-md-8">
+
+                    <div class="panel panel-default col-md-8">
                     <div class="panel panel-heading">Manage Accounts</div>
                     <div class="panel panel-body">
                         @*maybe put this around entire block... or restrict on the controller, need to think about this*@
@@ -59,7 +70,7 @@
                 </div>
 
             </div>
-            @Html.Action("ChangePassword", "Manage")
+           
         </div>
     </div>
     <div role="tabpanel" class="tab-pane" id="second">
