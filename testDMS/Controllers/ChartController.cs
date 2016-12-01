@@ -28,7 +28,13 @@ namespace testDMS.Controllers
             string chosenParams = reportModel.Params;
             char chosenEquivalance = reportModel.Equivalance;
 
-            StringBuilder reportString = new StringBuilder(); reportString.Append("Criteria: " + chosenCriteria + "<br/>"); reportString.Append("Type: " + chosenType + "<br/>"); reportString.Append("Params: " + chosenParams + "<br/>"); reportString.Append("Equivalance: " + chosenEquivalance + "<br/>");
+            StringBuilder reportString = new StringBuilder();
+
+            reportString.Append("Criteria: " + chosenCriteria + "<br/>");
+            reportString.Append("Equivalance: " + chosenEquivalance + "<br/>");
+            reportString.Append("Params: " + chosenParams + "<br/>");
+            reportString.Append("Type: " + chosenType + "<br/>");
+            
 
             //var chartXVals = from DONATION in db.DONATIONs
             //                 where 
