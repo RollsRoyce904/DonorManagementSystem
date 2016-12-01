@@ -1,10 +1,9 @@
-﻿
-@{
+﻿@{
     var myChart = new Chart(width: 600, height: 400)
-        .AddTitle("Chart Title")
+        .AddTitle("Donors By Zipcodes")
         .AddSeries(
+            chartType: "Pie",
             name: "Employee",
-            xValue: new[] { "Peter", "Andrew", "Julie", "Mary", "Dave" },
-            yValues: new[] { "2", "6", "4", "5", "3" })
-            .Write();
+            xValue: new[] { "32218", "32226", "32256", "32224", "32244" },
+            yValues: new[] { "2", "6", "4", "5", "3" }).Write();
 }

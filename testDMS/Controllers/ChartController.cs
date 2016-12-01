@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using testDMS.Models;
 using System.Web.Mvc.Ajax;
+using System.Web.Helpers;
 
 namespace testDMS.Controllers
 {
@@ -36,15 +37,25 @@ namespace testDMS.Controllers
 
             var donors = db.DONORs.Where(n => n.FNAME == chosenParams).Select(n => n.LNAME);
 
-            MakeChart();
+            //MakeChart();
 
             return donors.FirstOrDefault();
         }
 
-       public ActionResult MakeChart()
-       {
-            return View();
-       }
+        public ActionResult MakeChart()
+        {
+            //var myChart = new Chart(width: 600, height: 400)
+            //    .AddTitle("Chart Title")
+            //    .AddSeries(
+            //        name: "Employee",
+            //        xValue: new[] { "Peter", "Andrew", "Julie", "Mary", "Dave" },
+            //        yValues: new[] { "2", "6", "4", "5", "3" })
+            //        .Write();
+
+            //myChart.Save("~/Content/")
+ 
+            return PartialView();
+        }
 
     }
 }
