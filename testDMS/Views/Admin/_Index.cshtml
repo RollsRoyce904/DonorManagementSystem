@@ -1,0 +1,60 @@
+﻿@*page create 12-1-2016 CM*@
+@model PagedList.IPagedList<testDMS.Models.ExpandedUserDTO>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    Layout = null;
+}
+<br />
+
+<br />
+@using (Html.BeginForm("Index", "Admin", FormMethod.Get))
+{
+
+    <div class="form-group">
+        Search:&nbsp; @Html.TextBox("searchStringUserNameOrEmail", ViewBag.CurrentFilter as string)
+
+        <input type="submit" value="search" />
+    </div>
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                Email
+            </th>
+            <th>
+                <!--Locked Out... needs to be changed to user Roles...not sure how to do this yet.-->
+            </th>
+            <th>
+                Role
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditUser", new { UserName = item.UserName }) |
+                    @if ((item.UserName.ToLower() != this.User.Identity.Name.ToLower()))
+                    {
+                        @Html.ActionLink("Delete", "DeleteUser", new { UserName = item.UserName },
+                    new { onclick = "return confirm('Are you sure you wish to delete this user?');" })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Edit Roles", "ViewAllRoles", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Back to Home", "../", null, new { @class = "btn btn-default" })
+    </p>
+}
+
