@@ -10,14 +10,14 @@
             type: 'GET',
             url: '@Url.Action("GetChartParams", "Chart")',
             success: function (result) {
-                $('#updatable').html(result);
+                $('#updatable').html( result);
             }
         })
     })
 </script>
 
 @using (Ajax.BeginForm("GetChartParams", "Chart",
-                    new AjaxOptions { UpdateTargetId = "updatable", InsertionMode = InsertionMode.Replace }))
+    new AjaxOptions { UpdateTargetId = "updatable", InsertionMode = InsertionMode.Replace }))
 {
     <fieldset>
 
@@ -62,7 +62,11 @@
     </fieldset>
 }
 
-<div id="updatable"></div>
+<div id="updatable">
+   
+</div>
+
+<img src="MakeChart.cshtml" />
 
 @*@Scripts.Render("~/bundles/jqueryval")*@
 

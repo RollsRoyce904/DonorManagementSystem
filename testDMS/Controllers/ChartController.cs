@@ -20,7 +20,7 @@ namespace testDMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetChartParams(Report reportModel)
+        public string GetChartParams(Report reportModel)
         {
 
             string chosenCriteria = reportModel.Criteria;
@@ -28,25 +28,23 @@ namespace testDMS.Controllers
             string chosenParams = reportModel.Params;
             char chosenEquivalance = reportModel.Equivalance;
 
-            StringBuilder reportString = new StringBuilder();
+            //StringBuilder reportString = new StringBuilder();
+            //reportString.Append("Criteria: " + chosenCriteria + "<br/>");
+            //reportString.Append("Equivalance: " + chosenEquivalance + "<br/>");
+            //reportString.Append("Params: " + chosenParams + "<br/>");
+            //reportString.Append("Type: " + chosenType + "<br/>");
 
-            reportString.Append("Criteria: " + chosenCriteria + "<br/>");
-            reportString.Append("Equivalance: " + chosenEquivalance + "<br/>");
-            reportString.Append("Params: " + chosenParams + "<br/>");
-            reportString.Append("Type: " + chosenType + "<br/>");
-            
+            var donors = db.DONORs.Where(n => n.FNAME == chosenParams).Select(n => n.LNAME);
 
-            //var chartXVals = from DONATION in db.DONATIONs
-            //                 where 
+            MakeChart();
 
-            //return RedirectToAction("MakeChart");
-            return Content(reportString.ToString());
+            return donors.FirstOrDefault();
         }
 
-        public ActionResult MakeChart()
-        {
+       public ActionResult MakeChart()
+       {
+            return View();
+       }
 
-            return View("~/Views/Chart/Index.cshtml");
-        }
     }
 }
