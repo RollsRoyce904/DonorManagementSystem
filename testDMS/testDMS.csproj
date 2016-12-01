@@ -410,6 +410,7 @@
     <Content Include="Views\DONORs\Index.cshtml" />
     <Content Include="Views\Chart\Index.cshtml" />
     <Content Include="Views\Manage\_ChangePassword.cshtml" />
+    <Content Include="Views\Admin\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
