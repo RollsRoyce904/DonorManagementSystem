@@ -1,11 +1,13 @@
-﻿@model testDMS.Models.Report
+﻿
+@using testDMS.Models
 
 <script src="@Url.Content("~/Scripts/jquery-3.1.1.js")"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
     $('.make').click(function ()
-    {
+        {
         $.ajax({
             type: 'GET',
             url: '@Url.Action("GetChartParams", "Chart")',
@@ -13,16 +15,71 @@
                 $('#updatable').html( result);
             }
         })
-    })
+    }
+    )
+
+    //function renders graph when button is clicked
+    $(document).ready(function () {
+        $(".make").click(function () {
+
+            // Load the Visualization API and the corechart package.
+            google.charts.load('current', { 'packages': ['corechart'] });
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Callback that creates and populates a data table,
+            // instantiates the pie chart, passes in the data and
+            // draws it.
+
+
+            function drawChart() {
+
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Zipcodes');
+                data.addColumn('number', 'People');
+                data.addRows([
+                  ['32224', 3],
+                  ['32244', 1],
+                  ['32218', 1],
+                  ['32226', 1],
+                  ['32256', 2]
+                ]);
+
+                // Set chart options
+                var options = {
+                    'title': 'Demographics By Zipcodes',
+                    'width': 600,
+                    'height': 400
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+        });
+        });
+
 </script>
+
+@*<div id="chart_div"></div>*@
+
+<h3>
+    @{
+        var data = (DONATION)ViewData["results"];
+    }
+</h3>
 
 @using (Ajax.BeginForm("GetChartParams", "Chart",
     new AjaxOptions { UpdateTargetId = "updatable", InsertionMode = InsertionMode.Replace }))
 {
-    <fieldset>
+
+    @*<fieldset>  MIGHT NEED TO USE LATER ON TO GROUP THE DROPDOWNS*@
 
         <section class="panel panel-body">
-            <select class="form-control" id="criteria" name="Criteria">
+
+            <select class="form-control" style="width:auto;" id="criteria" name="Criteria">
                 <option value=""> Choose Criteria</option>
                 <option value="0"> Identity Marker</option>
                 <option value="1"> Amount </option>
@@ -35,9 +92,11 @@
                 <option value="8"> Visit Type</option>
                 <option value="9"> Birthday </option>
                 <option value="10"> Zipcode </option>
-            </select><img style="float:right;" src="@Url.Action("MakeChart", "Chart")" />
+            </select>
 
-            <select class="form-control" id="equivalance" name="equivalance">
+            <span id="chart_div" style="float: right;"></span>
+
+            <select class="input-sm" id="equivalance" name="equivalance">
                 <option value="0">=</option>
                 <option value="1">></option>
                 <option value="2"><</option>
@@ -48,7 +107,8 @@
             <input type="text" id="Params" name="Params" />
 
             <br />
-            <select class="form-control" id="Type" name="Type">
+
+            <select class="form-control" style="width:auto;" id="Type" name="Type">
                 <option value=""> Choose Type</option>
                 <option value="0"> Pie Chart</option>
                 <option value="1"> Line Graph</option>
@@ -56,18 +116,18 @@
                 <option value="3"> Histogram </option>
                 <option value="4">Original</option>
             </select>
+
+            <br /> 
+
+            <p><input type="submit" class="make" name="Create Report" value="Create Report" /></p>
+
         </section>
-        
-        <p><input type="submit" class="make" name="Create Report" value="Create Report" /></p>
-    </fieldset>
+
+     @*</fieldset>*@
+
 }
 
-<div id="updatable">
-   
-</div>
-
-
-
+<div id="updatable"></div>
 @*@Scripts.Render("~/bundles/jqueryval")*@
 
 
