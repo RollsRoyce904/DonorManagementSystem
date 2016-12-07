@@ -34,56 +34,56 @@ namespace testDMS.Controllers
             List<CONTACT> contacts = new List<CONTACT>(db.CONTACTs.ToList());
             List<CODE> codes = new List<CODE>(db.CODES.ToList());
             List<COMPANY> companys = new List<COMPANY>(db.COMPANies.ToList());
-            IEnumerable<DONATION> amounts = null;
 
-            switch (int.Parse(chosenCriteria))
-            {
-                case 0:
-                    //do something
-                    break;
-                case 1:
-                    //do something
-                    decimal selectedAmount = decimal.Parse(chosenParams);
-                    amounts = 
-                        from d in donations
-                        where d.Amount == selectedAmount
-                        select d;
-                    break;
-                case 2:
-                    //do something
-                    break;
-                case 3:
-                    //do something
-                    break;
-                case 4:
-                    //do something
-                    break;
-                case 5:
-                    //do something
-                    break;
-                case 6:
-                    //do something
-                    break;
-                case 7:
-                    //do something
-                    break;
-                case 8:
-                    //do something
-                    break;
-                case 9:
-                    //do something
-                    break;
-                case 10:
-                    //do something
-                    break;
-                default:
-                    Console.WriteLine(String.Format("Unknown command: {0}", chosenCriteria));
-                    break;
-            }
+            //switch (int.Parse(chosenCriteria))
+            //{
+            //    case 0:
+            //        //do something
+            //        break;
+            //    case 1:
+            //        //do something
+            //        //decimal selectedAmount = decimal.Parse(chosenParams);
+            //        //amounts = 
+            //        //    from d in donations
+            //        //    where d.Amount == selectedAmount
+            //        //    select d;
+            //        break;
+            //    case 2:
+            //        //do something
+            //        break;
+            //    case 3:
+            //        //do something
+            //        break;
+            //    case 4:
+            //        //do something
+            //        break;
+            //    case 5:
+            //        //do something
+            //        break;
+            //    case 6:
+            //        //do something
+            //        break;
+            //    case 7:
+            //        //do something
+            //        break;
+            //    case 8:
+            //        //do something
+            //        break;
+            //    case 9:
+            //        //do something
+            //        break;
+            //    case 10:
+            //        //do something
+            //        break;
+            //    default:
+            //        Console.WriteLine(String.Format("Unknown command: {0}", chosenCriteria));
+            //        break;
+            //}
 
             //var donors = db.DONORs.Where(n => n.FNAME == chosenParams).Select(n => n.LNAME);
-            ViewData["results"] = amounts;
-            return View(amounts);
+            //ViewData["results"] = amounts;
+            //return View(amounts);
+            return Json(donors.FindAll(null), JsonRequestBehavior.AllowGet);
         }
 
 
