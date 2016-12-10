@@ -1,5 +1,4 @@
-﻿
-@using testDMS.Models
+﻿@using testDMS.Models
 
 <script src="@Url.Content("~/Scripts/jquery-3.1.1.js")"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
@@ -12,7 +11,7 @@
             type: 'GET',
             url: '@Url.Action("GetChartParams", "Chart")',
             success: function (result) {
-                $('#updatable').html( result);
+                $('#updatable').html(result);
             }
         })
     }
@@ -80,18 +79,18 @@
         <section class="panel panel-body">
 
             <select class="form-control" style="width:auto;" id="criteria" name="Criteria">
-                <option value=""> Choose Criteria</option>
-                <option value="0"> Identity Marker</option>
-                <option value="1"> Amount </option>
-                <option value="2">Date</option>
-                <option value="3"> Type </option>
-                <option value="4">Method</option>
-                <option value="5"> Appeal Code</option>
-                <option value="6"> Department </option>
-                <option value="7">Program Code</option>
-                <option value="8"> Visit Type</option>
-                <option value="9"> Birthday </option>
-                <option value="10"> Zipcode </option>
+                <option value="">Choose Criteria</option>
+                <option value="Identity Marker">Identity Marker</option>
+                <option value="Amount">Amount</option>
+                <option value="Date">Date</option>
+                <option value="Type">Type</option>
+                <option value="Method">Method</option>
+                <option value="Appeal Code">Appeal Code</option>
+                <option value="Department">Department</option>
+                <option value="Program Code">Program Code</option>
+                <option value="Visit Type">Visit Type</option>
+                <option value="Birthday">Birthday</option>
+                <option value="Zipcode">Zipcode</option>
             </select>
 
             <span id="chart_div" style="float: right;"></span>
@@ -109,12 +108,12 @@
             <br />
 
             <select class="form-control" style="width:auto;" id="Type" name="Type">
-                <option value=""> Choose Type</option>
-                <option value="0"> Pie Chart</option>
-                <option value="1"> Line Graph</option>
-                <option value="2"> Bar Graph</option>
-                <option value="3"> Histogram </option>
-                <option value="4">Original</option>
+                <option value="">Choose Type</option>
+                <option value="Pie Chart">Pie Chart</option>
+                <option value="Line Graph">Line Graph</option>
+                <option value="Bar Graph">Bar Graph</option>
+                <option value="Histogram">Histogram</option>
+                <option value="Original">Original</option>
             </select>
 
             <br /> 

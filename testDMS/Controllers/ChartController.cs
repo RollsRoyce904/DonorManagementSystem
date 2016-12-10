@@ -32,9 +32,9 @@ namespace testDMS.Controllers
 
             var query = "SELECT * FROM dbo.DONOR WHERE DONORID " + chosenEquivalance + chosenParams;
             var mydonors = db.DONORs.SqlQuery(query);
-           
+            var str = mydonors.ToArray();
             
-            return View(mydonors);
+            return Content(str.ToString());
         }
 
 
