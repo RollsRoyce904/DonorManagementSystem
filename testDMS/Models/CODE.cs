@@ -11,6 +11,7 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class CODE
     {
@@ -21,11 +22,23 @@ namespace testDMS.Models
         }
     
         public int CodeId { get; set; }
+
+        [Display(Name = "Fund")]
         public string Fund { get; set; }
+
+        [Display(Name = "GL")]
         public string GL { get; set; }
+
+        [Display(Name = "Department")]
         public string Department { get; set; }
+
+        [Display(Name = "Program")]
         public string Program { get; set; }
+
+        [Display(Name = "Grant")]
         public string GrantS { get; set; }
+
+        [Display(Name = "Appeal")]
         public string Appeal { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

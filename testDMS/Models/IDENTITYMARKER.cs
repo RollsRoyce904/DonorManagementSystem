@@ -11,6 +11,7 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class IDENTITYMARKER
     {
@@ -19,8 +20,10 @@ namespace testDMS.Models
         {
             this.DONORs = new HashSet<DONOR>();
         }
-    
+        
         public int MARKERID { get; set; }
+
+        [Display(Name = "Marker Type")]
         public string MARKERTYPE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

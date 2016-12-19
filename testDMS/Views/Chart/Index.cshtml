@@ -10,6 +10,7 @@
         $.ajax({
             type: 'GET',
             url: '@Url.Action("GetChartParams", "Chart")',
+            dataType: 'json',
             success: function (result) {
                 $('#updatable').html(result);
             }
