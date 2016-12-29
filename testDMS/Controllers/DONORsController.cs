@@ -14,10 +14,17 @@ namespace testDMS.Controllers
     {
         private DonorManagementDatabaseEntities db = new DonorManagementDatabaseEntities();
 
-        // GET: DONORs
-        public ActionResult Index()
+        // GET: DONORs[ValidateAntiForgeryToken]
+        
+        public ActionResult Index(string searchString)
         {
             var dONORs = db.DONORs.Include(d => d.COMPANY).Include(d => d.CONTACT).Include(d => d.IDENTITYMARKER);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                dONORs = dONORs.Where(s => s.LNAME.Contains(searchString));
+            }
+
             return View(dONORs.ToList());
         }
 
