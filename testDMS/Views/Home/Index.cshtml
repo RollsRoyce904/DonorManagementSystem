@@ -3,28 +3,42 @@
 @model testDMS.Models.UserAndRolesDTO
   
 <script type="text/javascript">
-  window.onload = function() {
-        document.getElementById('pwForm').style.visibility = 'hidden';
-  }
+  //window.onload = function() {
+  //      document.getElementById('pwForm').style.visibility = 'hidden';
+    // }
 </script>
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
+
     <li role="presentation" class="active"><a href="#first" aria-controls="first" role="tab" data-toggle="tab">Accounts</a></li>
+
     <li role="presentation"><a href="#second" aria-controls="second" role="tab" data-toggle="tab">Donors</a></li>
+
     <li role="presentation"><a href="#third" aria-controls="third" role="tab" data-toggle="tab">Donations</a></li>
+
     <li role="presentation"><a href="#fourth" aria-controls="fourth" role="tab" data-toggle="tab">Reports</a></li>
+
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
+
     <div role="tabpanel" class="tab-pane active" id="first">
+
         <div class="panel panel-default">
+
             <div class="panel-heading">User Account Management</div>
+
             <div class="panel-body">
+
                 <div class="panel panel-default col-md-4">
+
                     <div class="panel panel-heading">My Account</div>
+
                     <div class="panel panel-body">
+
                         <h4>User Name:</h4>
+
                         @if (Request.IsAuthenticated)
                         {
                             @User.Identity.GetUserName()
@@ -32,8 +46,11 @@
 
                       <!--this is not my ideal way of doing this, but it works now.  would like to actually link this properly--->
                       <!--need to fix if statements (nest properly)-->
+
                         <h4>User Role(s):</h4> 
+
                         <ul>
+
                             @if (User.IsInRole("Administrator"))
                             {
                                 <li>Administrator</li>
@@ -50,36 +67,57 @@
                             {
                                 <li>No Role Assigned</li>
                             }
-                        </ul>
-                        <br/>
-                        <hr />
-                        @Html.Action("_ChangePassword", "Manage")
-                      </div>
-                    </div>
 
+                        </ul>
+
+                        <br/>
+
+                        <hr />
+
+                        @Html.Action("_ChangePassword", "Manage")
+
+                      </div>
+
+                    </div>
 
                     <div class="panel panel-default col-md-8">
+
                     <div class="panel panel-heading">Manage Accounts</div>
+
                     <div class="panel panel-body">
+
                         @*maybe put this around entire block... or restrict on the controller, need to think about this*@
+
                         @*@if (User.IsInRole("Administrator"))
+
                             {@Html.ActionLink("Administration", "Index", "Admin")}*@
                         
-                        @Html.Action("_Index", "Admin")                    
+                        @Html.Action("_Index", "Admin")          
+                                  
                     </div>
+
                 </div>
 
             </div>
            
         </div>
+
     </div>
+
     <div role="tabpanel" class="tab-pane" id="second">
+
         <div class="panel panel-default">
+
             <div class="panel-heading">Donor Demographic Management</div>
+
             <div class="panel-body">
+
                 @*Why is this doing it???*@
+
                 @Html.Action("Index", "DONORs")
+
                   @*  @*<input type="submit" value="Export to Excel" class="button" />*@
+
                 @Html.ActionLink("Export To Excel", "ExportToExcel")
 
             </div>
@@ -88,20 +126,35 @@
         </div>
         @* Use this when we want to have form results: @Html.RenderAction("GetMySecondForm", "MyController")*@
     </div>
+
     <div role="tabpanel" class="tab-pane" id="third">
+
         <div class="panel panel-default">
+
             <div class="panel-heading">Donation Management</div>
+
             <div class="panel-body">
+
                 @Html.Action("Index", "Donations")
+
             </div>
+
         </div>
+
     </div>
+
     <div role="tabpanel" class="tab-pane" id="fourth">
+
         <div class="panel panel-default">
+
             <div class="panel-heading">Reports</div>
+
             @Html.Partial("~/Views/Chart/Index.cshtml")
+
         </div>
+
     </div>
+
 </div>
 
 
