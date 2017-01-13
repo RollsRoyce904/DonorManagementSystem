@@ -7,142 +7,105 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using testDMS.Models;
+using testDMS.DAL;
 
 namespace testDMS.Controllers
 {
     public class DONORsController : Controller
     {
-        private DonorManagementDatabaseEntities db = new DonorManagementDatabaseEntities();
+        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
+        //private DonorRepository drRepo = new DonorRepository();
+        //private DonationRepository dnRepo = new DonationRepository();
+        IDonorRepository drRepo;
+        IDonationRepository dnRepo;
 
-        // GET: DONORs[ValidateAntiForgeryToken]
-        
-        public ActionResult Index(string searchString)
+        public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo)
         {
-            var dONORs = db.DONORs.Include(d => d.COMPANY).Include(d => d.CONTACT).Include(d => d.IDENTITYMARKER);
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                dONORs = dONORs.Where(s => s.LNAME.Contains(searchString));
-            }
-
-            return View(dONORs.ToList());
+            this.drRepo = drRepo;
+            this.dnRepo = dnRepo;
         }
 
-        // GET: DONORs/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Index()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DONOR dONOR = db.DONORs.Find(id);
-            if (dONOR == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dONOR);
+            return View(drRepo.GetDonors());
         }
 
-        // GET: DONORs/Create
-        public ActionResult Create()
-        {
-            ViewBag.COMPANYID = new SelectList(db.COMPANies, "COMPANYID", "COMPANYNAME");
-            ViewBag.CONTACTID = new SelectList(db.CONTACTs, "CONTACTID", "TYPEOF");
-            ViewBag.MARKERID = new SelectList(db.IDENTITYMARKERs, "MARKERID", "MARKERTYPE");
-            return View();
-        }
-
-        // POST: DONORs/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DONORID,FNAME,MINIT,LNAME,TITLE,SUFFIX,EMAIL,CELL,BIRTHDAY,GENDER,MARKERID,CONTACTID,COMPANYID")] DONOR dONOR)
-        {
-            if (ModelState.IsValid)
-            {
-               
-                db.DONORs.Add(dONOR);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.COMPANYID = new SelectList(db.COMPANies, "COMPANYID", "COMPANYNAME", dONOR.COMPANYID);
-            ViewBag.CONTACTID = new SelectList(db.CONTACTs, "CONTACTID", "TYPEOF", dONOR.CONTACTID);
-            ViewBag.MARKERID = new SelectList(db.IDENTITYMARKERs, "MARKERID", "MARKERTYPE", dONOR.MARKERID);
-            return View(dONOR);
-        }
-
-        // GET: DONORs/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONOR dONOR = db.DONORs.Find(id);
-            if (dONOR == null)
+            DONOR donor = drRepo.FindById(Convert.ToInt32(id));
+            if (donor == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.COMPANYID = new SelectList(db.COMPANies, "COMPANYID", "COMPANYNAME", dONOR.COMPANYID);
-            ViewBag.CONTACTID = new SelectList(db.CONTACTs, "CONTACTID", "TYPEOF", dONOR.CONTACTID);
-            ViewBag.MARKERID = new SelectList(db.IDENTITYMARKERs, "MARKERID", "MARKERTYPE", dONOR.MARKERID);
-            return View(dONOR);
+
+            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME", donor.COMPANYID);
+            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF", donor.CONTACTID);
+            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
+
+            return View(donor);
         }
 
-        // POST: DONORs/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DONORID,FNAME,MINIT,LNAME,TITLE,SUFFIX,EMAIL,CELL,BIRTHDAY,GENDER,MARKERID,CONTACTID,COMPANYID")] DONOR dONOR)
+        public ActionResult Edit([Bind(Include = "DONORID,FNAME,MINIT,LNAME,TITLE,SUFFIX,EMAIL,CELL,BIRTHDAY,GENDER,MARKERID,CONTACTID,COMPANYID")] DONOR donor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dONOR).State = EntityState.Modified;
-                db.SaveChanges();
+                drRepo.Edit(donor);
                 return RedirectToAction("Index");
             }
-            ViewBag.COMPANYID = new SelectList(db.COMPANies, "COMPANYID", "COMPANYNAME", dONOR.COMPANYID);
-            ViewBag.CONTACTID = new SelectList(db.CONTACTs, "CONTACTID", "TYPEOF", dONOR.CONTACTID);
-            ViewBag.MARKERID = new SelectList(db.IDENTITYMARKERs, "MARKERID", "MARKERTYPE", dONOR.MARKERID);
-            return View(dONOR);
+            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME", donor.COMPANYID);
+            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF", donor.CONTACTID);
+            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
+            return View(donor);
         }
 
-        // GET: DONORs/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Details(int? id)//parameter HAS to be called id for whatever reason???
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONOR dONOR = db.DONORs.Find(id);
-            if (dONOR == null)
+            DONOR donor  = drRepo.FindById(Convert.ToInt32(id));
+            if (donor == null)
             {
                 return HttpNotFound();
             }
-            return View(dONOR);
+            return View(donor);
         }
 
-        // POST: DONORs/Delete/5
-        [HttpPost, ActionName("Delete")]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Create([Bind(Include = "DONORID,FNAME,MINIT,LNAME,TITLE,SUFFIX,EMAIL,CELL,BIRTHDAY,GENDER,MARKERID,CONTACTID,COMPANYID")] DONOR donor)
         {
-            DONOR dONOR = db.DONORs.Find(id);
-            db.DONORs.Remove(dONOR);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                drRepo.Add(donor);
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME", donor.COMPANYID);
+            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF", donor.CONTACTID);
+            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
+            return View(donor);
         }
 
-        protected override void Dispose(bool disposing)
+        public ActionResult LoadDonations(int? id)//partial view
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            var allDonations = dnRepo.GetDonations();
+            
+
+            return View(dnRepo.GetDonations());
         }
+
     }
 }

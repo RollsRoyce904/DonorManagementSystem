@@ -30,13 +30,13 @@ namespace testDMS.Models
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<CODE> CODES { get; set; }
-        public virtual DbSet<COMPANY> COMPANies { get; set; }
-        public virtual DbSet<CONTACT> CONTACTs { get; set; }
-        public virtual DbSet<DONATION> DONATIONs { get; set; }
-        public virtual DbSet<DONOR> DONORs { get; set; }
-        public virtual DbSet<IDENTITYMARKER> IDENTITYMARKERs { get; set; }
-        public virtual DbSet<RELATIVE> RELATIVES { get; set; }
+        public virtual DbSet<CODE> Code { get; set; }
+        public virtual DbSet<COMPANY> Company { get; set; }
+        public virtual DbSet<CONTACT> Contact { get; set; }
+        public virtual DbSet<DONATION> Donation { get; set; }
+        public virtual DbSet<DONOR> Donor { get; set; }
+        public virtual DbSet<IDENTITYMARKER> IdentityMarker { get; set; }
+        public virtual DbSet<RELATIVE> Relative { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     }
 }

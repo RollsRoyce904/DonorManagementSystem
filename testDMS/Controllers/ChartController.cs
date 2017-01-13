@@ -31,11 +31,11 @@ namespace testDMS.Controllers
             var dictionary = new Dictionary<int, string>().WithDefaultValue("defaultValue");
 
             //var query = "SELECT * FROM dbo.DONOR WHERE DONORID " + chosenEquivalance + chosenParams;
-            //var mydonors = db.DONORs.SqlQuery(query);
+            //var mydonors = db.Donor.SqlQuery(query);
 
             //LINQ for getting codeId's
             var codes =
-                from i in db.DONATIONs
+                from i in db.Donation
                 select i.CodeId;
             ViewBag.results = codes;
             return Json(codes, JsonRequestBehavior.AllowGet);

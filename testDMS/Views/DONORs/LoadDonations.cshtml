@@ -1,0 +1,18 @@
+﻿@*@model IEnumerable<testDMS.Models.DONATION>*@
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayName("Amount")
+        </th>
+    </tr>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @item.Amount
+            @*@Html.DisplayFor(modelItem => item.Amount)*@
+        </td>
+    </tr>
+}
+</table>
