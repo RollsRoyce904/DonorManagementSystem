@@ -14,8 +14,6 @@ namespace testDMS.Controllers
     public class DONORsController : Controller
     {
         private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
-        //private DonorRepository drRepo = new DonorRepository();
-        //private DonationRepository dnRepo = new DonationRepository();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
 
@@ -66,16 +64,27 @@ namespace testDMS.Controllers
 
         public ActionResult Details(int? id)//parameter HAS to be called id for whatever reason???
         {
+            DisplayDataViewModel displayData = new DisplayDataViewModel();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONOR donor  = drRepo.FindById(Convert.ToInt32(id));
-            if (donor == null)
+
+            displayData.Donors = drRepo.FindById(Convert.ToInt32(id));
+
+            IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.GetDonations();
+
+            displayData.Donations = (from d in donation
+                                 where d.DonorId == displayData.Donors.DONORID
+                                 select d);
+
+            if (displayData.Donors == null)
             {
                 return HttpNotFound();
             }
-            return View(donor);
+
+            return View(displayData);
         }
 
         public ActionResult Create()
@@ -98,14 +107,5 @@ namespace testDMS.Controllers
             ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
             return View(donor);
         }
-
-        public ActionResult LoadDonations(int? id)//partial view
-        {
-            var allDonations = dnRepo.GetDonations();
-            
-
-            return View(dnRepo.GetDonations());
-        }
-
     }
 }

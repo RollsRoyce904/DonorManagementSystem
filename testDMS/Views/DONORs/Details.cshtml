@@ -1,4 +1,4 @@
-﻿@model testDMS.Models.DONOR
+﻿@model testDMS.Models.DisplayDataViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -12,105 +12,118 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FNAME)
+            @Html.DisplayNameFor(model => model.Donors.FNAME)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FNAME)
+            @Html.DisplayFor(model => model.Donors.FNAME)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.MINIT)
+            @Html.DisplayNameFor(model => model.Donors.MINIT)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MINIT)
+            @Html.DisplayFor(model => model.Donors.MINIT)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LNAME)
+            @Html.DisplayNameFor(model => model.Donors.LNAME)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LNAME)
+            @Html.DisplayFor(model => model.Donors.LNAME)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TITLE)
+            @Html.DisplayNameFor(model => model.Donors.TITLE)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TITLE)
+            @Html.DisplayFor(model => model.Donors.TITLE)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SUFFIX)
+            @Html.DisplayNameFor(model => model.Donors.SUFFIX)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SUFFIX)
+            @Html.DisplayFor(model => model.Donors.SUFFIX)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EMAIL)
+            @Html.DisplayNameFor(model => model.Donors.EMAIL)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EMAIL)
+            @Html.DisplayFor(model => model.Donors.EMAIL)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CELL)
+            @Html.DisplayNameFor(model => model.Donors.CELL)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CELL)
+            @Html.DisplayFor(model => model.Donors.CELL)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BIRTHDAY)
+            @Html.DisplayNameFor(model => model.Donors.BIRTHDAY)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BIRTHDAY)
+            @Html.DisplayFor(model => model.Donors.BIRTHDAY)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.GENDER)
+            @Html.DisplayNameFor(model => model.Donors.GENDER)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.GENDER)
+            @Html.DisplayFor(model => model.Donors.GENDER)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.COMPANY.COMPANYNAME)
+            @Html.DisplayNameFor(model => model.Donors.COMPANY.COMPANYNAME)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.COMPANY.COMPANYNAME)
+            @Html.DisplayFor(model => model.Donors.COMPANY.COMPANYNAME)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CONTACT.TYPEOF)
+            @Html.DisplayNameFor(model => model.Donors.CONTACT.TYPEOF)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CONTACT.TYPEOF)
+            @Html.DisplayFor(model => model.Donors.CONTACT.TYPEOF)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IDENTITYMARKER.MARKERTYPE)
+            @Html.DisplayNameFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IDENTITYMARKER.MARKERTYPE)
+            @Html.DisplayFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.DONORID }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.DONORID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Donors.DONORID }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Donors.DONORID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<div>
+    @{ int x = 1;
+        foreach (var items in Model.Donations)
+        {
+
+        <p>
+          @x: @items.Amount
+           
+        </p>
+           x++;
+         }
+        }
+</div>
