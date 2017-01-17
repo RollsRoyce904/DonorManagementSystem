@@ -25,9 +25,19 @@ namespace testDMS.Controllers
         //    this.dnRepo = dnRepo;
         //}
 
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(drRepo.GetDonors());
+          //  IEnumerable<DONOR> donors = (IEnumerable<DONOR>)drRepo.GetDonors();
+          //  var results = (from d in donors
+          //                 where
+          //d.Equals(searchString)
+          //                 select d).FirstOrDefault();
+          //  if (results != null)
+          //  {
+          //      return View(results);
+          //  }
+            
+                return View(drRepo.GetDonors());
         }
 
         public ActionResult Edit(int? id)
@@ -91,6 +101,9 @@ namespace testDMS.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME");
+            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF");
+            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE");
             return View();
         }
 

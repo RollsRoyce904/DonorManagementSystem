@@ -26,13 +26,13 @@ namespace testDMS.Models
         [Display(Name = "Type")]
         public string TypeOf { get; set; }
 
-        [DataType(DataType.Date),DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true), Display(Name = "Date Received")]
+        [DataType(DataType.Date),DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}"), Display(Name = "Date Received")]
         public System.DateTime DateRecieved { get; set; }
 
         [Display(Name = "Method")]
         public string GiftMethod { get; set; }
 
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true), Display(Name = "Date Made")]
+        [DataType(DataType.Date), DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}"), Display(Name = "Date Made")]
         public System.DateTime DateGiftMade { get; set; }
 
         public Nullable<int> CodeId { get; set; }

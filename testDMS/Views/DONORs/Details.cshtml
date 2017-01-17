@@ -5,125 +5,79 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="panel panel-default">
 
-<div>
-    <h4>DONOR</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.FNAME)
-        </dt>
+    <div class="panel panel-heading">Donor Details</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Donors.FNAME)
-        </dd>
+    <div class="panel panel-body">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.MINIT)
-        </dt>
+        <div class="panel panel-default col-md-3">
 
-        <dd>
-            @Html.DisplayFor(model => model.Donors.MINIT)
-        </dd>
+            <div class="panel panel-heading">@Model.Donors.FNAME's Information</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.LNAME)
-        </dt>
+            <div class="panel panel-body" style="min-height: 300px; max-height: 300px;">
 
-        <dd>
-            @Html.DisplayFor(model => model.Donors.LNAME)
-        </dd>
+                <table>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.FNAME): @Html.DisplayFor(model => model.Donors.FNAME)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.MINIT): @Html.DisplayFor(model => model.Donors.MINIT)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.LNAME): @Html.DisplayFor(model => model.Donors.LNAME)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.TITLE): @Html.DisplayFor(model => model.Donors.TITLE)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.SUFFIX): @Html.DisplayFor(model => model.Donors.SUFFIX)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.EMAIL): @Html.DisplayFor(model => model.Donors.EMAIL)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.CELL): @Html.DisplayFor(model => model.Donors.CELL)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.BIRTHDAY): @Html.DisplayFor(model => model.Donors.BIRTHDAY)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.GENDER): @Html.DisplayFor(model => model.Donors.GENDER)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.COMPANY.COMPANYNAME): @Html.DisplayFor(model => model.Donors.COMPANY.COMPANYNAME)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.CONTACT.TYPEOF): @Html.DisplayFor(model => model.Donors.CONTACT.TYPEOF)</td></tr>
+                    <tr><td>@Html.DisplayNameFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE): @Html.DisplayFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE)</td></tr>
+                </table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.TITLE)
-        </dt>
+                <br />
 
-        <dd>
-            @Html.DisplayFor(model => model.Donors.TITLE)
-        </dd>
+                <div style="text-align: center">
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Donors.DONORID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = Model.Donors.DONORID })
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.SUFFIX)
-        </dt>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Donors.SUFFIX)
-        </dd>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.EMAIL)
-        </dt>
+        <div class="panel panel-default col-md-9">
 
-        <dd>
-            @Html.DisplayFor(model => model.Donors.EMAIL)
-        </dd>
+            <div class="panel panel-heading">@Model.Donors.FNAME's Donations</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.CELL)
-        </dt>
+            <div class="panel panel-body" style="min-height: 300px; max-height:300px; overflow-y: scroll">
 
-        <dd>
-            @Html.DisplayFor(model => model.Donors.CELL)
-        </dd>
+                <table>
+                    <tr><th>#</th><th>Amount</th><th>Type</th><th>Date Made</th><th>Date Received</th><th>Method</th><th>Restrictions</th><th>Code</th></tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.BIRTHDAY)
-        </dt>
+                    @{ int x = 1;
+                        foreach (var items in Model.Donations)
+                        {
+                            <tr>
+                                <td>@x:</td>
+                                <td>@items.Amount</td>
+                                <td>@items.TypeOf</td>
+                                <td>@items.DateGiftMade.ToShortDateString()</td>
+                                <td>@items.DateRecieved.ToShortDateString()</td>
+                                <td>@items.GiftMethod</td>
+                                <td>@items.GiftRestrictions</td>
+                                <td>@items.CODE.Fund</td>
+                            </tr>
+                            x++;
+                        }
+                    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Donors.BIRTHDAY)
-        </dd>
+                </table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.GENDER)
-        </dt>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Donors.GENDER)
-        </dd>
+        </div>
+        
+    </div>
+    
+    <div style="text-align: center"><a href="@Url.Action("Index", "Home")#second">Back</a></div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.COMPANY.COMPANYNAME)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Donors.COMPANY.COMPANYNAME)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.CONTACT.TYPEOF)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Donors.CONTACT.TYPEOF)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Donors.DONORID }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.Donors.DONORID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-<div>
-    @{ int x = 1;
-        foreach (var items in Model.Donations)
-        {
 
-        <p>
-          @x: @items.Amount
-           
-        </p>
-           x++;
-         }
-        }
-</div>
