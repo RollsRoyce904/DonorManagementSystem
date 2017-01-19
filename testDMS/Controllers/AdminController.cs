@@ -19,7 +19,7 @@ namespace testDMS.Controllers
         private ApplicationRoleManager _roleManager;
         // Controllers
         // GET: /Admin/
-       // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         #region public ActionResult Index(string searchStringUserNameOrEmail)
         public ActionResult Index(string searchStringUserNameOrEmail, string currentFilter, int? page)
         {
@@ -82,7 +82,7 @@ namespace testDMS.Controllers
         }
         #endregion
 
-       // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         #region public ActionResult Index(string searchStringUserNameOrEmail)
         public ActionResult _Index(string searchStringUserNameOrEmail, string currentFilter, int? page)
         {
@@ -148,7 +148,7 @@ namespace testDMS.Controllers
         // Users *****************************
 
         // GET: /Admin/Edit/Create 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         #region public ActionResult Create()
         public ActionResult Create()
         {
@@ -161,7 +161,7 @@ namespace testDMS.Controllers
         #endregion
 
         // PUT: /Admin/Create
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         #region public ActionResult Create(ExpandedUserDTO paramExpandedUserDTO)
@@ -226,7 +226,7 @@ namespace testDMS.Controllers
         #endregion
 
         // GET: /Admin/Edit/TestUser 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         #region public ActionResult EditUser(string UserName)
         public ActionResult EditUser(string UserName)
         {
@@ -244,7 +244,7 @@ namespace testDMS.Controllers
         #endregion       
 
         // PUT: /Admin/EditUser
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         #region public ActionResult EditUser(ExpandedUserDTO paramExpandedUserDTO)
@@ -275,7 +275,7 @@ namespace testDMS.Controllers
         #endregion
 
         // DELETE: /Admin/DeleteUser
-       // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         #region public ActionResult DeleteUser(string UserName)
         public ActionResult DeleteUser(string UserName)
         {
@@ -317,7 +317,7 @@ namespace testDMS.Controllers
 
 
         // GET: /Admin/EditRoles/TestUser 
-       // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         #region ActionResult EditRoles(string UserName)
         public ActionResult EditRoles(string UserName)
         {
@@ -344,7 +344,7 @@ namespace testDMS.Controllers
         #endregion
 
         // PUT: /Admin/EditRoles/TestUser 
-       // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         #region public ActionResult EditRoles(UserAndRolesDTO paramUserAndRolesDTO)
@@ -385,7 +385,7 @@ namespace testDMS.Controllers
         #endregion
 
         // DELETE: /Admin/DeleteRole?UserName="TestUser&RoleName=Administrator
-       // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         #region public ActionResult DeleteRole(string UserName, string RoleName)
         public ActionResult DeleteRole(string UserName, string RoleName)
         {
@@ -440,7 +440,7 @@ namespace testDMS.Controllers
         // Roles *****************************
         //Added CM 11-6-2016
         // GET: /Admin/ViewAllRoles
-       // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         #region public ActionResult ViewAllRoles()
         public ActionResult ViewAllRoles()
         {
@@ -462,7 +462,7 @@ namespace testDMS.Controllers
         #endregion
 
         // GET: /Admin/AddRole
-       // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         #region public ActionResult AddRole()
         public ActionResult AddRole()
         {
@@ -473,7 +473,7 @@ namespace testDMS.Controllers
         #endregion
 
         // PUT: /Admin/AddRole
-       // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         #region public ActionResult AddRole(RoleDTO paramRoleDTO)
@@ -515,7 +515,7 @@ namespace testDMS.Controllers
         #endregion
 
         // DELETE: /Admin/DeleteUserRole?RoleName=TestRole
-       // [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         #region public ActionResult DeleteUserRole(string RoleName)
         public ActionResult DeleteUserRole(string RoleName)
         {
