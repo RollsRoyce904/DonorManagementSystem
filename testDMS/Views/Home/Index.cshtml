@@ -44,31 +44,7 @@
                             @User.Identity.GetUserName()
                         }
 
-                      <!--this is not my ideal way of doing this, but it works now.  would like to actually link this properly--->
-                      <!--need to fix if statements (nest properly)-->
-
                         <h4>User Role(s):</h4> 
-
-                        <ul>
-
-                            @if (User.IsInRole("Administrator"))
-                            {
-                                <li>Administrator</li>
-                            }
-                            else if(User.IsInRole("Executive"))
-                            {
-                                <li>Executive</li>
-                            }
-                            else if (User.IsInRole("General"))
-                            {
-                                <li>General</li>
-                            }
-                            else
-                            {
-                                <li>No Role Assigned</li>
-                            }
-
-                        </ul>
 
                         <br/>
 
@@ -112,8 +88,6 @@
 
             <div class="panel-body">
 
-                @*Why is this doing it???*@
-
                 @Html.Action("Index", "DONORs")
 
                   @*  @*<input type="submit" value="Export to Excel" class="button" />*@
@@ -124,7 +98,6 @@
 
 
         </div>
-        @* Use this when we want to have form results: @Html.RenderAction("GetMySecondForm", "MyController")*@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="third">
@@ -149,7 +122,7 @@
 
             <div class="panel-heading">Reports</div>
 
-            @Html.Partial("~/Views/Chart/Index.cshtml")
+            @Html.Action("Index", "Chart")
 
         </div>
 

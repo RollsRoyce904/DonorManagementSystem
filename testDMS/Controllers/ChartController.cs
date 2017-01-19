@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using testDMS.Models;
-using System.Web.Mvc.Ajax;
-using System.Web.Helpers;
 
 namespace testDMS.Controllers
 {
     public class ChartController : Controller
     {
-        DonorManagementDatabaseEntities db = new DonorManagementDatabaseEntities();
+        private DonorManagementDatabaseEntities db = new DonorManagementDatabaseEntities();
         
         public ActionResult Index()
         {
-            Report model = new Report();
-            return View(model);
+            //Report model = new Report();
+            var model = db.Donation.Include(d => d.CODE).Include(d => d.DONOR);
+            return View(model.ToList());
         }
 
         [HttpPost]

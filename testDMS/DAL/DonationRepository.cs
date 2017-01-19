@@ -8,7 +8,13 @@ namespace testDMS.DAL
 {
     public class DonationRepository : IDonationRepository
     {
-        DonorManagementDatabaseEntities context = new DonorManagementDatabaseEntities();
+        DonorManagementDatabaseEntities context;
+
+        public DonationRepository(DonorManagementDatabaseEntities context)
+        {
+            this.context = context;
+        }
+
         public void Add(DONATION d)
         {
             context.Donation.Add(d);

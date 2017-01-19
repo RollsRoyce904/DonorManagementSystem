@@ -14,16 +14,16 @@ namespace testDMS.Controllers
     public class DONORsController : Controller
     {
         private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
-        private DonorRepository drRepo = new DonorRepository();
-        private DonationRepository dnRepo = new DonationRepository();
-        //IDonorRepository drRepo;
-        //IDonationRepository dnRepo;
+        //private DonorRepository drRepo = new DonorRepository();
+        //private DonationRepository dnRepo = new DonationRepository();
+        IDonorRepository drRepo;
+        IDonationRepository dnRepo;
 
-        //public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo)
-        //{
-        //    this.drRepo = drRepo;
-        //    this.dnRepo = dnRepo;
-        //}
+        public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo)
+        {
+            this.drRepo = drRepo;
+            this.dnRepo = dnRepo;
+        }
 
         public ActionResult Index(string searchString)
         {
