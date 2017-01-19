@@ -14,21 +14,21 @@ namespace testDMS.Controllers
     {
         private DonorManagementDatabaseEntities db = new DonorManagementDatabaseEntities();
 
-        // GET: Donation
+        // GET: DONATIONs
         public ActionResult Index()
         {
             var dONATIONs = db.Donation.Include(d => d.CODE).Include(d => d.DONOR);
             return View(dONATIONs.ToList());
         }
 
-        // GET: Donation/Details/5
-        public ActionResult Details(int? id)
+        // GET: DONATIONs/Details/5
+        public ActionResult Details(int? ida, int? idb)
         {
-            if (id == null)
+            if (ida == null || idb == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONATION dONATION = db.Donation.Find(id);
+            DONATION dONATION = db.Donation.Find(ida, idb);
             if (dONATION == null)
             {
                 return HttpNotFound();
@@ -36,7 +36,7 @@ namespace testDMS.Controllers
             return View(dONATION);
         }
 
-        // GET: Donation/Create
+        // GET: DONATIONs/Create
         public ActionResult Create()
         {
             ViewBag.CodeId = new SelectList(db.Code, "CodeId", "Fund");
@@ -44,7 +44,7 @@ namespace testDMS.Controllers
             return View();
         }
 
-        // POST: Donation/Create
+        // POST: DONATIONs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -63,14 +63,14 @@ namespace testDMS.Controllers
             return View(dONATION);
         }
 
-        // GET: Donation/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: DONATIONs/Edit/5
+        public ActionResult Edit(int? ida, int? idb)
         {
-            if (id == null)
+            if (ida == null || idb == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONATION dONATION = db.Donation.Find(id);
+            DONATION dONATION = db.Donation.Find(ida , idb);
             if (dONATION == null)
             {
                 return HttpNotFound();
@@ -80,7 +80,7 @@ namespace testDMS.Controllers
             return View(dONATION);
         }
 
-        // POST: Donation/Edit/5
+        // POST: DONATIONs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -98,14 +98,14 @@ namespace testDMS.Controllers
             return View(dONATION);
         }
 
-        // GET: Donation/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: DONATIONs/Delete/5
+        public ActionResult Delete(int? ida, int? idb)
         {
-            if (id == null)
+            if (ida == null || idb == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONATION dONATION = db.Donation.Find(id);
+            DONATION dONATION = db.Donation.Find(ida, idb);
             if (dONATION == null)
             {
                 return HttpNotFound();
@@ -113,12 +113,12 @@ namespace testDMS.Controllers
             return View(dONATION);
         }
 
-        // POST: Donation/Delete/5
+        // POST: DONATIONs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int ida, int idb)
         {
-            DONATION dONATION = db.Donation.Find(id);
+            DONATION dONATION = db.Donation.Find(ida, idb);
             db.Donation.Remove(dONATION);
             db.SaveChanges();
             return RedirectToAction("Index");

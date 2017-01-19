@@ -2,10 +2,9 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = null;
 }
 
-<h2>Donations</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -72,9 +71,9 @@
             @Html.DisplayFor(modelItem => item.DONOR.FNAME)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { ida = item.DonationId, idb = item.DonorId }) |
+            @Html.ActionLink("Details", "Details", new { ida = item.DonationId, idb = item.DonorId }) |
+            @Html.ActionLink("Delete", "Delete", new { ida = item.DonationId, idb = item.DonorId})
         </td>
     </tr>
 }
