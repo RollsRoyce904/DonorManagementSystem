@@ -5,7 +5,6 @@
     Layout = null;
 }
 
-<h2>Donor Information</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -25,16 +24,16 @@
             @Html.DisplayName("Donor Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TITLE)
+            @Html.DisplayName("Email")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SUFFIX)
+            @Html.DisplayName("Phone")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EMAIL)
+            @Html.DisplayName("Address")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CELL)
+            @Html.DisplayName("Cell")
         </th>
         <th>
             @Html.DisplayName("Company")
@@ -49,13 +48,13 @@
             @Html.ActionLink(name, "Details", new { id = item.DONORID } )
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TITLE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SUFFIX)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.EMAIL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.COMPANY.PHONE )
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.COMPANY.COMPADDRESS )
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CELL)
