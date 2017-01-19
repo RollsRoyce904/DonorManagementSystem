@@ -61,7 +61,7 @@ namespace testDMS.Controllers
         {
             //CM 11-4-2016
             //this will create the admin account using root web.config lines 19-20
-            CreateAdminIfNeeded();
+            //CreateAdminIfNeeded();
 
             ViewBag.ReturnUrl = returnUrl;
             return View();
