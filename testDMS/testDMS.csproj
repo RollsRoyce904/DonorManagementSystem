@@ -276,6 +276,7 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChartDispalyViewModel.cs" />
     <Compile Include="Models\CODE.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>

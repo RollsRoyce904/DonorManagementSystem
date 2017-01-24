@@ -7,18 +7,32 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using testDMS.Models;
+using testDMS.DAL;
 
 namespace testDMS.Controllers
 {
     public class ChartController : Controller
     {
-        private DonorManagementDatabaseEntities db = new DonorManagementDatabaseEntities();
-        
+        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
+        //private DonorRepository drRepo = new DonorRepository();
+        //private DonationRepository dnRepo = new DonationRepository();
+        IDonorRepository drRepo;
+        IDonationRepository dnRepo;
+
+        public ChartController(IDonorRepository drRepo, IDonationRepository dnRepo)
+        {
+            this.drRepo = drRepo;
+            this.dnRepo = dnRepo;
+        }
+
         public ActionResult Index()
         {
-            //Report model = new Report();
-            var model = db.Donation.Include(d => d.CODE).Include(d => d.DONOR);
-            return View(model.ToList());
+            IEnumerable<DONOR> Donors = (IEnumerable<DONOR>)drRepo.GetDonors();
+            IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.GetDonations();
+            ChartDispalyViewModel model = new ChartDispalyViewModel();
+            model.Donors = Donors;
+            model.Donations = Donations;
+            return View(model);
         }
 
         [HttpPost]
@@ -36,7 +50,7 @@ namespace testDMS.Controllers
 
             //LINQ for getting codeId's
             var codes =
-                from i in db.Donation
+                from i in data.Donation
                 select i.CodeId;
             ViewBag.results = codes;
             return Json(codes, JsonRequestBehavior.AllowGet);

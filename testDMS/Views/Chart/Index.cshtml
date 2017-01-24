@@ -1,4 +1,4 @@
-﻿@model IEnumerable<testDMS.Models.DONATION>
+﻿@model testDMS.Models.ChartDispalyViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -8,43 +8,24 @@
 <table class="table">
     <tr>
         <th>
+            @*@Html.DropDownList("DONORID", Model.Donors.ToString())*@
             <select class="form-control" style="width:auto;" id="Type" name="Type">
-                <option value="">Choose Type</option>
-                <option value="Pie Chart">Pie Chart</option>
-                <option value="Line Graph">Line Graph</option>
-                <option value="Bar Graph">Bar Graph</option>
-                <option value="Histogram">Histogram</option>
-                <option value="Original">Original</option>
+                <option value="">Choose Person</option>
             </select>
         </th>
         <th>
             <select class="form-control" style="width:auto;" id="Type" name="Type">
-                <option value="">Choose Type</option>
-                <option value="Pie Chart">Pie Chart</option>
-                <option value="Line Graph">Line Graph</option>
-                <option value="Bar Graph">Bar Graph</option>
-                <option value="Histogram">Histogram</option>
-                <option value="Original">Original</option>
+                <option value="">Choose Amount</option>
             </select>
         </th>
         <th>
             <select class="form-control" style="width:auto;" id="Type" name="Type">
-                <option value="">Choose Type</option>
-                <option value="Pie Chart">Pie Chart</option>
-                <option value="Line Graph">Line Graph</option>
-                <option value="Bar Graph">Bar Graph</option>
-                <option value="Histogram">Histogram</option>
-                <option value="Original">Original</option>
+                <option value="">Choose Department</option>
             </select>
         </th>
         <th>
             <select class="form-control" style="width:auto;" id="Type" name="Type">
-                <option value="">Choose Type</option>
-                <option value="Pie Chart">Pie Chart</option>
-                <option value="Line Graph">Line Graph</option>
-                <option value="Bar Graph">Bar Graph</option>
-                <option value="Histogram">Histogram</option>
-                <option value="Original">Original</option>
+                <option value="">Choose GL</option>
             </select>
         </th>
     </tr>
@@ -66,7 +47,7 @@
         </th>
     </tr>
 
-@foreach (var item in Model) { 
+@foreach (var item in Model.Donations) { 
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.DONOR.FNAME)
