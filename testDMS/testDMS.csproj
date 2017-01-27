@@ -337,6 +337,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\bevel.png" />
     <Content Include="Images\HopeHavenLogo.jpg" />
     <Content Include="Models\Hooli.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
