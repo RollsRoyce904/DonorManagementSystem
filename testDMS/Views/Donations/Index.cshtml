@@ -7,7 +7,9 @@
 
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New", "Create")*@
+
+    <input type="button" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONATIONs")'" />
 </p>
 <table class="table">
     <tr>
