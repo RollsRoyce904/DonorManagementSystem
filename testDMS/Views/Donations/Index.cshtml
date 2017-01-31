@@ -10,6 +10,15 @@
     @*@Html.ActionLink("Create New", "Create")*@
 
     <input type="button" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONATIONs")'" />
+
+    @using (Html.BeginForm())
+    {
+    <p>
+        @Html.AntiForgeryToken()
+        Search Donations: @Html.TextBox("SearchString")&nbsp
+        <input type="submit" value="Filter" />
+    </p>
+    }
 </p>
 <table class="table">
     <tr>

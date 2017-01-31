@@ -15,9 +15,15 @@ namespace testDMS.Controllers
         private DonorManagementDatabaseEntities db = new DonorManagementDatabaseEntities();
 
         // GET: DONATIONs
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var dONATIONs = db.Donation.Include(d => d.CODE).Include(d => d.DONOR);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                dONATIONs = dONATIONs.Where(d => d.DONOR.FNAME.Contains(searchString) || d.DONOR.LNAME.Contains(searchString));
+            }
+
             return View(dONATIONs.ToList());
         }
 
