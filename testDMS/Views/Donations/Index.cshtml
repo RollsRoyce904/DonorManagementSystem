@@ -1,17 +1,10 @@
 ﻿@model IEnumerable<testDMS.Models.DONATION>
-@Scripts.Render("~/bundles/mycustomjquery")
 
 @{
     ViewBag.Title = "Index";
     Layout = null;
 }
-<head>
-    <script type="text/javascript">
-        $("table").table2CSV;
-        $("table").table2CSV('output', { appendTo: '#out' });
-        $("table").table2CSV({ filename: 'Donations.csv' });
-    </script>
-</head>
+
 
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
@@ -59,8 +52,7 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
-        {
+        @foreach (var item in Model) {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Amount)
@@ -72,7 +64,7 @@
                     @Html.DisplayFor(modelItem => item.DateRecieved)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CODE.Appeal)
+                    @Html.DisplayFor(modelItem => item.CODE.Appeal )
                 </td>
                 @*<td>
                         @Html.DisplayFor(modelItem => item.GiftMethod)
@@ -95,10 +87,8 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { ida = item.DonationId, idb = item.DonorId }) |
                     @Html.ActionLink("Details", "Details", new { ida = item.DonationId, idb = item.DonorId }) |
-                    @Html.ActionLink("Delete", "Delete", new { ida = item.DonationId, idb = item.DonorId })
+                    @Html.ActionLink("Delete", "Delete", new { ida = item.DonationId, idb = item.DonorId})
                 </td>
             </tr>
         }
-        
     </table>
-<button id="ExportToCSV" type="button" value="ExportToCSV" onclick="ExportToCSV">Export Table to CSV File</button>
