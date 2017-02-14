@@ -15,5 +15,7 @@ namespace testDMS.DAL
         void Remove(int id);
         IEnumerable GetDonors();
         DONOR FindById(int id);
+        IEnumerable FindBy(string search);
+        //IEnumerable FindBy(DateTime search);
     }
 } 

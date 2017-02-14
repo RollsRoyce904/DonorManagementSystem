@@ -7,23 +7,41 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using testDMS.Models;
+using testDMS.DAL;
 
 namespace testDMS.Controllers
 {
     public class DONATIONsController : Controller
     {
-        private DonorManagementDatabaseEntities db = new DonorManagementDatabaseEntities();
+        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
+        IDonorRepository drRepo;
+        IDonationRepository dnRepo;
+
+        public DONATIONsController(IDonorRepository drRepo, IDonationRepository dnRepo)
+        {
+            this.drRepo = drRepo;
+            this.dnRepo = dnRepo;
+        }
 
         // GET: DONATIONs
         public ActionResult Index(string searchString)
         {
-            var dONATIONs = db.Donation.Include(d => d.CODE).Include(d => d.DONOR);
+            //var dONATIONs = data.Donation.Include(d => d.CODE).Include(d => d.DONOR);
+            //if (!String.IsNullOrEmpty(searchString))
+            //{ dONATIONs = dONATIONs.Where(d => d.DONOR.FNAME.Contains(searchString) || 
+            //d.DONOR.LNAME.Contains(searchString));} dONATIONs.ToList();
 
-            if (!String.IsNullOrEmpty(searchString))
+            if(searchString == null)
             {
-                dONATIONs = dONATIONs.Where(d => d.DONOR.FNAME.Contains(searchString) || d.DONOR.LNAME.Contains(searchString));
+                return View(dnRepo.GetDonations());
             }
-            return View(dONATIONs.ToList());
+            else
+            {
+                IEnumerable<DONATION> donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
+                return View(donations);
+            }
+
+            
         }
 
         // GET: DONATIONs/Details/5
@@ -33,19 +51,19 @@ namespace testDMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONATION dONATION = db.Donation.Find(ida, idb);
-            if (dONATION == null)
+            DONATION donation = dnRepo.FindById(ida, idb);
+            if (donation == null)
             {
                 return HttpNotFound();
             }
-            return View(dONATION);
+            return View(donation);
         }
 
         // GET: DONATIONs/Create
         public ActionResult Create()
         {
-            ViewBag.CodeId = new SelectList(db.Code, "CodeId", "Fund");
-            ViewBag.DonorId = new SelectList(db.Donor, "DONORID", "FNAME");
+            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund");
+            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME");
             return View();
         }
 
@@ -54,18 +72,18 @@ namespace testDMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION dONATION)
+        public ActionResult Create([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION donation)
         {
             if (ModelState.IsValid)
             {
-                db.Donation.Add(dONATION);
-                db.SaveChanges();
+                dnRepo.Add(donation);
+                data.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CodeId = new SelectList(db.Code, "CodeId", "Fund", dONATION.CodeId);
-            ViewBag.DonorId = new SelectList(db.Donor, "DONORID", "FNAME", dONATION.DonorId);
-            return View(dONATION);
+            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
+            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
+            return View(donation);
         }
 
         // GET: DONATIONs/Edit/5
@@ -75,14 +93,14 @@ namespace testDMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONATION dONATION = db.Donation.Find(ida , idb);
-            if (dONATION == null)
+            DONATION donation = dnRepo.FindById(ida, idb);
+            if (donation == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CodeId = new SelectList(db.Code, "CodeId", "Fund", dONATION.CodeId);
-            ViewBag.DonorId = new SelectList(db.Donor, "DONORID", "FNAME", dONATION.DonorId);
-            return View(dONATION);
+            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
+            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
+            return View(donation);
         }
 
         // POST: DONATIONs/Edit/5
@@ -94,12 +112,11 @@ namespace testDMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dONATION).State = EntityState.Modified;
-                db.SaveChanges();
+                dnRepo.Add(dONATION);
                 return RedirectToAction("Index");
             }
-            ViewBag.CodeId = new SelectList(db.Code, "CodeId", "Fund", dONATION.CodeId);
-            ViewBag.DonorId = new SelectList(db.Donor, "DONORID", "FNAME", dONATION.DonorId);
+            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", dONATION.CodeId);
+            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", dONATION.DonorId);
             return View(dONATION);
         }
 
@@ -110,12 +127,12 @@ namespace testDMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONATION dONATION = db.Donation.Find(ida, idb);
-            if (dONATION == null)
+            DONATION donation = dnRepo.FindById(ida, idb);
+            if (donation == null)
             {
                 return HttpNotFound();
             }
-            return View(dONATION);
+            return View(donation);
         }
 
         // POST: DONATIONs/Delete/5
@@ -123,9 +140,10 @@ namespace testDMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int ida, int idb)
         {
-            DONATION dONATION = db.Donation.Find(ida, idb);
-            db.Donation.Remove(dONATION);
-            db.SaveChanges();
+             dnRepo.Remove(ida, idb);
+            //DONATION dONATION = data.Donation.Find(ida, idb);
+            //data.Donation.Remove(dONATION);
+            //data.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -133,7 +151,7 @@ namespace testDMS.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                data.Dispose();
             }
             base.Dispose(disposing);
         }

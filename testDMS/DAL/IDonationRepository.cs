@@ -12,8 +12,9 @@ namespace testDMS.DAL
     {
         void Add(DONATION d);
         void Edit(DONATION d);
-        void Remove(int id);
+        void Remove(int ida, int idb);
         IEnumerable GetDonations();
-        DONATION FindById(int idOne, int idTwo);
+        DONATION FindById(int? idOne, int? idTwo);
+        IEnumerable FindBy(string search);
     }
 }

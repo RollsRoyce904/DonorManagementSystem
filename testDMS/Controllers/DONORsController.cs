@@ -14,8 +14,6 @@ namespace testDMS.Controllers
     public class DONORsController : Controller
     {
         private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
-        //private DonorRepository drRepo = new DonorRepository();
-        //private DonationRepository dnRepo = new DonationRepository();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
 
@@ -27,17 +25,20 @@ namespace testDMS.Controllers
 
         public ActionResult Index(string searchString)
         {
-          //  IEnumerable<DONOR> donors = (IEnumerable<DONOR>)drRepo.GetDonors();
-          //  var results = (from d in donors
-          //                 where
-          //d.Equals(searchString)
-          //                 select d).FirstOrDefault();
-          //  if (results != null)
-          //  {
-          //      return View(results);
-          //  }
-            
+            //  IEnumerable<DONOR> donors = (IEnumerable<DONOR>)drRepo.GetDonors();
+            //  var results = (from d in donors where d.Equals(searchString) select d).FirstOrDefault();
+            //  if (results != null) { return View(results); }
+           
+            if(searchString == null)
+            {
                 return View(drRepo.GetDonors());
+            }
+            else
+            {
+                IEnumerable<DONOR> donor = (IEnumerable<DONOR>)drRepo.FindBy(searchString);
+                return View(donor);
+            }
+            
         }
 
         public ActionResult Edit(int? id)
@@ -84,6 +85,7 @@ namespace testDMS.Controllers
             }
 
             displayData.Donors = drRepo.FindById(Convert.ToInt32(id));
+            
 
             IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.GetDonations();
 
@@ -98,6 +100,7 @@ namespace testDMS.Controllers
 
             return View(displayData);
         }
+
 
         public ActionResult Create()
         {

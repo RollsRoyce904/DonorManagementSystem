@@ -27,6 +27,27 @@ namespace testDMS.DAL
             return result;
         }
 
+        public IEnumerable FindBy(string search)
+        {
+            var result = (from r in context.Donor where r.FNAME == search || r.GENDER == search ||
+                          r.EMAIL == search || r.LNAME == search || r.MINIT == search ||
+                          r.SUFFIX == search || r.TITLE == search || r.CELL == search ||
+                          r.COMPANY.COMPANYNAME == search
+                          select r);
+
+            return result;
+        }
+
+        //public IEnumerable FindBy(DateTime search)
+        //{
+        //    var result = (from r in context.Donor where 
+        //                  r.BIRTHDAY.Month == search.Month && 
+        //                  r.BIRTHDAY.Day == search.Day && 
+        //                  r.BIRTHDAY.Year == search.Year
+        //                  select r);
+        //    return result;
+        //}
+
         public IEnumerable GetDonors()
         {
             return context.Donor;

@@ -74,6 +74,34 @@
             </div>
 
         </div>
+        <div class="panel panel-heading">Notes on @Model.Donors.FNAME</div>
+        <div class="panel panel-body">
+
+            @Html.TextArea("Notes", null, new { @class = "form-control", @style = "max-width: 100%"})
+            <div style="text-align: right;">
+                <input type="button" class="btn btn-info" value="Add Note" />
+            </div>
+            
+            <table>
+                <tr><th>#</th><th>Date</th><th>Note</th></tr>
+
+                @{ 
+                    foreach (var items in Model.Donors.NOTES)
+                    {
+                        <tr>
+                            <td>@x:</td>
+                            <td>@items.DATEMADE </td>
+                            <td>@items.NOTE1 </td>
+                        </tr>
+                      
+                    }
+                }
+
+            </table>
+
+            
+
+        </div>
         
     </div>
     

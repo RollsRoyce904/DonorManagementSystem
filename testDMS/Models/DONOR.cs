@@ -11,7 +11,6 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class DONOR
     {
@@ -20,50 +19,31 @@ namespace testDMS.Models
         {
             this.DONATIONs = new HashSet<DONATION>();
             this.RELATIVES = new HashSet<RELATIVE>();
+            this.NOTES = new HashSet<NOTE>();
         }
     
         public int DONORID { get; set; }
-
-        [Display(Name = "First Name")]
         public string FNAME { get; set; }
-
-        [Display(Name = "Initial")]
         public string MINIT { get; set; }
-
-        [Display(Name = "Last Name")]
         public string LNAME { get; set; }
-
         public string TITLE { get; set; }
-
         public string SUFFIX { get; set; }
-
         public string EMAIL { get; set; }
-
         public string CELL { get; set; }
-
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime BIRTHDAY { get; set; }
-
         public string GENDER { get; set; }
-
-        [Display(Name = "Marker Id")]
         public Nullable<int> MARKERID { get; set; }
-
-        [Display(Name = "Contact Id")]
         public Nullable<int> CONTACTID { get; set; }
-
-        [Display(Name = "Company Id")]
         public Nullable<int> COMPANYID { get; set; }
     
         public virtual COMPANY COMPANY { get; set; }
         public virtual CONTACT CONTACT { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DONATION> DONATIONs { get; set; }
-
         public virtual IDENTITYMARKER IDENTITYMARKER { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RELATIVE> RELATIVES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NOTE> NOTES { get; set; }
     }
 }
