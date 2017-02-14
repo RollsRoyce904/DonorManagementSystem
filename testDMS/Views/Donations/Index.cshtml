@@ -1,10 +1,17 @@
 ﻿@model IEnumerable<testDMS.Models.DONATION>
+@Scripts.Render("~/bundles/mycustomjquery")
 
 @{
     ViewBag.Title = "Index";
     Layout = null;
 }
-
+<head>
+    <script type="text/javascript">
+        $("table").table2CSV;
+        $("table").table2CSV('output', { appendTo: '#out' });
+        $("table").table2CSV({ filename: 'Donations.csv' });
+    </script>
+</head>
 
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
@@ -19,76 +26,79 @@
         <input type="submit" value="Filter" />
     </p>
     }
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Amount")
-        </th>
-        <th>
-            @Html.DisplayName("Donor")
-        </th>
-        <th>
-            @Html.DisplayName("Date")
-        </th>
-        <th>
-            @Html.DisplayName("Reason")
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.DateGiftMade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageUpload)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GiftRestrictions)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CODE.Fund)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DONOR.FNAME)
-        </th>*@
-        <th></th>
-    </tr>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Amount")
+            </th>
+            <th>
+                @Html.DisplayName("Donor")
+            </th>
+            <th>
+                @Html.DisplayName("Date")
+            </th>
+            <th>
+                @Html.DisplayName("Reason")
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.DateGiftMade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageUpload)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GiftRestrictions)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CODE.Fund)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DONOR.FNAME)
+                </th>*@
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DONOR.FNAME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateRecieved)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CODE.Appeal )
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.GiftMethod)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateGiftMade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImageUpload)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GiftRestrictions)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CODE.Fund)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DONOR.FNAME)
-        </td>*@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { ida = item.DonationId, idb = item.DonorId }) |
-            @Html.ActionLink("Details", "Details", new { ida = item.DonationId, idb = item.DonorId }) |
-            @Html.ActionLink("Delete", "Delete", new { ida = item.DonationId, idb = item.DonorId})
-        </td>
-    </tr>
-}
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DONOR.FNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRecieved)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CODE.Appeal)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.GiftMethod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateGiftMade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImageUpload)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiftRestrictions)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CODE.Fund)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DONOR.FNAME)
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { ida = item.DonationId, idb = item.DonorId }) |
+                    @Html.ActionLink("Details", "Details", new { ida = item.DonationId, idb = item.DonorId }) |
+                    @Html.ActionLink("Delete", "Delete", new { ida = item.DonationId, idb = item.DonorId })
+                </td>
+            </tr>
+        }
+        
+    </table>
+<button id="ExportToCSV" type="button" value="ExportToCSV" onclick="ExportToCSV">Export Table to CSV File</button>

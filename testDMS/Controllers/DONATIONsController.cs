@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using testDMS.Models;
@@ -23,9 +24,9 @@ namespace testDMS.Controllers
             {
                 dONATIONs = dONATIONs.Where(d => d.DONOR.FNAME.Contains(searchString) || d.DONOR.LNAME.Contains(searchString));
             }
-
             return View(dONATIONs.ToList());
         }
+
 
         // GET: DONATIONs/Details/5
         public ActionResult Details(int? ida, int? idb)
