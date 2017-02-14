@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DonorManagementDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DonorManagementDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -117,6 +117,7 @@
           <Property Name="CodeId" Type="int" />
           <Property Name="ImageUpload" Type="varbinary(max)" />
           <Property Name="GiftRestrictions" Type="nvarchar(max)" />
+          <Property Name="NOTES" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="DONOR">
           <Key>
@@ -142,6 +143,16 @@
           </Key>
           <Property Name="MARKERID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MARKERTYPE" Type="nvarchar" MaxLength="35" />
+        </EntityType>
+        <EntityType Name="NOTES">
+          <Key>
+            <PropertyRef Name="NOTEID" />
+            <PropertyRef Name="DONORID" />
+          </Key>
+          <Property Name="NOTEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DONORID" Type="int" Nullable="false" />
+          <Property Name="NOTE" Type="nvarchar(max)" />
+          <Property Name="DATEMADE" Type="date" />
         </EntityType>
         <EntityType Name="RELATIVES">
           <Key>
@@ -229,6 +240,18 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__NOTES__DONORID__02FC7413">
+          <End Role="DONOR" Type="Self.DONOR" Multiplicity="1" />
+          <End Role="NOTES" Type="Self.NOTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONOR">
+              <PropertyRef Name="DONORID" />
+            </Principal>
+            <Dependent Role="NOTES">
+              <PropertyRef Name="DONORID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__RELATIVES__DONOR__73BA3083">
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="1" />
           <End Role="RELATIVES" Type="Self.RELATIVES" Multiplicity="*" />
@@ -310,6 +333,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySet Name="DONATION" EntityType="Self.DONATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONOR" EntityType="Self.DONOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IDENTITYMARKER" EntityType="Self.IDENTITYMARKER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NOTES" EntityType="Self.NOTES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RELATIVES" EntityType="Self.RELATIVES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
             <DefiningQuery>SELECT 
@@ -341,6 +365,10 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <End Role="IDENTITYMARKER" EntitySet="IDENTITYMARKER" />
             <End Role="DONOR" EntitySet="DONOR" />
           </AssociationSet>
+          <AssociationSet Name="FK__NOTES__DONORID__02FC7413" Association="Self.FK__NOTES__DONORID__02FC7413">
+            <End Role="DONOR" EntitySet="DONOR" />
+            <End Role="NOTES" EntitySet="NOTES" />
+          </AssociationSet>
           <AssociationSet Name="FK__RELATIVES__DONOR__73BA3083" Association="Self.FK__RELATIVES__DONOR__73BA3083">
             <End Role="DONOR" EntitySet="DONOR" />
             <End Role="RELATIVES" EntitySet="RELATIVES" />
@@ -362,8 +390,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DonorManagementDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -482,6 +509,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="GiftRestrictions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CODE" Relationship="Self.FK__DONATION__CodeId__6D0D32F4" FromRole="DONATION" ToRole="CODES" />
           <NavigationProperty Name="DONOR" Relationship="Self.FK__DONATION__DonorI__6E01572D" FromRole="DONATION" ToRole="DONOR" />
+          <Property Name="NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DONOR">
           <Key>
@@ -505,6 +533,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <NavigationProperty Name="DONATIONs" Relationship="Self.FK__DONATION__DonorI__6E01572D" FromRole="DONOR" ToRole="DONATION" />
           <NavigationProperty Name="IDENTITYMARKER" Relationship="Self.FK__DONOR__MARKERID__76969D2E" FromRole="DONOR" ToRole="IDENTITYMARKER" />
           <NavigationProperty Name="RELATIVES" Relationship="Self.FK__RELATIVES__DONOR__73BA3083" FromRole="DONOR" ToRole="RELATIVES" />
+          <NavigationProperty Name="NOTES" Relationship="DonorManagementDatabaseModel.FK__NOTES__DONORID__02FC7413" FromRole="DONOR" ToRole="NOTE" />
         </EntityType>
         <EntityType Name="IDENTITYMARKER">
           <Key>
@@ -693,7 +722,35 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="NOTES" EntityType="DonorManagementDatabaseModel.NOTE" />
+          <AssociationSet Name="FK__NOTES__DONORID__02FC7413" Association="DonorManagementDatabaseModel.FK__NOTES__DONORID__02FC7413">
+            <End Role="DONOR" EntitySet="DONORs" />
+            <End Role="NOTE" EntitySet="NOTES" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="NOTE">
+          <Key>
+            <PropertyRef Name="NOTEID" />
+            <PropertyRef Name="DONORID" />
+          </Key>
+          <Property Name="NOTEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DONORID" Type="Int32" Nullable="false" />
+          <Property Name="NOTE1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DATEMADE" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DONOR" Relationship="DonorManagementDatabaseModel.FK__NOTES__DONORID__02FC7413" FromRole="NOTE" ToRole="DONOR" />
+        </EntityType>
+        <Association Name="FK__NOTES__DONORID__02FC7413">
+          <End Type="DonorManagementDatabaseModel.DONOR" Role="DONOR" Multiplicity="1" />
+          <End Type="DonorManagementDatabaseModel.NOTE" Role="NOTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONOR">
+              <PropertyRef Name="DONORID" />
+            </Principal>
+            <Dependent Role="NOTE">
+              <PropertyRef Name="DONORID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -797,6 +854,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySetMapping Name="DONATIONs">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.DONATION">
               <MappingFragment StoreEntitySet="DONATION">
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
                 <ScalarProperty Name="DonationId" ColumnName="DonationId" />
                 <ScalarProperty Name="DonorId" ColumnName="DonorId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
@@ -865,6 +923,16 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="NOTES">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.NOTE">
+              <MappingFragment StoreEntitySet="NOTES">
+                <ScalarProperty Name="DATEMADE" ColumnName="DATEMADE" />
+                <ScalarProperty Name="NOTE1" ColumnName="NOTE" />
+                <ScalarProperty Name="DONORID" ColumnName="DONORID" />
+                <ScalarProperty Name="NOTEID" ColumnName="NOTEID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

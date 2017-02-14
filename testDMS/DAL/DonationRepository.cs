@@ -26,9 +26,17 @@ namespace testDMS.DAL
             context.Entry(d).State = System.Data.Entity.EntityState.Modified;
         }
 
-        public DONATION FindById(int idOne, int idTwo)
+        public DONATION FindById(int? idOne, int? idTwo)
         {
             var result = (from r in context.Donation where r.DonationId == idOne && r.DonorId == idTwo select r).FirstOrDefault();
+            return result;
+        }
+
+        public IEnumerable FindBy(string search)
+        {
+            var result = (from d in context.Donation where d.Amount.ToString() == search ||
+                          d.DONOR.FNAME == search || d.DONOR.LNAME == search
+                          select d);
             return result;
         }
 
@@ -37,9 +45,9 @@ namespace testDMS.DAL
             return context.Donation;
         }
 
-        public void Remove(int id)
+        public void Remove(int ida, int idb)
         {
-            DONATION d = context.Donation.Find(id);
+            DONATION d = context.Donation.Find(ida, idb);
             context.Donation.Remove(d);
             context.SaveChanges();
         }

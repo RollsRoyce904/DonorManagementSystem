@@ -36,7 +36,8 @@ namespace testDMS.Models
         public virtual DbSet<DONATION> Donation { get; set; }
         public virtual DbSet<DONOR> Donor { get; set; }
         public virtual DbSet<IDENTITYMARKER> IdentityMarker { get; set; }
-        public virtual DbSet<RELATIVE> Relative { get; set; }
+        public virtual DbSet<RELATIVE> RELATIVES { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<NOTE> NOTES { get; set; }
     }
 }

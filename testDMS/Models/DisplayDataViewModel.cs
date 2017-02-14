@@ -7,5 +7,7 @@ namespace testDMS.Models
         public DONOR Donors { get; set; }
         
         public IEnumerable<DONATION> Donations { get; set; }
+
+        public IEnumerable<NOTE> Notes { get; set; }
     }
 }

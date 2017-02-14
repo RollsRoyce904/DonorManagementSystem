@@ -27,6 +27,8 @@
         <AssociationConnector Association="DonorManagementDatabaseModel.FK__DONOR__MARKERID__76969D2E" ManuallyRouted="false" />
         <AssociationConnector Association="DonorManagementDatabaseModel.FK__RELATIVES__DONOR__73BA3083" ManuallyRouted="false" />
         <AssociationConnector Association="DonorManagementDatabaseModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.NOTE" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK__NOTES__DONORID__02FC7413" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

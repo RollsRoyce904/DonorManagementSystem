@@ -11,7 +11,6 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class COMPANY
     {
@@ -22,26 +21,12 @@ namespace testDMS.Models
         }
     
         public int COMPANYID { get; set; }
-
-        [Display(Name = "Company")]
         public string COMPANYNAME { get; set; }
-
-        [Display(Name = "Address")]
         public string COMPADDRESS { get; set; }
-
-        [Display(Name = "Address 2")]
         public string ADDRESSTWO { get; set; }
-
-        [Display(Name = "City")]
         public string CITY { get; set; }
-
-        [Display(Name = "State")]
         public string COMPANYSTATE { get; set; }
-
-        [Display(Name = "Zipcode")]
         public string ZIPCODE { get; set; }
-
-        [Display(Name = "Phone")]
         public string PHONE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

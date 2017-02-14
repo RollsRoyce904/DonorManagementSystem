@@ -11,37 +11,20 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    //using System.ComponentModel.DataAnnotations.Schema;
     
     public partial class DONATION
     {
         public int DonationId { get; set; }
-
         public int DonorId { get; set; }
-
-        [DataType(DataType.Currency), Display(Name = "Amount")]
         public decimal Amount { get; set; }
-
-        [Display(Name = "Type")]
         public string TypeOf { get; set; }
-
-        [DataType(DataType.Date),DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}"), Display(Name = "Date Received")]
         public System.DateTime DateRecieved { get; set; }
-
-        [Display(Name = "Method")]
         public string GiftMethod { get; set; }
-
-        [DataType(DataType.Date), DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}"), Display(Name = "Date Made")]
         public System.DateTime DateGiftMade { get; set; }
-
         public Nullable<int> CodeId { get; set; }
-
-        [Display(Name = "Image")]
         public byte[] ImageUpload { get; set; }
-
-        [Display(Name = "Restrictions")]
         public string GiftRestrictions { get; set; }
+        public string NOTES { get; set; }
     
         public virtual CODE CODE { get; set; }
         public virtual DONOR DONOR { get; set; }
