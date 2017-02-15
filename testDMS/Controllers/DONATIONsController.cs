@@ -26,10 +26,6 @@ namespace testDMS.Controllers
         // GET: DONATIONs
         public ActionResult Index(string searchString)
         {
-            //var dONATIONs = data.Donation.Include(d => d.CODE).Include(d => d.DONOR);
-            //if (!String.IsNullOrEmpty(searchString))
-            //{ dONATIONs = dONATIONs.Where(d => d.DONOR.FNAME.Contains(searchString) || 
-            //d.DONOR.LNAME.Contains(searchString));} dONATIONs.ToList();
 
             if(searchString == null)
             {
@@ -141,9 +137,6 @@ namespace testDMS.Controllers
         public ActionResult DeleteConfirmed(int ida, int idb)
         {
              dnRepo.Remove(ida, idb);
-            //DONATION dONATION = data.Donation.Find(ida, idb);
-            //data.Donation.Remove(dONATION);
-            //data.SaveChanges();
             return RedirectToAction("Index");
         }
 

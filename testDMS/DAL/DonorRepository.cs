@@ -21,7 +21,7 @@ namespace testDMS.DAL
             context.Entry(d).State = System.Data.Entity.EntityState.Modified;
         }
 
-        public DONOR FindById(int id)
+        public DONOR FindById(int? id)
         {
             var result = (from r in context.Donor where r.DONORID == id select r).FirstOrDefault();
             return result;
