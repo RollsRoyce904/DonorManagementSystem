@@ -286,6 +286,8 @@
     <Compile Include="Models\CONTACT.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateDonationViewModel.cs" />
+    <Compile Include="Models\CreateDonorViewModel.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>

@@ -25,10 +25,6 @@ namespace testDMS.Controllers
 
         public ActionResult Index(string searchString)
         {
-            //  IEnumerable<DONOR> donors = (IEnumerable<DONOR>)drRepo.GetDonors();
-            //  var results = (from d in donors where d.Equals(searchString) select d).FirstOrDefault();
-            //  if (results != null) { return View(results); }
-           
             if(searchString == null)
             {
                 return View(drRepo.GetDonors());
@@ -47,7 +43,9 @@ namespace testDMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             DONOR donor = drRepo.FindById(Convert.ToInt32(id));
+
             if (donor == null)
             {
                 return HttpNotFound();
@@ -75,7 +73,7 @@ namespace testDMS.Controllers
             return View(donor);
         }
 
-        public ActionResult Details(int? id)//parameter HAS to be called id for whatever reason???
+        public ActionResult Details(int? id)
         {
             DisplayDataViewModel displayData = new DisplayDataViewModel();
 
@@ -86,7 +84,6 @@ namespace testDMS.Controllers
 
             displayData.Donors = drRepo.FindById(Convert.ToInt32(id));
             
-
             IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.GetDonations();
 
             displayData.Donations = (from d in donation
@@ -97,7 +94,6 @@ namespace testDMS.Controllers
             {
                 return HttpNotFound();
             }
-
             return View(displayData);
         }
 
@@ -124,6 +120,39 @@ namespace testDMS.Controllers
             ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF", donor.CONTACTID);
             ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
             return View(donor);
+        }
+
+        // GET: DOnor/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DONOR donor = drRepo.FindById(id);
+            if (donor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(donor);
+        }
+
+        // POST: DONor/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            drRepo.Remove(id);
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                data.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -34,21 +34,6 @@
             <th>
                 @Html.DisplayName("Reason")
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.DateGiftMade)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ImageUpload)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.GiftRestrictions)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CODE.Fund)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DONOR.FNAME)
-                </th>*@
             <th></th>
         </tr>
 
@@ -66,24 +51,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CODE.Appeal )
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.GiftMethod)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateGiftMade)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ImageUpload)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GiftRestrictions)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CODE.Fund)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DONOR.FNAME)
-                    </td>*@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { ida = item.DonationId, idb = item.DonorId }) |
                     @Html.ActionLink("Details", "Details", new { ida = item.DonationId, idb = item.DonorId }) |
