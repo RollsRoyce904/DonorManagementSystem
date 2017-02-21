@@ -11,12 +11,12 @@
 
     <input type="button" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONATIONs")'" />
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Index", "DONATIONs", FormMethod.Get))
     {
     <p>
         @Html.AntiForgeryToken()
-        Search Donations: @Html.TextBox("SearchString")&nbsp
-        <input type="submit" value="Filter" />
+        Search Donations: @Html.TextBox("searchString")&nbsp
+        <input type="submit"  value="Filter" />
     </p>
     }
     </p>
