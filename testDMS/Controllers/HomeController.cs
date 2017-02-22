@@ -19,7 +19,7 @@ namespace testDMS.Controllers
         //[Authorize]
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Admin");
         }
         
         //private DonorInfoDBContext db = new DonorInfoDBContext();
