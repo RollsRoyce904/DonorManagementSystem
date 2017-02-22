@@ -6,6 +6,16 @@
     Layout = null;
 }
 
+<head>
+    <script src="~/Scripts/table2CSV.js">
+    function exportToCSV(){
+    $("table").table2csv();
+        $("table").table2csv('output', {appendTo: '#out'});
+        $("table").table2csv({ filename: 'DonationTable.csv' });
+        $("table").table2csv({ separator: ',', newline: '\n', newline: '\n', excludeColumns: '', excludeRows: '' });
+    }
+    </script>
+</head>
 
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
@@ -21,7 +31,7 @@
     </p>
     }
     </p>
-    <table class="table">
+    <table class="table" id="table">
         <tr>
             <th>
                 @Html.DisplayName("Amount")
@@ -63,11 +73,4 @@
 
 <input type="submit" onclick="exportToCSV()" value="Export to Excel!">
 
-<script src="~/Scripts/table2CSV.js">
-    function exportToCSV(){
-    $("table").table2csv();
-        $("table").table2csv('output', {appendTo: '#out'});
-        $("table").table2csv({ filename: 'DonationTable.csv' });
-        $("table").table2csv({ separator: ',', newline: '\n', newline: '\n', excludeColumns: '', excludeRows: '' });
-    }
-</script>
+

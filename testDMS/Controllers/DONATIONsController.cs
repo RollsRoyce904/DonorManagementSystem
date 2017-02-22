@@ -58,8 +58,12 @@ namespace testDMS.Controllers
         // GET: DONATIONs/Create
         public ActionResult Create()
         {
+            List<string> grants = new List<string>();
+            grants.Add("No");
+            grants.Add("Yes");
             ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund");
             ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME");
+            ViewBag.Grants = new SelectList(grants);
             return View();
         }
 
@@ -68,7 +72,7 @@ namespace testDMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION donation)
+        public ActionResult Create([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions,Notes")] DONATION donation)
         {
             if (ModelState.IsValid)
             {

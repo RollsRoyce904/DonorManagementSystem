@@ -44,8 +44,9 @@
                     <div class="form-group">
                         @Html.Label("Date Received", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.donation.DateRecieved, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.donation.DateRecieved, "", new { @class = "text-danger" })
+                            <input type="date" class="form-control"/>
+                            @*@Html.EditorFor(model => model.donation.DateRecieved, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.donation.DateRecieved, "", new { @class = "text-danger" })*@
                         </div>
                     </div>
 
@@ -60,8 +61,9 @@
                     <div class="form-group">
                         @Html.Label("Date Made", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.donation.DateGiftMade, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.donation.DateGiftMade, "", new { @class = "text-danger" })
+                            <input type="date" class="form-control" />
+                            @*@Html.EditorFor(model => model.donation.DateGiftMade, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.donation.DateGiftMade, "", new { @class = "text-danger" })*@
                         </div>
                     </div>
                     
@@ -111,7 +113,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.code.GrantS, "Grants", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.code.GrantS, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.DropDownList("Grants", null, htmlAttributes: new { @class = "form-control" } )
                             @Html.ValidationMessageFor(model => model.code.GrantS, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -123,19 +125,32 @@
                             @Html.ValidationMessageFor(model => model.code.Appeal, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="col-md-10">
                             @Html.ActionLink("Upload Image", "Index", new { htmlAttributes = new { @class = "form-control" } })
                         </div>
                     </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
 
+                </td>
+                <td>
+
+                    <div>
+                        @Html.LabelFor(model => model.donation.NOTES, "Notes", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextArea("Notes" , new { htmlAttributes = new { @class = "form-control", @style = "max-width: 60%" } })
+                            @Html.ValidationMessageFor(model => model.code.Appeal, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td>
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
+                        <div class="col-md-offset-4 col-md-10" >
                             <input type="submit" value="Create" class="btn btn-default" />
                         </div>
                     </div>
