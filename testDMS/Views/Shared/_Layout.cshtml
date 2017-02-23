@@ -24,14 +24,22 @@
                         @Html.ActionLink("Donor Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                     </li>
                 </ul>
-                
+
             </div>
             <div class="navbar-collapse collapse">
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
+
+
     <div class="container1">
+        <ul class="nav nav-tabs">
+            <li>@Html.ActionLink("Account", "Index", "Admin")</li>
+            <li>@Html.ActionLink("Donors", "Index", "DONORs")</li>
+            <li>@Html.ActionLink("Donations", "Index", "DONATIONs")</li>
+            <li>@Html.ActionLink("Reports", "Index", "Chart")</li>
+        </ul>
         @RenderBody()
         <hr />
         <footer style="text-align: center;">

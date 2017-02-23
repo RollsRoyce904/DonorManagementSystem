@@ -26,7 +26,6 @@ namespace testDMS.Controllers
         // GET: DONATIONs
         public ActionResult Index(string searchString)
         {
-
             if(searchString == null)
             {
                 return View(dnRepo.GetDonations());
@@ -35,9 +34,7 @@ namespace testDMS.Controllers
             {
                 IEnumerable<DONATION> donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
                 return View(donations);
-            }
-
-            
+            }   
         }
 
         // GET: DONATIONs/Details/5
@@ -58,31 +55,45 @@ namespace testDMS.Controllers
         // GET: DONATIONs/Create
         public ActionResult Create()
         {
-            List<string> grants = new List<string>();
-            grants.Add("No");
-            grants.Add("Yes");
             ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund");
             ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME");
-            ViewBag.Grants = new SelectList(grants);
             return View();
         }
 
         // POST: DONATIONs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION donation)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        dnRepo.Add(donation);
+        //        data.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
+        //    ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
+        //    return View(donation);
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions,Notes")] DONATION donation)
+        public ActionResult Create(CreateDonationViewModel CDVM)
         {
+            DONATION donation = CDVM.donation;
+
             if (ModelState.IsValid)
             {
                 dnRepo.Add(donation);
-                data.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
             ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
+
             return View(donation);
         }
 
@@ -93,13 +104,17 @@ namespace testDMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             DONATION donation = dnRepo.FindById(ida, idb);
+
             if (donation == null)
             {
                 return HttpNotFound();
             }
+
             ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
             ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
+
             return View(donation);
         }
 
@@ -115,8 +130,10 @@ namespace testDMS.Controllers
                 dnRepo.Add(dONATION);
                 return RedirectToAction("Index");
             }
+
             ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", dONATION.CodeId);
             ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", dONATION.DonorId);
+
             return View(dONATION);
         }
 
@@ -127,11 +144,14 @@ namespace testDMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             DONATION donation = dnRepo.FindById(ida, idb);
+
             if (donation == null)
             {
                 return HttpNotFound();
             }
+
             return View(donation);
         }
 

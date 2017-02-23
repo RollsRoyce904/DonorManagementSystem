@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -12,7 +12,7 @@
     <input type="button" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONORs")'" />
 
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Index", "DONORs", FormMethod.Get))
     {
     <p>
         @Html.AntiForgeryToken()

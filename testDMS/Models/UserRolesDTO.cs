@@ -7,6 +7,7 @@ using System.Collections;
 //inserted by CM 11/4/2016
 namespace testDMS.Models
 {
+
     public class ExpandedUserDTO
     {
         [Key]
@@ -36,6 +37,7 @@ namespace testDMS.Models
         [Display(Name = "Role Name")]
         public string RoleName { get; set; }
     }
+
     public class RoleDTO
     {
         [Key]
@@ -43,6 +45,7 @@ namespace testDMS.Models
         [Display(Name = "Role Name")]
         public string RoleName { get; set; }
     }
+
     public class UserAndRolesDTO
     {
         [Key]

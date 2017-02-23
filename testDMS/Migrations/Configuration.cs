@@ -1,9 +1,11 @@
 namespace testDMS.Migrations
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using testDMS.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<testDMS.Models.ApplicationDbContext>
     {
