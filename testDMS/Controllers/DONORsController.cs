@@ -146,6 +146,12 @@ namespace testDMS.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult AddNote()
+        {
+
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
