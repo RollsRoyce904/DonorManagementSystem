@@ -97,6 +97,13 @@ namespace testDMS.Controllers
             return View(displayData);
         }
 
+        //[HttpPost]---------Method to take in the new note for the donor
+        //public ActionResult Details(int id, string notes)
+        //{
+
+        //    return View();
+        //}
+
 
         public ActionResult Create()
         {
@@ -144,12 +151,6 @@ namespace testDMS.Controllers
         {
             drRepo.Remove(id);
             return RedirectToAction("Index");
-        }
-
-        public ActionResult AddNote()
-        {
-
-            return View();
         }
 
         protected override void Dispose(bool disposing)
