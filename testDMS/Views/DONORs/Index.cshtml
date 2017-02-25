@@ -5,25 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="well well-lg">
+    
+        @*@Html.ActionLink("Create New", "Create")*@
+    <div style="display: inline-block">
+        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONORs")'" />
+</div>
+        <div style="display: inline-block;float:right">
+            @using (Html.BeginForm("Index", "DONORs", FormMethod.Get))
+            {
+                <p style="">
+                    @Html.AntiForgeryToken()
+                    Search Donors: @Html.TextBox("SearchString")&nbsp
+                    <input type="submit" value="Filter" /><br />
 
-<p>
-    @*@Html.ActionLink("Create New", "Create")*@
-
-    <input type="button" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONORs")'" />
-
-
-    @using (Html.BeginForm("Index", "DONORs", FormMethod.Get))
-    {
-    <p>
-        @Html.AntiForgeryToken()
-        Search Donors: @Html.TextBox("SearchString")&nbsp
-        <input type="submit" value="Filter" />
-
-    </p>
-    }
-</p>
-<table class="table">
-    <tr>
+                </p>
+            }
+            </div>
+        </div>
+<table class="table table-striped">
+    <tr style="background-color:#0096D7">
         <th>
             @Html.DisplayName("Donor Name")
         </th>
