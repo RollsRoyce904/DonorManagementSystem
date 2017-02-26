@@ -5,39 +5,60 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="panel panel-default">
+<style>
+td.lines {
+padding-bottom:5px;
+padding-top:5px;
+border-bottom:solid lightgray;
 
-    <div class="panel panel-heading">Donor Details</div>
+}
 
-    <div class="panel panel-body">
+a.edit
+{
+    background: url("../../Images/button_edit.png") no-repeat top left;
+     display: block;
+     width: 150px;
+     height: 150px;
+     text-indent: -9999px; /* hides the link text */
+}
+</style>
+<hr />
+<div class="well well-lg">
+
+    <div style="display: inline-block">
+        <h4>Donor Record: @Model.Donors.FNAME @Model.Donors.LNAME </h4>
+    </div>
+
+    <div style="display: inline-block;float:right">
+        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Back" onclick="location.href='@Url.Action("Index", "DONORs")'" />
+    </div>
+</div> 
 
         <div class="panel panel-default col-md-3">
 
             <div class="panel panel-heading">@Model.Donors.FNAME's Information</div>
 
-            <div class="panel panel-body" style="min-height: 300px; max-height: 300px;">
+            <div class="panel panel-body" style="min-height: 400px; max-height: 400px;">
 
-                <table>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.FNAME): @Html.DisplayFor(model => model.Donors.FNAME)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.MINIT): @Html.DisplayFor(model => model.Donors.MINIT)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.LNAME): @Html.DisplayFor(model => model.Donors.LNAME)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.TITLE): @Html.DisplayFor(model => model.Donors.TITLE)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.SUFFIX): @Html.DisplayFor(model => model.Donors.SUFFIX)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.EMAIL): @Html.DisplayFor(model => model.Donors.EMAIL)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.CELL): @Html.DisplayFor(model => model.Donors.CELL)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.BIRTHDAY): @Html.DisplayFor(model => model.Donors.BIRTHDAY)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.GENDER): @Html.DisplayFor(model => model.Donors.GENDER)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.COMPANY.COMPANYNAME): @Html.DisplayFor(model => model.Donors.COMPANY.COMPANYNAME)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.CONTACT.TYPEOF): @Html.DisplayFor(model => model.Donors.CONTACT.TYPEOF)</td></tr>
-                    <tr><td>@Html.DisplayNameFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE): @Html.DisplayFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE)</td></tr>
+                <table border="0">
+                    <tr><th class="lines" style="background-color:#0096D7">@Model.Donors.TITLE @Model.Donors.FNAME @Model.Donors.MINIT @Model.Donors.LNAME @Model.Donors.SUFFIX</th></tr>
+                    <tr><td>Email Address:</td></tr>
+                    <tr><td class="lines"><a href="mailto:@Model.Donors.EMAIL" target="_top">@Model.Donors.EMAIL</a></td></tr>
+                    <tr><td class="lines">Phone Number: @Model.Donors.CELL </td></tr>
+                    <tr><td class="lines">Birthday: @Model.Donors.BIRTHDAY</td></tr>
+                    <tr><td class="lines">Gender: @Model.Donors.GENDER</td></tr>
+                    <tr><td></td></tr>
+                    <tr><th class="lines" style="background-color:#0096D7">Codes</th></tr>
+                    <tr><td class="lines">@Html.DisplayNameFor(model => model.Donors.COMPANY.COMPANYNAME): @Html.DisplayFor(model => model.Donors.COMPANY.COMPANYNAME)</td></tr>
+                    <tr><td class="lines">@Html.DisplayNameFor(model => model.Donors.CONTACT.TYPEOF): @Html.DisplayFor(model => model.Donors.CONTACT.TYPEOF)</td></tr>
+                    <tr><td class="lines">@Html.DisplayNameFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE): @Html.DisplayFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE)</td></tr>
+                    <tr><td>&nbsp;</td></tr>
+                    <tr><td style="text-align: center" >@Html.ActionLink("Edit Record", "Edit", new { id = Model.Donors.DONORID }, new { @class = "btn btn-primary btn-large" })</tdstyle="text-align:></tr>
+                    <tr><td style="text-align: right">@Html.ActionLink("Delete", "Delete", new { id = Model.Donors.DONORID })</td></tr>
+                   
                 </table>
 
                 <br />
-
-                <div style="text-align: center">
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Donors.DONORID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = Model.Donors.DONORID })
-                </div>
 
             </div>
 
@@ -47,10 +68,10 @@
 
             <div class="panel panel-heading">@Model.Donors.FNAME's Donations</div>
 
-            <div class="panel panel-body" style="min-height: 300px; max-height:300px; overflow-y: scroll">
+            <div class="panel panel-body" style="min-height: 400px; max-height:400px; overflow-y: scroll">
 
-                <table>
-                    <tr><th>#</th><th>Amount</th><th>Type</th><th>Date Made</th><th>Date Received</th><th>Method</th><th>Restrictions</th><th>Code</th></tr>
+                <table class="table table-striped">
+                    <tr style="background-color:#0096D7"><th></th><th>Amount</th><th>Type</th><th>Date Made</th><th>Date Received</th><th>Method</th><th>Restrictions</th><th>Code</th></tr>
 
                     @{ int x = 1;
                         foreach (var items in Model.Donations)
@@ -63,6 +84,7 @@
                                 <td>@items.DateRecieved.ToShortDateString()</td>
                                 <td>@items.GiftMethod</td>
                                 <td>@items.GiftRestrictions</td>
+                                <td>code</td>@*placeholder until code is working.*@
                                 @*<td>@items.CODE.Fund</td>*@
                             </tr>
                             x++;
@@ -77,32 +99,48 @@
 
         @using (Html.BeginForm("Details", "DONORs", FormMethod.Post))
             {
-            <div class="panel panel-heading">Notes on @Model.Donors.FNAME</div>
-            <div class="panel panel-body">
-                @Html.TextArea("Notes", null, new { @class = "form-control", @style = "max-width: 100%" })
-                <div style="text-align: right;">
-                    <input type="button" class="btn btn-info" value="Add Note" />
+            <div class="panel panel-default col-md-12">
+                <div class="panel panel-heading">Notes on @Model.Donors.FNAME</div>
+                <div class="panel panel-body">
+                    @Html.TextArea("Notes", null, new { @class = "form-control", @style = "max-width: 100%" })
+                    <div style="text-align: right;">
+                        <input type="button" class="btn btn-info" style="background-color:#0096D7" value="Add Note" />
+                    </div>
+                    <hr />
+                    <h4>Notes History:</h4>
+                    <table class="table table-striped">
+                       
+                        <tr style="background-color:#0096D7"><th>#</th><th>Date</th><th>Note</th></tr>
+                        @*Dummy notes to demo display*@
+                        <tr>
+                            <td>1</td>
+                            <td>2/8/1995</td>
+                            <td>Call only on weekends.</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>5/6/2010</td>
+                            <td>Grandma is ill, mention in next call.</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>3/8/2016</td>
+                            <td>Grandma passed away, likes to donate on her b.day (2/2)</td>
+                        </tr>
+                        @{
+                            foreach (var items in Model.Donors.NOTES)
+                            {
+                                <tr>
+                                    <td>@x:</td>
+                                    <td>@items.DATEMADE </td>
+                                    <td>@items.NOTE1 </td>
+                                </tr>
+                            }
+                        }
+                    </table>
                 </div>
-                <table>
-                    <tr><th>#</th><th>Date</th><th>Note</th></tr>
-
-                    @{
-                        foreach (var items in Model.Donors.NOTES)
-                        {
-                            <tr>
-                                <td>@x:</td>
-                                <td>@items.DATEMADE </td>
-                                <td>@items.NOTE1 </td>
-                            </tr>
-                        }
-                    }
-                </table>
-            </div>
-                        }
+                </div>
+                }
 
 
-    </div>
-
-    @Html.ActionLink("Back to Donors","Index", "DONORs")
-</div>
 

@@ -346,11 +346,13 @@
     <Content Include="Images\button_account.png" />
     <Content Include="Images\button_accountsL.png" />
     <Content Include="Images\button_create-record.png" />
+    <Content Include="Images\button_delete.png" />
     <Content Include="Images\button_donations.png" />
     <Content Include="Images\button_donationsL.png" />
     <Content Include="Images\button_donor.png" />
     <Content Include="Images\button_donors.png" />
     <Content Include="Images\button_donorsL.png" />
+    <Content Include="Images\button_edit.png" />
     <Content Include="Images\button_reports.png" />
     <Content Include="Images\button_reportsL.png" />
     <Content Include="Images\HH_LogoStacked_CMYK.jpg" />
