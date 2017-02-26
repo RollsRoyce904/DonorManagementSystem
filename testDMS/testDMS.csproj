@@ -345,6 +345,7 @@
     <Content Include="Images\bevel.png" />
     <Content Include="Images\button_account.png" />
     <Content Include="Images\button_accountsL.png" />
+    <Content Include="Images\button_create-record.png" />
     <Content Include="Images\button_donations.png" />
     <Content Include="Images\button_donationsL.png" />
     <Content Include="Images\button_donor.png" />
