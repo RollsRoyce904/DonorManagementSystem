@@ -6,20 +6,12 @@
 }
 
 <style>
+
 td.lines {
 padding-bottom:5px;
 padding-top:5px;
 border-bottom:solid lightgray;
 
-}
-
-a.edit
-{
-    background: url("../../Images/button_edit.png") no-repeat top left;
-     display: block;
-     width: 150px;
-     height: 150px;
-     text-indent: -9999px; /* hides the link text */
 }
 </style>
 <hr />
@@ -53,7 +45,7 @@ a.edit
                     <tr><td class="lines">@Html.DisplayNameFor(model => model.Donors.CONTACT.TYPEOF): @Html.DisplayFor(model => model.Donors.CONTACT.TYPEOF)</td></tr>
                     <tr><td class="lines">@Html.DisplayNameFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE): @Html.DisplayFor(model => model.Donors.IDENTITYMARKER.MARKERTYPE)</td></tr>
                     <tr><td>&nbsp;</td></tr>
-                    <tr><td style="text-align: center" >@Html.ActionLink("Edit Record", "Edit", new { id = Model.Donors.DONORID }, new { @class = "btn btn-primary btn-large" })</tdstyle="text-align:></tr>
+                    <tr><td style="text-align: center" >@Html.ActionLink("Edit Record", "Edit", new { id = Model.Donors.DONORID }, new { @class = "btn btn-primary btn-large" })</td></tr>
                     <tr><td style="text-align: right">@Html.ActionLink("Delete", "Delete", new { id = Model.Donors.DONORID })</td></tr>
                    
                 </table>
@@ -90,7 +82,7 @@ a.edit
                             x++;
                         }
                     }
-
+                    <tr ><td colspan="8"style="text-align: right">@Html.ActionLink("Add Donation", "Create", "DONATIONs", new { id = Model.Donors.DONORID }, new { @class = "btn btn-primary btn-large" })</td></tr>
                 </table>
 
             </div>

@@ -352,6 +352,7 @@
     <Content Include="Images\button_donor.png" />
     <Content Include="Images\button_donors.png" />
     <Content Include="Images\button_donorsL.png" />
+    <Content Include="Images\button_edit-record.png" />
     <Content Include="Images\button_edit.png" />
     <Content Include="Images\button_reports.png" />
     <Content Include="Images\button_reportsL.png" />

@@ -4,118 +4,58 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    td.lines {
+        padding-bottom: 5px;
+        padding-top: 5px;
+        border-bottom: solid lightgray;
+    }
+    
+</style>
+<hr />
+<div class="well well-lg">
+    <div style="display: inline-block">
+        <h4>Delete Donor Record: @Html.DisplayFor(model => model.FNAME) @Html.DisplayFor(model => model.LNAME)</h4>
+    </div>
 
-<h2>Delete</h2>
+    <div style="display: inline-block;float:right">
+        @Html.ActionLink("Back to List", "Details", new { id = Model.DONORID }, new { @class = "btn btn-primary btn-large" })
+    </div>
+</div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>DONOR</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FNAME)
-        </dt>
+<div class="panel panel-default col-md-12">
 
-        <dd>
-            @Html.DisplayFor(model => model.FNAME)
-        </dd>
+    <div class="panel panel-heading"><h3 style="color:#e31b23">Are you sure you want to delete @Html.DisplayFor(model => model.FNAME) @Html.DisplayFor(model => model.MINIT) @Html.DisplayFor(model => model.LNAME)'s record?</h3></div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MINIT)
-        </dt>
+    <div class="panel panel-body" >
+        <table border="0">
+            <tr><th class="lines" style="background-color:#0096D7"> @Html.DisplayFor(model => model.TITLE) @Html.DisplayFor(model => model.FNAME) @Html.DisplayFor(model => model.MINIT) @Html.DisplayFor(model => model.LNAME) @Html.DisplayFor(model => model.SUFFIX)</th></tr>
+            <tr><td>Email Address:</td></tr>
+            <tr><td class="lines"><a href="mailto:@Html.DisplayFor(model => model.EMAIL)" target="_top">@Html.DisplayFor(model => model.EMAIL)</a></td></tr>
+            <tr><td class="lines">Phone Number: @Html.DisplayFor(model => model.CELL) </td></tr>
+            <tr><td class="lines">Birthday: @Html.DisplayFor(model => model.BIRTHDAY)</td></tr>
+            <tr><td class="lines">Gender: @Html.DisplayFor(model => model.GENDER)</td></tr>
+            <tr><td></td></tr>
+            <tr><th class="lines" style="background-color:#0096D7">Codes</th></tr>
+            <tr><td class="lines">@Html.DisplayNameFor(model => model.COMPANY.COMPANYNAME): @Html.DisplayFor(model => model.COMPANY.COMPANYNAME)</td></tr>
+            <tr><td class="lines">@Html.DisplayNameFor(model => model.CONTACT.TYPEOF): @Html.DisplayFor(model => model.CONTACT.TYPEOF)</td></tr>
+            <tr><td class="lines">@Html.DisplayNameFor(model => model.IDENTITYMARKER.MARKERTYPE):@Html.DisplayFor(model => model.IDENTITYMARKER.MARKERTYPE)</td></tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr><td>@Html.ActionLink("Back to List", "Details", new { id = Model.DONORID }, new { @class = "btn btn-primary btn-large" })</td></tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.MINIT)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LNAME)
-        </dt>
+        </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.LNAME)
-        </dd>
+    </div>
+</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TITLE)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TITLE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SUFFIX)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SUFFIX)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EMAIL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EMAIL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CELL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CELL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BIRTHDAY)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BIRTHDAY)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GENDER)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GENDER)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.COMPANY.COMPANYNAME)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.COMPANY.COMPANYNAME)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CONTACT.TYPEOF)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CONTACT.TYPEOF)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IDENTITYMARKER.MARKERTYPE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IDENTITYMARKER.MARKERTYPE)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+            {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Details", new { id = Model.DONORID })
+        <div class="form-actions no-color" style="text-align:right">
+            <input type="submit" value="Delete" class="btn btn-default" style="background-color:#e31b23" />
+
         </div>
     }
-</div>
