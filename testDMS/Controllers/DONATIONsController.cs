@@ -85,7 +85,7 @@ namespace testDMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION donation)
+        public ActionResult Create(CreateDonationViewModel CDVM)
         {
             DONATION donation = CDVM.donation;
 
