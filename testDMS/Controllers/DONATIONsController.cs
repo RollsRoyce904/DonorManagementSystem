@@ -55,8 +55,12 @@ namespace testDMS.Controllers
         // GET: DONATIONs/Create
         public ActionResult Create()
         {
+            List<string> grants = new List<string>();
+            grants.Add("No");
+            grants.Add("Yes");
             ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund");
             ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME");
+            ViewBag.Grants = new SelectList(grants);
             return View();
         }
 
@@ -81,7 +85,7 @@ namespace testDMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateDonationViewModel CDVM)
+        public ActionResult Create([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION donation)
         {
             DONATION donation = CDVM.donation;
 
