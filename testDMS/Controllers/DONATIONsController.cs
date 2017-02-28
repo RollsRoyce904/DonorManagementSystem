@@ -55,8 +55,12 @@ namespace testDMS.Controllers
         // GET: DONATIONs/Create
         public ActionResult Create()
         {
+            List<string> grants = new List<string>();
+            grants.Add("No");
+            grants.Add("Yes");
             ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund");
             ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME");
+            ViewBag.Grants = new SelectList(grants);
             return View();
         }
 
