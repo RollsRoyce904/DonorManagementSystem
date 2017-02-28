@@ -8,10 +8,7 @@
 <table class="table">
     <tr>
         <th>
-            @*@Html.DropDownList("DONORID", Model.Donors.ToString())*@
-            <select class="form-control" style="width:auto;" id="Type" name="Type">
-                <option value="">Choose Person</option>
-            </select>
+            @Html.DropDownList("Person", null, "People", htmlAttributes: new { @class = "form-control" })
         </th>
         <th>
             <select class="form-control" style="width:auto;" id="Type" name="Type">
@@ -19,14 +16,10 @@
             </select>
         </th>
         <th>
-            <select class="form-control" style="width:auto;" id="Type" name="Type">
-                <option value="">Choose Department</option>
-            </select>
+            @Html.DropDownList("Department", null, "Department", htmlAttributes: new { @class = "form-control" })
         </th>
         <th>
-            <select class="form-control" style="width:auto;" id="Type" name="Type">
-                <option value="">Choose GL</option>
-            </select>
+           @Html.DropDownList("GL", null, "GL", htmlAttributes: new { @class = "form-control" })
         </th>
     </tr>
     <tr>

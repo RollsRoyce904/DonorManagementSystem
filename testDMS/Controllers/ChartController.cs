@@ -32,6 +32,8 @@ namespace testDMS.Controllers
             model.Donations = Donations;
 
             ViewBag.Person = new SelectList(data.Donor, "DonorId", "FNAME");
+            ViewBag.Department = new SelectList(data.Code, "CodeId", "Department");
+            ViewBag.Gl = new SelectList(data.Code, "CodeId", "GL");
 
             return View(model);
         }
