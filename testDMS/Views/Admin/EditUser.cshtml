@@ -4,70 +4,117 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<style>
+    input[type=submit] {
+    background: transparent url("../../Images/button_update-record.png") 0 0 no-repeat;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    height: 70px;
+    width: 201px; 
+    border: 3px solid #fff;
+    border-radius: 2em;
+    color:transparent;
+</style>
 
-    <div class="form-horizontal">
-        <h4>Edit User</h4>
-        @Html.ValidationSummary(true,
-       "",
-       new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName,
-           htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.UserName,
-               new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserName, "",
-               new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email,
-           htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email,
-               new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email,
-               "",
-               new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password,
-           htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.PasswordFor(model => model.Password,
-               new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password,
-               "",
-               new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LockoutEndDateUtc,
-           htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.LockoutEndDateUtc,
-               new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-                @Html.ActionLink("Edit Roles", "EditRoles",
-               new { UserName = Model.UserName },
-               new { @class = "btn btn-default" })
-                @Html.ActionLink("Back to List",
-               "Index", "Home",
-               null,
-               new { @class = "btn btn-default" })
-            </div>
-        </div>
+<hr />
+<div class="well well-lg">
+    <div style="display: inline-block">
+        <h4>Update Account Information</h4>
     </div>
-}
+    <div style="display: inline-block;float:right">
+        @Html.ActionLink("Back to List", "Index", "Home", null, new { @class = "btn btn-default", @style="background-color:#0096d7;color:white" })
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:#0096d7"><h4>Edit User Account</h4></div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*Added for UI design- need to add functionality*@
+                <div class="form-group">
+                    <div class="control-label col-md-2">
+                        <label for="usr">First Name</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-2">
+                        <label for="usr">Last Name</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-2">
+                        <label for="usr">Edit Role</label>
+                    </div>
+                    <div class="dropdown col-md-10">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:#174b7c">
+                            Select User Role
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Administrator</a></li>
+                            <li><a href="#">Executive</a></li>
+                            <li><a href="#">General</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.LockoutEndDateUtc, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(model => model.LockoutEndDateUtc, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>*@
+                <hr style="width:50%;float:left" />
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="" class="btn btn-default" />
+                        @*<div style="display: inline-block;float:right;margin-right:10%;">
+                                @Html.ActionLink("Back to List", "Index", "Home", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

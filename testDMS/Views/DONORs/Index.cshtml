@@ -6,23 +6,24 @@
 }
 <hr />
 <div class="well well-lg">
-    
-        @*@Html.ActionLink("Create New", "Create")*@
-    <div style="display: inline-block">
-        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONORs")'" />
+    <h4>Donor Information</h4>
 </div>
-        <div style="display: inline-block;float:right">
-            @using (Html.BeginForm("Index", "DONORs", FormMethod.Get))
+@*@Html.ActionLink("Create New", "Create")*@
+<div style="display: inline-block">
+    <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONORs")'" />
+</div>
+<div style="display: inline-block;float:right">
+    @using (Html.BeginForm("Index", "DONORs", FormMethod.Get))
             {
-                <p style="">
-                    @Html.AntiForgeryToken()
-                    Search Donors: @Html.TextBox("SearchString")&nbsp
-                    <input type="submit" value="Filter" /><br />
+        <p style="">
+            @Html.AntiForgeryToken()
+            Search Donors: @Html.TextBox("SearchString")&nbsp
+            <input type="submit" value="Filter" /><br />
 
-                </p>
-            }
-            </div>
-        </div>
+        </p>
+    }
+</div><br /><br />
+
 <table class="table table-striped">
     <tr style="background-color:#0096D7">
         <th>
@@ -44,33 +45,29 @@
             @Html.DisplayName("Company")
         </th>
     </tr>
-   
-@foreach (var item in Model)
-{
-    var name = item.FNAME + " " + item.LNAME;
-    <tr>
-        <td>
-            @Html.ActionLink(name, "Details", new { id = item.DONORID } )
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EMAIL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.COMPANY.PHONE )
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.COMPANY.COMPADDRESS )
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CELL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.COMPANY.COMPANYNAME)
-        </td>
-    </tr>
-}
+
+    @foreach (var item in Model)
+    {
+        var name = item.FNAME + " " + item.LNAME;
+        <tr>
+            <td>
+                @Html.ActionLink(name, "Details", new { id = item.DONORID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMAIL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COMPANY.PHONE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COMPANY.COMPADDRESS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CELL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COMPANY.COMPANYNAME)
+            </td>
+        </tr>
+    }
 </table>
-
-
-
-
