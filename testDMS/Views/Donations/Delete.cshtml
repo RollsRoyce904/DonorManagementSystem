@@ -4,94 +4,85 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    td.lines {
+        padding-bottom: 5px;
+        padding-top: 5px;
+        border-bottom: solid lightgray;
+    }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+    th {
+        padding: 15px;
+        text-align: center;
+        width: 50%;
+        background-color: #0096D7;
+    }
+
+    table {
+        border-collapse: initial;
+    }
+</style>
+
+<hr />
+<div class="well well-lg">
+
+    <div style="display: inline-block">
+        <h4>Delete Donation Record: @Html.DisplayFor(model => model.DONOR.FNAME) @Html.DisplayFor(model => model.DONOR.LNAME)</h4>
+    </div>
+
+    <div style="display: inline-block;float:right">
+        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Back" onclick="location.href='@Url.Action("Index", "DONATIONs")'" />
+    </div>
+</div>
+
+<div class="panel panel-default col-md-12">
+
+    <div class="panel panel-heading"><h3 style="color:#e31b23">Are you sure you want to delete this donation record?</h3></div>
+
+    <div class="panel panel-body">
+        <table border="0">
+            <tr><th class="lines" style="background-color:#0096D7" colspan="2">Donation Record</th><th>Check Image</th></tr>
+            <tr>
+                <td class="lines">Donor:  </td>
+                <td class="lines">@Html.DisplayFor(model => model.DONOR.FNAME) @Html.DisplayFor(model => model.DONOR.LNAME)</td>
+                <td rowspan="7" style="padding:3%">
+                    <div class="form-group">
+                        <br />
+                        @* Need to specify width/height of image when it gets working *@
+                        <label for="Upload"></label>
+                        <img src="~/Images/sampleCheck.jpg" alt="check image" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="lines">Date Recieved: </td>
+                <td class="lines"> @Html.DisplayFor(model => model.DateRecieved)</td>
+
+            </tr>
+            <tr><td class="lines">Amount:  </td><td class="lines">@Html.DisplayFor(model => model.Amount)</td></tr>
+            <tr><td class="lines">Donation Type: </td><td class="lines"> @Html.DisplayFor(model => model.TypeOf)</td></tr>
+            <tr><td class="lines">Method of Gift: </td><td class="lines"> @Html.DisplayFor(model => model.GiftMethod)</td></tr>
+            <tr><td class="lines">Gift Date:  </td><td class="lines">@Html.DisplayFor(model => model.DateGiftMade)</td></tr>
+            <tr><td class="lines">Restrictions: </td><td class="lines"> @Html.DisplayFor(model => model.GiftRestrictions)</td></tr>
+            <tr><td class="lines">Code:  </td><td class="lines">@Html.DisplayFor(model => model.CODE.Fund)</td></tr>
+
+            <tr><td colspan="3"><br />&nbsp;<input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Back" onclick="location.href='@Url.Action("Index", "DONATIONs")'" /></td></tr>
+
+
+        </table>
+    </div>
+</div>
 <div>
-    <h4>DONATION</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TypeOf)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TypeOf)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateRecieved)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateRecieved)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GiftMethod)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GiftMethod)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateGiftMade)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateGiftMade)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageUpload)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ImageUpload)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GiftRestrictions)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GiftRestrictions)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CODE.Fund)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CODE.Fund)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DONOR.FNAME)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DONOR.FNAME)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div class="form-actions no-color" style="text-align:right">
+            <input type="submit" value="Delete" class="btn btn-default" style="background-color:#e31b23"/>
+
         </div>
     }
 </div>
