@@ -327,7 +327,6 @@
     <Compile Include="Models\RELATIVE.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\UserRolesDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -463,7 +462,6 @@
     <Content Include="Views\DONORs\Index.cshtml" />
     <Content Include="Views\Chart\Index.cshtml" />
     <Content Include="Views\Manage\_ChangePassword.cshtml" />
-    <Content Include="Views\Chart\MakeChart.cshtml" />
     <Content Include="Views\DONATIONs\Create.cshtml" />
     <Content Include="Views\DONATIONs\Delete.cshtml" />
     <Content Include="Views\DONATIONs\Details.cshtml" />
