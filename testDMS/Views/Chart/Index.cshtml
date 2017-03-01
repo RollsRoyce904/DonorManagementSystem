@@ -4,62 +4,92 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .dateInput {
+        width: 20%;
+    }
+    th {
+        text-align:center;
+    }
+</style>
+<hr />
+<div class="well well-lg">
+    <h4 style="display: inline-block">Donation Information</h4>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DropDownList("Person", null, "People", htmlAttributes: new { @class = "form-control" })
-        </th>
-        <th>
-            <select class="form-control" style="width:auto;" id="Type" name="Type">
-                <option value="">Choose Amount</option>
-            </select>
-        </th>
-        <th>
-            @Html.DropDownList("Department", null, "Department", htmlAttributes: new { @class = "form-control" })
-        </th>
-        <th>
-           @Html.DropDownList("GL", null, "GL", htmlAttributes: new { @class = "form-control" })
-        </th>
-    </tr>
-    <tr>
-        <th>
+    <div style="display: inline-block;float:right">
+        @Html.ActionLink("Back to Home", "Index", "Home", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
+    </div>
+</div>
+
+<table class="table table-striped" border="0">
+    <tr style="background-color:#0096D7">
+        <th style="width:25%">
             @Html.DisplayName("Donor")
         </th>
-        <th>
+        <th style="width: 15%">
             @Html.DisplayName("Amount")
         </th>
-        <th>
+        <th style="width: 30%">
             @Html.DisplayName("Date")
         </th>
-        <th>
+        <th style="width: 15%">
             @Html.DisplayName("Department")
         </th>
-        <th>
+        <th style="width: 15%">
             @Html.DisplayName("GL Code")
         </th>
     </tr>
+    <tr>
+        <td>
+            @*Need to update the controller to get this working*@
 
-@foreach (var item in Model.Donations) { 
+            <div style="display: inline-block;text-align:left;">
+                @using (Html.BeginForm("Index", "Chart", FormMethod.Get))
+                {
+                    <p>
+                        @Html.AntiForgeryToken()
+                        @Html.TextBox("searchString")&nbsp
+                        <input type="submit" value="Filter" />
+                    </p>
+                }
+            </div>
+            @*@Html.DropDownList("Person", null, "People", htmlAttributes: new { @class = "form-control" })*@
+        </td>
+        <td>
+            <select class="form-control" style="width:auto;" id="Type" name="Type">
+                <option value="">Choose Amount</option>
+            </select> 
+        </td>
+        <td style="padding-left:3%">
+           Date Range: <input type="text" class="dateInput form-control" /> to <input type="text"  class="dateInput form-control"/>
+        </td>
+        <td>
+            @Html.DropDownList("Department", null, "Department", htmlAttributes: new { @class = "form-control" })
+        </td>
+        <td>
+            @Html.DropDownList("GL", null, "GL", htmlAttributes: new { @class = "form-control" })
+        </td>
+    </tr>
+
+
+    @foreach (var item in Model.Donations)
+    {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DONOR.FNAME)
+            <td style="text-align:left;padding-left:3%">
+                @Html.DisplayFor(modelItem => item.DONOR.LNAME), @Html.DisplayFor(modelItem => item.DONOR.FNAME) @Html.DisplayFor(modelItem => item.DONOR.MINIT).
             </td>
-            <td>
+            <td style="padding-left:5%">
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
-            <td>
+            <td style="padding-left:9%">
                 @Html.DisplayFor(modelItem => item.DateRecieved)
             </td>
-            <td>
+            <td style="padding-left:7%">
                 @Html.DisplayFor(modelItem => item.CODE.Department)
             </td>
-            <td>
+            <td style="padding-left:7%">
                 @Html.DisplayFor(modelItem => item.CODE.GL)
             </td>
-         </tr>
-}
+        </tr>
+    }
 </table>
-
-
-
