@@ -11,6 +11,7 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class DONOR
     {
@@ -23,8 +24,11 @@ namespace testDMS.Models
         }
     
         public int DonorId { get; set; }
+        [Display(Name = "First Name")]
         public string FName { get; set; }
+        [Display(Name = "Initial")]
         public string Init { get; set; }
+        [Display(Name = "Last Name")]
         public string LName { get; set; }
         public string Title { get; set; }
         public string Suffix { get; set; }

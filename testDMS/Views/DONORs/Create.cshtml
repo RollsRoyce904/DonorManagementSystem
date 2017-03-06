@@ -61,7 +61,6 @@ input[type=submit] {
         <div class="form-horizontal">
             
             <table class="table table-striped">
-
                 <tr>
                     <th>
                         Donor Information
@@ -80,7 +79,6 @@ input[type=submit] {
                                 @Html.ValidationMessageFor(model => model.donor.FName, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.Label("Initial", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
@@ -88,7 +86,6 @@ input[type=submit] {
                                 @Html.ValidationMessageFor(model => model.donor.Init, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.Label("Last Name", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
@@ -96,7 +93,6 @@ input[type=submit] {
                                 @Html.ValidationMessageFor(model => model.donor.LName, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.donor.Title, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
@@ -104,7 +100,6 @@ input[type=submit] {
                                 @Html.ValidationMessageFor(model => model.donor.Title, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.donor.Suffix, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
@@ -112,7 +107,6 @@ input[type=submit] {
                                 @Html.ValidationMessageFor(model => model.donor.Suffix, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.donor.Email, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
@@ -120,7 +114,6 @@ input[type=submit] {
                                 @Html.ValidationMessageFor(model => model.donor.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.donor.Cell, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
@@ -128,7 +121,6 @@ input[type=submit] {
                                 @Html.ValidationMessageFor(model => model.donor.Cell, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.donor.Birthday, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
@@ -136,7 +128,6 @@ input[type=submit] {
                                 @Html.ValidationMessageFor(model => model.donor.Birthday, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.donor.Gender, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">                           
@@ -153,7 +144,6 @@ input[type=submit] {
                                 @Html.ValidationMessageFor(model => model.donor.MarkerId, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.Label("Contact ID", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
@@ -161,12 +151,40 @@ input[type=submit] {
                                 @Html.ValidationMessageFor(model => model.donor.ContactId, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
-                            @Html.Label("Company ID", htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.company.CompanyName, "Company Name", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.DropDownList("COMPANYID", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.donor.CompanyId, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.company.CompanyName, new { htmlAttributes = new { @class = "form-control", @style = "width:50%" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.company.Phone, "Phone", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.company.Phone, new { htmlAttributes = new { @class = "form-control", @style = "width:30%" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.company.CompAddress, "Address", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.company.CompAddress, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.company.City, "City", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.company.City, new { htmlAttributes = new { @class = "form-control", @style = "width:50%" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.company.CompanyState, "State", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.company.CompanyState, new { htmlAttributes = new { @class = "form-control", @style = "width:50%" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.company.Zipcode, "Zipcode", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.company.Zipcode, new { htmlAttributes = new { @class = "form-control", @style = "width:30%" } })
                             </div>
                         </div>
                         <hr />
@@ -185,7 +203,3 @@ input[type=submit] {
             </table>
         </div>
     }
-
-    <div>
-
-    </div>
