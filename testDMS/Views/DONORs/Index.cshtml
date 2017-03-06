@@ -48,25 +48,25 @@
 
     @foreach (var item in Model)
     {
-        var name = item.FNAME + " " + item.LNAME;
+        var name = item.FName + " " + item.LName;
         <tr>
             <td>
-                @Html.ActionLink(name, "Details", new { id = item.DONORID })
+                @Html.ActionLink(name, "Details", new { id = item.DonorId })
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EMAIL)
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.COMPANY.PHONE)
+                @Html.DisplayFor(modelItem => item.COMPANY.Phone)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.COMPANY.COMPADDRESS)
+                @Html.DisplayFor(modelItem => item.COMPANY.CompAddress)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CELL)
+                @Html.DisplayFor(modelItem => item.Cell)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.COMPANY.COMPANYNAME)
+                @Html.DisplayFor(modelItem => item.COMPANY.CompanyName)
             </td>
         </tr>
     }
