@@ -23,7 +23,7 @@ namespace testDMS.Controllers
             this.dnRepo = dnRepo;
         }
 
-        public ActionResult Index(string name, double amount, string date, string department, string gl)
+        public ActionResult Index()
         {
             IEnumerable<DONOR> Donors = (IEnumerable<DONOR>)drRepo.GetDonors();
             IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.GetDonations();
@@ -36,6 +36,12 @@ namespace testDMS.Controllers
             ViewBag.Gl = new SelectList(data.CODES, "CodeId", "GL");
 
             return View(model);
+        }
+
+        public ActionResult Filter(string name, double amount, string date, string department, string gl)
+        {
+
+            return View();
         }
     }
 }
