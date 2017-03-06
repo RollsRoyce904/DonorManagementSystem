@@ -11,7 +11,6 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class DONOR
     {
@@ -24,11 +23,8 @@ namespace testDMS.Models
         }
     
         public int DonorId { get; set; }
-        [Display(Name = "First Name")]
         public string FName { get; set; }
-        [Display(Name = "Initial")]
         public string Init { get; set; }
-        [Display(Name = "Last Name")]
         public string LName { get; set; }
         public string Title { get; set; }
         public string Suffix { get; set; }
@@ -36,11 +32,15 @@ namespace testDMS.Models
         public string Cell { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public string Gender { get; set; }
-        public Nullable<int> CompanyId { get; set; }
         public Nullable<int> MarkerId { get; set; }
         public Nullable<int> ContactId { get; set; }
+        public string CompanyName { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Zipcode { get; set; }
+        public string Phone { get; set; }
+        public string State { get; set; }
     
-        public virtual COMPANY COMPANY { get; set; }
         public virtual CONTACT CONTACT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DONATION> DONATION { get; set; }

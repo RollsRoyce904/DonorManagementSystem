@@ -31,7 +31,6 @@ namespace testDMS.Models
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<CODES> CODES { get; set; }
-        public virtual DbSet<COMPANY> COMPANY { get; set; }
         public virtual DbSet<CONTACT> CONTACT { get; set; }
         public virtual DbSet<DONATION> DONATION { get; set; }
         public virtual DbSet<DONOR> DONOR { get; set; }

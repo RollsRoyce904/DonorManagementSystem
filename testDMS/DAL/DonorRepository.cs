@@ -32,7 +32,7 @@ namespace testDMS.DAL
             var result = (from r in context.DONOR where r.FName == search || r.Gender == search ||
                           r.Email == search || r.LName == search || r.Init == search ||
                           r.Suffix == search || r.Title == search || r.Cell == search ||
-                          r.COMPANY.CompanyName == search
+                          r.CompanyName == search
                           select r);
 
             return result;

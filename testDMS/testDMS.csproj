@@ -281,9 +281,6 @@
     <Compile Include="Models\CODES.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\COMPANY.cs">
-      <DependentUpon>Hooli.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CONTACT.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>

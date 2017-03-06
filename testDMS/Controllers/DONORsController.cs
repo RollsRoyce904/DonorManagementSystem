@@ -51,7 +51,6 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.COMPANYID = new SelectList(data.COMPANY, "COMPANYID", "COMPANYNAME", donor.CompanyId);
             ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
             ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
 
@@ -60,14 +59,13 @@ namespace testDMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DonorId,FName,Init,LName,Title,Suffix,Email,Cell,Birthday,Gender,MarkerId,ContactId,CompanyId")] DONOR donor)
+        public ActionResult Edit([Bind(Include = "DonorId,FName,Init,LName,Title,Suffix,Email,Cell,Birthday,Gender,MarkerId,ContactId,CompanyName,Address,City,State,Zipcode,Phone")] DONOR donor)
         {
             if (ModelState.IsValid)
             {
                 drRepo.Edit(donor);
                 return RedirectToAction("Index");
             }
-            ViewBag.COMPANYID = new SelectList(data.COMPANY, "COMPANYID", "COMPANYNAME", donor.CompanyId);
             ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
             ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
@@ -107,7 +105,6 @@ namespace testDMS.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.COMPANYID = new SelectList(data.COMPANY, "COMPANYID", "COMPANYNAME");
             ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF");
             ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE");
             return View();
@@ -115,15 +112,14 @@ namespace testDMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DonorId,FName,Init,LName,Title,Suffix,Email,Cell,Birthday,Gender,MarkerId,ContactId,CompanyId")] DONOR donor)
+        public ActionResult Create([Bind(Include = "DonorId,FName,Init,LName,Title,Suffix,Email,Cell,Birthday,Gender,MarkerId,ContactId,CompanyName,Address,City,State,Zipcode,Phone")] DONOR donor)
         {
             if (ModelState.IsValid)
             {
                 drRepo.Add(donor);
                 return RedirectToAction("Index");
             }
-
-            ViewBag.COMPANYID = new SelectList(data.COMPANY, "COMPANYID", "COMPANYNAME", donor.CompanyId);
+            
             ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
             ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
