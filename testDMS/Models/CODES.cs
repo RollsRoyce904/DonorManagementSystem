@@ -12,12 +12,12 @@ namespace testDMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CODE
+    public partial class CODES
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CODE()
+        public CODES()
         {
-            this.DONATIONs = new HashSet<DONATION>();
+            this.DONATION = new HashSet<DONATION>();
         }
     
         public int CodeId { get; set; }
@@ -25,10 +25,10 @@ namespace testDMS.Models
         public string GL { get; set; }
         public string Department { get; set; }
         public string Program { get; set; }
-        public string GrantS { get; set; }
+        public string Grants { get; set; }
         public string Appeal { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DONATION> DONATIONs { get; set; }
+        public virtual ICollection<DONATION> DONATION { get; set; }
     }
 }

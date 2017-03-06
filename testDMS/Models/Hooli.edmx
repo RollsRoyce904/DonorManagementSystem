@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DonorManagementDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DonorManagementDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -71,36 +71,36 @@
             <PropertyRef Name="CodeId" />
           </Key>
           <Property Name="CodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Fund" Type="nvarchar" MaxLength="2" Nullable="false" />
-          <Property Name="GL" Type="nvarchar" MaxLength="4" Nullable="false" />
-          <Property Name="Department" Type="nvarchar" MaxLength="2" Nullable="false" />
-          <Property Name="Program" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="GrantS" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Appeal" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fund" Type="nvarchar" MaxLength="2" />
+          <Property Name="GL" Type="nvarchar" MaxLength="4" />
+          <Property Name="Department" Type="nvarchar" MaxLength="2" />
+          <Property Name="Program" Type="nvarchar" MaxLength="50" />
+          <Property Name="Grants" Type="nvarchar" MaxLength="50" />
+          <Property Name="Appeal" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="COMPANY">
           <Key>
-            <PropertyRef Name="COMPANYID" />
+            <PropertyRef Name="CompanyId" />
           </Key>
-          <Property Name="COMPANYID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="COMPANYNAME" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="COMPADDRESS" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ADDRESSTWO" Type="nvarchar" MaxLength="50" />
-          <Property Name="CITY" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="COMPANYSTATE" Type="nvarchar" MaxLength="2" Nullable="false" />
-          <Property Name="ZIPCODE" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="PHONE" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressTwo" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyState" Type="nvarchar" MaxLength="2" />
+          <Property Name="Zipcode" Type="nvarchar" MaxLength="5" />
+          <Property Name="Phone" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="CONTACT">
           <Key>
-            <PropertyRef Name="CONTACTID" />
+            <PropertyRef Name="ContactId" />
           </Key>
-          <Property Name="CONTACTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DATEOF" Type="date" Nullable="false" />
-          <Property Name="TYPEOF" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="METHOD" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="SUBJECTOF" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="SUMMARY" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateOf" Type="date" />
+          <Property Name="TypeOf" Type="nvarchar" MaxLength="25" />
+          <Property Name="Method" Type="nvarchar" MaxLength="10" />
+          <Property Name="SubjectOf" Type="nvarchar(max)" />
+          <Property Name="Summary" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="DONATION">
           <Key>
@@ -109,58 +109,57 @@
           </Key>
           <Property Name="DonationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DonorId" Type="int" Nullable="false" />
-          <Property Name="Amount" Type="numeric" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="TypeOf" Type="nvarchar" MaxLength="7" Nullable="false" />
-          <Property Name="DateRecieved" Type="date" Nullable="false" />
-          <Property Name="GiftMethod" Type="nvarchar" MaxLength="12" Nullable="false" />
-          <Property Name="DateGiftMade" Type="date" Nullable="false" />
+          <Property Name="Amount" Type="numeric" Precision="9" Scale="2" />
+          <Property Name="TypeOf" Type="nvarchar" MaxLength="7" />
+          <Property Name="DateRecieved" Type="date" />
+          <Property Name="GiftMethod" Type="nvarchar" MaxLength="12" />
+          <Property Name="DateGiftMade" Type="date" />
           <Property Name="CodeId" Type="int" />
           <Property Name="ImageUpload" Type="varbinary(max)" />
           <Property Name="GiftRestrictions" Type="nvarchar(max)" />
-          <Property Name="NOTES" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="DONOR">
           <Key>
-            <PropertyRef Name="DONORID" />
+            <PropertyRef Name="DonorId" />
           </Key>
-          <Property Name="DONORID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="MINIT" Type="nvarchar" MaxLength="1" />
-          <Property Name="LNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="TITLE" Type="nvarchar" MaxLength="4" Nullable="false" />
-          <Property Name="SUFFIX" Type="nvarchar" MaxLength="5" />
-          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
-          <Property Name="CELL" Type="nvarchar" MaxLength="11" />
-          <Property Name="BIRTHDAY" Type="date" Nullable="false" />
-          <Property Name="GENDER" Type="nvarchar" MaxLength="1" Nullable="false" />
-          <Property Name="MARKERID" Type="int" />
-          <Property Name="CONTACTID" Type="int" />
-          <Property Name="COMPANYID" Type="int" />
+          <Property Name="DonorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Init" Type="nvarchar" MaxLength="1" />
+          <Property Name="LName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="4" />
+          <Property Name="Suffix" Type="nvarchar" MaxLength="5" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cell" Type="varchar" MaxLength="30" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="1" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="MarkerId" Type="int" />
+          <Property Name="ContactId" Type="int" />
         </EntityType>
         <EntityType Name="IDENTITYMARKER">
           <Key>
-            <PropertyRef Name="MARKERID" />
+            <PropertyRef Name="MarkerId" />
           </Key>
-          <Property Name="MARKERID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MARKERTYPE" Type="nvarchar" MaxLength="35" />
+          <Property Name="MarkerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MarkerType" Type="nvarchar" MaxLength="35" />
         </EntityType>
         <EntityType Name="NOTES">
           <Key>
-            <PropertyRef Name="NOTEID" />
-            <PropertyRef Name="DONORID" />
+            <PropertyRef Name="NoteId" />
+            <PropertyRef Name="DonorId" />
           </Key>
-          <Property Name="NOTEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DONORID" Type="int" Nullable="false" />
-          <Property Name="NOTE" Type="nvarchar(max)" />
-          <Property Name="DATEMADE" Type="date" />
+          <Property Name="NoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DonorId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="DateMade" Type="date" />
         </EntityType>
         <EntityType Name="RELATIVES">
           <Key>
-            <PropertyRef Name="RELATIVEID" />
-            <PropertyRef Name="DONORID" />
+            <PropertyRef Name="RelativeId" />
+            <PropertyRef Name="DonorId" />
           </Key>
-          <Property Name="RELATIVEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DONORID" Type="int" Nullable="false" />
+          <Property Name="RelativeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DonorId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -180,7 +179,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="create_date" Type="datetime" Nullable="false" />
           <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__DONATION__CodeId__6D0D32F4">
+        <Association Name="FK__DONATION__CodeId__2B0A656D">
           <End Role="CODES" Type="Self.CODES" Multiplicity="0..1" />
           <End Role="DONATION" Type="Self.DONATION" Multiplicity="*" />
           <ReferentialConstraint>
@@ -192,75 +191,75 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DONATION__DonorI__6E01572D">
+        <Association Name="FK__DONATION__DonorI__2A164134">
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="1" />
           <End Role="DONATION" Type="Self.DONATION" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DONOR">
-              <PropertyRef Name="DONORID" />
+              <PropertyRef Name="DonorId" />
             </Principal>
             <Dependent Role="DONATION">
               <PropertyRef Name="DonorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DONOR__COMPANYID__797309D9">
+        <Association Name="FK__DONOR__CompanyId__25518C17">
           <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="0..1" />
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="COMPANY">
-              <PropertyRef Name="COMPANYID" />
+              <PropertyRef Name="CompanyId" />
             </Principal>
             <Dependent Role="DONOR">
-              <PropertyRef Name="COMPANYID" />
+              <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DONOR__CONTACTID__70DDC3D8">
+        <Association Name="FK__DONOR__ContactId__2739D489">
           <End Role="CONTACT" Type="Self.CONTACT" Multiplicity="0..1" />
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CONTACT">
-              <PropertyRef Name="CONTACTID" />
+              <PropertyRef Name="ContactId" />
             </Principal>
             <Dependent Role="DONOR">
-              <PropertyRef Name="CONTACTID" />
+              <PropertyRef Name="ContactId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DONOR__MARKERID__76969D2E">
+        <Association Name="FK__DONOR__MarkerId__2645B050">
           <End Role="IDENTITYMARKER" Type="Self.IDENTITYMARKER" Multiplicity="0..1" />
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="IDENTITYMARKER">
-              <PropertyRef Name="MARKERID" />
+              <PropertyRef Name="MarkerId" />
             </Principal>
             <Dependent Role="DONOR">
-              <PropertyRef Name="MARKERID" />
+              <PropertyRef Name="MarkerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NOTES__DONORID__02FC7413">
+        <Association Name="FK__NOTES__DonorId__2DE6D218">
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="1" />
           <End Role="NOTES" Type="Self.NOTES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DONOR">
-              <PropertyRef Name="DONORID" />
+              <PropertyRef Name="DonorId" />
             </Principal>
             <Dependent Role="NOTES">
-              <PropertyRef Name="DONORID" />
+              <PropertyRef Name="DonorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RELATIVES__DONOR__73BA3083">
+        <Association Name="FK__RELATIVES__Donor__30C33EC3">
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="1" />
           <End Role="RELATIVES" Type="Self.RELATIVES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DONOR">
-              <PropertyRef Name="DONORID" />
+              <PropertyRef Name="DonorId" />
             </Principal>
             <Dependent Role="RELATIVES">
-              <PropertyRef Name="DONORID" />
+              <PropertyRef Name="DonorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -345,31 +344,31 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
     [database_firewall_rules].[modify_date] AS [modify_date]
     FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__DONATION__CodeId__6D0D32F4" Association="Self.FK__DONATION__CodeId__6D0D32F4">
+          <AssociationSet Name="FK__DONATION__CodeId__2B0A656D" Association="Self.FK__DONATION__CodeId__2B0A656D">
             <End Role="CODES" EntitySet="CODES" />
             <End Role="DONATION" EntitySet="DONATION" />
           </AssociationSet>
-          <AssociationSet Name="FK__DONATION__DonorI__6E01572D" Association="Self.FK__DONATION__DonorI__6E01572D">
+          <AssociationSet Name="FK__DONATION__DonorI__2A164134" Association="Self.FK__DONATION__DonorI__2A164134">
             <End Role="DONOR" EntitySet="DONOR" />
             <End Role="DONATION" EntitySet="DONATION" />
           </AssociationSet>
-          <AssociationSet Name="FK__DONOR__COMPANYID__797309D9" Association="Self.FK__DONOR__COMPANYID__797309D9">
+          <AssociationSet Name="FK__DONOR__CompanyId__25518C17" Association="Self.FK__DONOR__CompanyId__25518C17">
             <End Role="COMPANY" EntitySet="COMPANY" />
             <End Role="DONOR" EntitySet="DONOR" />
           </AssociationSet>
-          <AssociationSet Name="FK__DONOR__CONTACTID__70DDC3D8" Association="Self.FK__DONOR__CONTACTID__70DDC3D8">
+          <AssociationSet Name="FK__DONOR__ContactId__2739D489" Association="Self.FK__DONOR__ContactId__2739D489">
             <End Role="CONTACT" EntitySet="CONTACT" />
             <End Role="DONOR" EntitySet="DONOR" />
           </AssociationSet>
-          <AssociationSet Name="FK__DONOR__MARKERID__76969D2E" Association="Self.FK__DONOR__MARKERID__76969D2E">
+          <AssociationSet Name="FK__DONOR__MarkerId__2645B050" Association="Self.FK__DONOR__MarkerId__2645B050">
             <End Role="IDENTITYMARKER" EntitySet="IDENTITYMARKER" />
             <End Role="DONOR" EntitySet="DONOR" />
           </AssociationSet>
-          <AssociationSet Name="FK__NOTES__DONORID__02FC7413" Association="Self.FK__NOTES__DONORID__02FC7413">
+          <AssociationSet Name="FK__NOTES__DonorId__2DE6D218" Association="Self.FK__NOTES__DonorId__2DE6D218">
             <End Role="DONOR" EntitySet="DONOR" />
             <End Role="NOTES" EntitySet="NOTES" />
           </AssociationSet>
-          <AssociationSet Name="FK__RELATIVES__DONOR__73BA3083" Association="Self.FK__RELATIVES__DONOR__73BA3083">
+          <AssociationSet Name="FK__RELATIVES__Donor__30C33EC3" Association="Self.FK__RELATIVES__Donor__30C33EC3">
             <End Role="DONOR" EntitySet="DONOR" />
             <End Role="RELATIVES" EntitySet="RELATIVES" />
           </AssociationSet>
@@ -390,7 +389,8 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DonorManagementDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -404,7 +404,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="AspNetRole">
+        <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -412,7 +412,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUserClaim">
+        <EntityType Name="AspNetUserClaims">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -420,9 +420,9 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUserLogin">
+        <EntityType Name="AspNetUserLogins">
           <Key>
             <PropertyRef Name="LoginProvider" />
             <PropertyRef Name="ProviderKey" />
@@ -431,9 +431,9 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUser">
+        <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -453,44 +453,44 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
-        <EntityType Name="CODE">
+        <EntityType Name="CODES">
           <Key>
             <PropertyRef Name="CodeId" />
           </Key>
           <Property Name="CodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fund" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Department" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GrantS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Appeal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="DONATIONs" Relationship="Self.FK__DONATION__CodeId__6D0D32F4" FromRole="CODES" ToRole="DONATION" />
+          <Property Name="Fund" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="GL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Grants" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Appeal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DONATION" Relationship="Self.FK__DONATION__CodeId__2B0A656D" FromRole="CODES" ToRole="DONATION" />
         </EntityType>
         <EntityType Name="COMPANY">
           <Key>
-            <PropertyRef Name="COMPANYID" />
+            <PropertyRef Name="CompanyId" />
           </Key>
-          <Property Name="COMPANYID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COMPANYNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="COMPADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ADDRESSTWO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="COMPANYSTATE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ZIPCODE" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PHONE" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="DONORs" Relationship="Self.FK__DONOR__COMPANYID__797309D9" FromRole="COMPANY" ToRole="DONOR" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyState" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Zipcode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DONOR" Relationship="Self.FK__DONOR__CompanyId__25518C17" FromRole="COMPANY" ToRole="DONOR" />
         </EntityType>
         <EntityType Name="CONTACT">
           <Key>
-            <PropertyRef Name="CONTACTID" />
+            <PropertyRef Name="ContactId" />
           </Key>
-          <Property Name="CONTACTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DATEOF" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="TYPEOF" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="METHOD" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SUBJECTOF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SUMMARY" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="DONORs" Relationship="Self.FK__DONOR__CONTACTID__70DDC3D8" FromRole="CONTACT" ToRole="DONOR" />
+          <Property Name="ContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateOf" Type="DateTime" Precision="0" />
+          <Property Name="TypeOf" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Method" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectOf" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DONOR" Relationship="Self.FK__DONOR__ContactId__2739D489" FromRole="CONTACT" ToRole="DONOR" />
         </EntityType>
         <EntityType Name="DONATION">
           <Key>
@@ -499,58 +499,68 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           </Key>
           <Property Name="DonationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DonorId" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="TypeOf" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateRecieved" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="GiftMethod" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateGiftMade" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="TypeOf" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="DateRecieved" Type="DateTime" Precision="0" />
+          <Property Name="GiftMethod" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="DateGiftMade" Type="DateTime" Precision="0" />
           <Property Name="CodeId" Type="Int32" />
           <Property Name="ImageUpload" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="GiftRestrictions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CODE" Relationship="Self.FK__DONATION__CodeId__6D0D32F4" FromRole="DONATION" ToRole="CODES" />
-          <NavigationProperty Name="DONOR" Relationship="Self.FK__DONATION__DonorI__6E01572D" FromRole="DONATION" ToRole="DONOR" />
-          <Property Name="NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CODES" Relationship="Self.FK__DONATION__CodeId__2B0A656D" FromRole="DONATION" ToRole="CODES" />
+          <NavigationProperty Name="DONOR" Relationship="Self.FK__DONATION__DonorI__2A164134" FromRole="DONATION" ToRole="DONOR" />
         </EntityType>
         <EntityType Name="DONOR">
           <Key>
-            <PropertyRef Name="DONORID" />
+            <PropertyRef Name="DonorId" />
           </Key>
-          <Property Name="DONORID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MINIT" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="LNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TITLE" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SUFFIX" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CELL" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
-          <Property Name="BIRTHDAY" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="GENDER" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MARKERID" Type="Int32" />
-          <Property Name="CONTACTID" Type="Int32" />
-          <Property Name="COMPANYID" Type="Int32" />
-          <NavigationProperty Name="COMPANY" Relationship="Self.FK__DONOR__COMPANYID__797309D9" FromRole="DONOR" ToRole="COMPANY" />
-          <NavigationProperty Name="CONTACT" Relationship="Self.FK__DONOR__CONTACTID__70DDC3D8" FromRole="DONOR" ToRole="CONTACT" />
-          <NavigationProperty Name="DONATIONs" Relationship="Self.FK__DONATION__DonorI__6E01572D" FromRole="DONOR" ToRole="DONATION" />
-          <NavigationProperty Name="IDENTITYMARKER" Relationship="Self.FK__DONOR__MARKERID__76969D2E" FromRole="DONOR" ToRole="IDENTITYMARKER" />
-          <NavigationProperty Name="RELATIVES" Relationship="Self.FK__RELATIVES__DONOR__73BA3083" FromRole="DONOR" ToRole="RELATIVES" />
-          <NavigationProperty Name="NOTES" Relationship="DonorManagementDatabaseModel.FK__NOTES__DONORID__02FC7413" FromRole="DONOR" ToRole="NOTE" />
+          <Property Name="DonorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Init" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="LName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Suffix" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cell" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="MarkerId" Type="Int32" />
+          <Property Name="ContactId" Type="Int32" />
+          <NavigationProperty Name="COMPANY" Relationship="Self.FK__DONOR__CompanyId__25518C17" FromRole="DONOR" ToRole="COMPANY" />
+          <NavigationProperty Name="CONTACT" Relationship="Self.FK__DONOR__ContactId__2739D489" FromRole="DONOR" ToRole="CONTACT" />
+          <NavigationProperty Name="DONATION" Relationship="Self.FK__DONATION__DonorI__2A164134" FromRole="DONOR" ToRole="DONATION" />
+          <NavigationProperty Name="IDENTITYMARKER" Relationship="Self.FK__DONOR__MarkerId__2645B050" FromRole="DONOR" ToRole="IDENTITYMARKER" />
+          <NavigationProperty Name="NOTES" Relationship="Self.FK__NOTES__DonorId__2DE6D218" FromRole="DONOR" ToRole="NOTES" />
+          <NavigationProperty Name="RELATIVES" Relationship="Self.FK__RELATIVES__Donor__30C33EC3" FromRole="DONOR" ToRole="RELATIVES" />
         </EntityType>
         <EntityType Name="IDENTITYMARKER">
           <Key>
-            <PropertyRef Name="MARKERID" />
+            <PropertyRef Name="MarkerId" />
           </Key>
-          <Property Name="MARKERID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MARKERTYPE" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DONORs" Relationship="Self.FK__DONOR__MARKERID__76969D2E" FromRole="IDENTITYMARKER" ToRole="DONOR" />
+          <Property Name="MarkerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MarkerType" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DONOR" Relationship="Self.FK__DONOR__MarkerId__2645B050" FromRole="IDENTITYMARKER" ToRole="DONOR" />
         </EntityType>
-        <EntityType Name="RELATIVE">
+        <EntityType Name="NOTES">
           <Key>
-            <PropertyRef Name="RELATIVEID" />
-            <PropertyRef Name="DONORID" />
+            <PropertyRef Name="NoteId" />
+            <PropertyRef Name="DonorId" />
           </Key>
-          <Property Name="RELATIVEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DONORID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DONOR" Relationship="Self.FK__RELATIVES__DONOR__73BA3083" FromRole="RELATIVES" ToRole="DONOR" />
+          <Property Name="NoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DonorId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateMade" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DONOR" Relationship="Self.FK__NOTES__DonorId__2DE6D218" FromRole="NOTES" ToRole="DONOR" />
+        </EntityType>
+        <EntityType Name="RELATIVES">
+          <Key>
+            <PropertyRef Name="RelativeId" />
+            <PropertyRef Name="DonorId" />
+          </Key>
+          <Property Name="RelativeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DonorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DONOR" Relationship="Self.FK__RELATIVES__Donor__30C33EC3" FromRole="RELATIVES" ToRole="DONOR" />
         </EntityType>
         <EntityType Name="database_firewall_rules">
           <Key>
@@ -569,10 +579,10 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -583,10 +593,10 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -596,8 +606,8 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DONATION__CodeId__6D0D32F4">
-          <End Role="CODES" Type="Self.CODE" Multiplicity="0..1" />
+        <Association Name="FK__DONATION__CodeId__2B0A656D">
+          <End Role="CODES" Type="Self.CODES" Multiplicity="0..1" />
           <End Role="DONATION" Type="Self.DONATION" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CODES">
@@ -608,83 +618,96 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DONOR__COMPANYID__797309D9">
+        <Association Name="FK__DONOR__CompanyId__25518C17">
           <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="0..1" />
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="COMPANY">
-              <PropertyRef Name="COMPANYID" />
+              <PropertyRef Name="CompanyId" />
             </Principal>
             <Dependent Role="DONOR">
-              <PropertyRef Name="COMPANYID" />
+              <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DONOR__CONTACTID__70DDC3D8">
+        <Association Name="FK__DONOR__ContactId__2739D489">
           <End Role="CONTACT" Type="Self.CONTACT" Multiplicity="0..1" />
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CONTACT">
-              <PropertyRef Name="CONTACTID" />
+              <PropertyRef Name="ContactId" />
             </Principal>
             <Dependent Role="DONOR">
-              <PropertyRef Name="CONTACTID" />
+              <PropertyRef Name="ContactId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DONATION__DonorI__6E01572D">
+        <Association Name="FK__DONATION__DonorI__2A164134">
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="1" />
           <End Role="DONATION" Type="Self.DONATION" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DONOR">
-              <PropertyRef Name="DONORID" />
+              <PropertyRef Name="DonorId" />
             </Principal>
             <Dependent Role="DONATION">
               <PropertyRef Name="DonorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DONOR__MARKERID__76969D2E">
+        <Association Name="FK__DONOR__MarkerId__2645B050">
           <End Role="IDENTITYMARKER" Type="Self.IDENTITYMARKER" Multiplicity="0..1" />
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="IDENTITYMARKER">
-              <PropertyRef Name="MARKERID" />
+              <PropertyRef Name="MarkerId" />
             </Principal>
             <Dependent Role="DONOR">
-              <PropertyRef Name="MARKERID" />
+              <PropertyRef Name="MarkerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RELATIVES__DONOR__73BA3083">
+        <Association Name="FK__NOTES__DonorId__2DE6D218">
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="1" />
-          <End Role="RELATIVES" Type="Self.RELATIVE" Multiplicity="*" />
+          <End Role="NOTES" Type="Self.NOTES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DONOR">
-              <PropertyRef Name="DONORID" />
+              <PropertyRef Name="DonorId" />
+            </Principal>
+            <Dependent Role="NOTES">
+              <PropertyRef Name="DonorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RELATIVES__Donor__30C33EC3">
+          <End Role="DONOR" Type="Self.DONOR" Multiplicity="1" />
+          <End Role="RELATIVES" Type="Self.RELATIVES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONOR">
+              <PropertyRef Name="DonorId" />
             </Principal>
             <Dependent Role="RELATIVES">
-              <PropertyRef Name="DONORID" />
+              <PropertyRef Name="DonorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
         </Association>
         <EntityContainer Name="DonorManagementDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="CODES" EntityType="Self.CODE" />
-          <EntitySet Name="COMPANies" EntityType="Self.COMPANY" />
-          <EntitySet Name="CONTACTs" EntityType="Self.CONTACT" />
-          <EntitySet Name="DONATIONs" EntityType="Self.DONATION" />
-          <EntitySet Name="DONORs" EntityType="Self.DONOR" />
-          <EntitySet Name="IDENTITYMARKERs" EntityType="Self.IDENTITYMARKER" />
-          <EntitySet Name="RELATIVES" EntityType="Self.RELATIVE" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="CODES" EntityType="Self.CODES" />
+          <EntitySet Name="COMPANY" EntityType="Self.COMPANY" />
+          <EntitySet Name="CONTACT" EntityType="Self.CONTACT" />
+          <EntitySet Name="DONATION" EntityType="Self.DONATION" />
+          <EntitySet Name="DONOR" EntityType="Self.DONOR" />
+          <EntitySet Name="IDENTITYMARKER" EntityType="Self.IDENTITYMARKER" />
+          <EntitySet Name="NOTES" EntityType="Self.NOTES" />
+          <EntitySet Name="RELATIVES" EntityType="Self.RELATIVES" />
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -694,63 +717,39 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK__DONATION__CodeId__6D0D32F4" Association="Self.FK__DONATION__CodeId__6D0D32F4">
+          <AssociationSet Name="FK__DONATION__CodeId__2B0A656D" Association="Self.FK__DONATION__CodeId__2B0A656D">
             <End Role="CODES" EntitySet="CODES" />
-            <End Role="DONATION" EntitySet="DONATIONs" />
+            <End Role="DONATION" EntitySet="DONATION" />
           </AssociationSet>
-          <AssociationSet Name="FK__DONOR__COMPANYID__797309D9" Association="Self.FK__DONOR__COMPANYID__797309D9">
-            <End Role="COMPANY" EntitySet="COMPANies" />
-            <End Role="DONOR" EntitySet="DONORs" />
+          <AssociationSet Name="FK__DONOR__CompanyId__25518C17" Association="Self.FK__DONOR__CompanyId__25518C17">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="DONOR" EntitySet="DONOR" />
           </AssociationSet>
-          <AssociationSet Name="FK__DONOR__CONTACTID__70DDC3D8" Association="Self.FK__DONOR__CONTACTID__70DDC3D8">
-            <End Role="CONTACT" EntitySet="CONTACTs" />
-            <End Role="DONOR" EntitySet="DONORs" />
+          <AssociationSet Name="FK__DONOR__ContactId__2739D489" Association="Self.FK__DONOR__ContactId__2739D489">
+            <End Role="CONTACT" EntitySet="CONTACT" />
+            <End Role="DONOR" EntitySet="DONOR" />
           </AssociationSet>
-          <AssociationSet Name="FK__DONATION__DonorI__6E01572D" Association="Self.FK__DONATION__DonorI__6E01572D">
-            <End Role="DONOR" EntitySet="DONORs" />
-            <End Role="DONATION" EntitySet="DONATIONs" />
+          <AssociationSet Name="FK__DONATION__DonorI__2A164134" Association="Self.FK__DONATION__DonorI__2A164134">
+            <End Role="DONOR" EntitySet="DONOR" />
+            <End Role="DONATION" EntitySet="DONATION" />
           </AssociationSet>
-          <AssociationSet Name="FK__DONOR__MARKERID__76969D2E" Association="Self.FK__DONOR__MARKERID__76969D2E">
-            <End Role="IDENTITYMARKER" EntitySet="IDENTITYMARKERs" />
-            <End Role="DONOR" EntitySet="DONORs" />
+          <AssociationSet Name="FK__DONOR__MarkerId__2645B050" Association="Self.FK__DONOR__MarkerId__2645B050">
+            <End Role="IDENTITYMARKER" EntitySet="IDENTITYMARKER" />
+            <End Role="DONOR" EntitySet="DONOR" />
           </AssociationSet>
-          <AssociationSet Name="FK__RELATIVES__DONOR__73BA3083" Association="Self.FK__RELATIVES__DONOR__73BA3083">
-            <End Role="DONOR" EntitySet="DONORs" />
+          <AssociationSet Name="FK__NOTES__DonorId__2DE6D218" Association="Self.FK__NOTES__DonorId__2DE6D218">
+            <End Role="DONOR" EntitySet="DONOR" />
+            <End Role="NOTES" EntitySet="NOTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RELATIVES__Donor__30C33EC3" Association="Self.FK__RELATIVES__Donor__30C33EC3">
+            <End Role="DONOR" EntitySet="DONOR" />
             <End Role="RELATIVES" EntitySet="RELATIVES" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="NOTES" EntityType="DonorManagementDatabaseModel.NOTE" />
-          <AssociationSet Name="FK__NOTES__DONORID__02FC7413" Association="DonorManagementDatabaseModel.FK__NOTES__DONORID__02FC7413">
-            <End Role="DONOR" EntitySet="DONORs" />
-            <End Role="NOTE" EntitySet="NOTES" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="NOTE">
-          <Key>
-            <PropertyRef Name="NOTEID" />
-            <PropertyRef Name="DONORID" />
-          </Key>
-          <Property Name="NOTEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DONORID" Type="Int32" Nullable="false" />
-          <Property Name="NOTE1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DATEMADE" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="DONOR" Relationship="DonorManagementDatabaseModel.FK__NOTES__DONORID__02FC7413" FromRole="NOTE" ToRole="DONOR" />
-        </EntityType>
-        <Association Name="FK__NOTES__DONORID__02FC7413">
-          <End Type="DonorManagementDatabaseModel.DONOR" Role="DONOR" Multiplicity="1" />
-          <End Type="DonorManagementDatabaseModel.NOTE" Role="NOTE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DONOR">
-              <PropertyRef Name="DONORID" />
-            </Principal>
-            <Dependent Role="NOTE">
-              <PropertyRef Name="DONORID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -768,7 +767,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.AspNetRole">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -776,7 +775,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.AspNetUserClaim">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.AspNetUserClaims">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -786,7 +785,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.AspNetUserLogin">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.AspNetUserLogins">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -795,7 +794,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.AspNetUser">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -813,48 +812,47 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CODES">
-            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.CODE">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.CODES">
               <MappingFragment StoreEntitySet="CODES">
                 <ScalarProperty Name="CodeId" ColumnName="CodeId" />
                 <ScalarProperty Name="Fund" ColumnName="Fund" />
                 <ScalarProperty Name="GL" ColumnName="GL" />
                 <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="Program" ColumnName="Program" />
-                <ScalarProperty Name="GrantS" ColumnName="GrantS" />
+                <ScalarProperty Name="Grants" ColumnName="Grants" />
                 <ScalarProperty Name="Appeal" ColumnName="Appeal" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="COMPANies">
+          <EntitySetMapping Name="COMPANY">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.COMPANY">
               <MappingFragment StoreEntitySet="COMPANY">
-                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
-                <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
-                <ScalarProperty Name="COMPADDRESS" ColumnName="COMPADDRESS" />
-                <ScalarProperty Name="ADDRESSTWO" ColumnName="ADDRESSTWO" />
-                <ScalarProperty Name="CITY" ColumnName="CITY" />
-                <ScalarProperty Name="COMPANYSTATE" ColumnName="COMPANYSTATE" />
-                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompAddress" ColumnName="CompAddress" />
+                <ScalarProperty Name="AddressTwo" ColumnName="AddressTwo" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CompanyState" ColumnName="CompanyState" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CONTACTs">
+          <EntitySetMapping Name="CONTACT">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.CONTACT">
               <MappingFragment StoreEntitySet="CONTACT">
-                <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
-                <ScalarProperty Name="DATEOF" ColumnName="DATEOF" />
-                <ScalarProperty Name="TYPEOF" ColumnName="TYPEOF" />
-                <ScalarProperty Name="METHOD" ColumnName="METHOD" />
-                <ScalarProperty Name="SUBJECTOF" ColumnName="SUBJECTOF" />
-                <ScalarProperty Name="SUMMARY" ColumnName="SUMMARY" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="DateOf" ColumnName="DateOf" />
+                <ScalarProperty Name="TypeOf" ColumnName="TypeOf" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+                <ScalarProperty Name="SubjectOf" ColumnName="SubjectOf" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DONATIONs">
+          <EntitySetMapping Name="DONATION">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.DONATION">
               <MappingFragment StoreEntitySet="DONATION">
-                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
                 <ScalarProperty Name="DonationId" ColumnName="DonationId" />
                 <ScalarProperty Name="DonorId" ColumnName="DonorId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
@@ -868,38 +866,48 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DONORs">
+          <EntitySetMapping Name="DONOR">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.DONOR">
               <MappingFragment StoreEntitySet="DONOR">
-                <ScalarProperty Name="DONORID" ColumnName="DONORID" />
-                <ScalarProperty Name="FNAME" ColumnName="FNAME" />
-                <ScalarProperty Name="MINIT" ColumnName="MINIT" />
-                <ScalarProperty Name="LNAME" ColumnName="LNAME" />
-                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
-                <ScalarProperty Name="SUFFIX" ColumnName="SUFFIX" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="CELL" ColumnName="CELL" />
-                <ScalarProperty Name="BIRTHDAY" ColumnName="BIRTHDAY" />
-                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
-                <ScalarProperty Name="MARKERID" ColumnName="MARKERID" />
-                <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
-                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
+                <ScalarProperty Name="DonorId" ColumnName="DonorId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="Init" ColumnName="Init" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Suffix" ColumnName="Suffix" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Cell" ColumnName="Cell" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="MarkerId" ColumnName="MarkerId" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IDENTITYMARKERs">
+          <EntitySetMapping Name="IDENTITYMARKER">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.IDENTITYMARKER">
               <MappingFragment StoreEntitySet="IDENTITYMARKER">
-                <ScalarProperty Name="MARKERID" ColumnName="MARKERID" />
-                <ScalarProperty Name="MARKERTYPE" ColumnName="MARKERTYPE" />
+                <ScalarProperty Name="MarkerId" ColumnName="MarkerId" />
+                <ScalarProperty Name="MarkerType" ColumnName="MarkerType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NOTES">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.NOTES">
+              <MappingFragment StoreEntitySet="NOTES">
+                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+                <ScalarProperty Name="DonorId" ColumnName="DonorId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DateMade" ColumnName="DateMade" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RELATIVES">
-            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.RELATIVE">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.RELATIVES">
               <MappingFragment StoreEntitySet="RELATIVES">
-                <ScalarProperty Name="RELATIVEID" ColumnName="RELATIVEID" />
-                <ScalarProperty Name="DONORID" ColumnName="DONORID" />
+                <ScalarProperty Name="RelativeId" ColumnName="RelativeId" />
+                <ScalarProperty Name="DonorId" ColumnName="DonorId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -923,16 +931,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="NOTES">
-            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.NOTE">
-              <MappingFragment StoreEntitySet="NOTES">
-                <ScalarProperty Name="DATEMADE" ColumnName="DATEMADE" />
-                <ScalarProperty Name="NOTE1" ColumnName="NOTE" />
-                <ScalarProperty Name="DONORID" ColumnName="DONORID" />
-                <ScalarProperty Name="NOTEID" ColumnName="NOTEID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -947,7 +945,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

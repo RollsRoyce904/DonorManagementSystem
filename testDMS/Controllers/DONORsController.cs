@@ -51,9 +51,9 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME", donor.COMPANYID);
-            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF", donor.CONTACTID);
-            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
+            ViewBag.COMPANYID = new SelectList(data.COMPANY, "COMPANYID", "COMPANYNAME", donor.CompanyId);
+            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
 
             return View(donor);
         }
@@ -67,9 +67,9 @@ namespace testDMS.Controllers
                 drRepo.Edit(donor);
                 return RedirectToAction("Index");
             }
-            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME", donor.COMPANYID);
-            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF", donor.CONTACTID);
-            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
+            ViewBag.COMPANYID = new SelectList(data.COMPANY, "COMPANYID", "COMPANYNAME", donor.CompanyId);
+            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
         }
 
@@ -87,7 +87,7 @@ namespace testDMS.Controllers
             IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.GetDonations();
 
             displayData.Donations = (from d in donation
-                                 where d.DonorId == displayData.Donors.DONORID
+                                 where d.DonorId == displayData.Donors.DonorId
                                  select d);
 
             if (displayData.Donors == null)
@@ -107,9 +107,9 @@ namespace testDMS.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME");
-            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF");
-            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE");
+            ViewBag.COMPANYID = new SelectList(data.COMPANY, "COMPANYID", "COMPANYNAME");
+            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF");
+            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE");
             return View();
         }
 
@@ -123,9 +123,9 @@ namespace testDMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME", donor.COMPANYID);
-            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF", donor.CONTACTID);
-            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
+            ViewBag.COMPANYID = new SelectList(data.COMPANY, "COMPANYID", "COMPANYNAME", donor.CompanyId);
+            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
         }
 

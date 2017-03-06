@@ -12,7 +12,7 @@ namespace testDMS.DAL
         DonorManagementDatabaseEntities context = new DonorManagementDatabaseEntities(); 
         public void Add(DONOR d)
         {
-            context.Donor.Add(d);
+            context.DONOR.Add(d);
             context.SaveChanges();
         }
 
@@ -23,16 +23,16 @@ namespace testDMS.DAL
 
         public DONOR FindById(int? id)
         {
-            var result = (from r in context.Donor where r.DONORID == id select r).FirstOrDefault();
+            var result = (from r in context.DONOR where r.DonorId == id select r).FirstOrDefault();
             return result;
         }
 
         public IEnumerable FindBy(string search)
         {
-            var result = (from r in context.Donor where r.FNAME == search || r.GENDER == search ||
-                          r.EMAIL == search || r.LNAME == search || r.MINIT == search ||
-                          r.SUFFIX == search || r.TITLE == search || r.CELL == search ||
-                          r.COMPANY.COMPANYNAME == search
+            var result = (from r in context.DONOR where r.FName == search || r.Gender == search ||
+                          r.Email == search || r.LName == search || r.Init == search ||
+                          r.Suffix == search || r.Title == search || r.Cell == search ||
+                          r.COMPANY.CompanyName == search
                           select r);
 
             return result;
@@ -50,13 +50,13 @@ namespace testDMS.DAL
 
         public IEnumerable GetDonors()
         {
-            return context.Donor;
+            return context.DONOR;
         }
 
         public void Remove(int id)
         {
-            DONOR d = context.Donor.Find(id);
-            context.Donor.Remove(d);
+            DONOR d = context.DONOR.Find(id);
+            context.DONOR.Remove(d);
             context.SaveChanges();
         }
     }

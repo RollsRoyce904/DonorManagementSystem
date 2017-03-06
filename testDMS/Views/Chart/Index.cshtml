@@ -43,7 +43,7 @@
 @foreach (var item in Model.Donations) { 
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DONOR.FNAME)
+                @Html.DisplayFor(modelItem => item.DONOR.FName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Amount)
@@ -52,10 +52,10 @@
                 @Html.DisplayFor(modelItem => item.DateRecieved)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CODE.Department)
+                @Html.DisplayFor(modelItem => item.CODES.Department)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CODE.GL)
+                @Html.DisplayFor(modelItem => item.CODES.GL)
             </td>
          </tr>
 }

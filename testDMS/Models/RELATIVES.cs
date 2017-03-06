@@ -12,12 +12,10 @@ namespace testDMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NOTE
+    public partial class RELATIVES
     {
-        public int NOTEID { get; set; }
-        public int DONORID { get; set; }
-        public string NOTE1 { get; set; }
-        public Nullable<System.DateTime> DATEMADE { get; set; }
+        public int RelativeId { get; set; }
+        public int DonorId { get; set; }
     
         public virtual DONOR DONOR { get; set; }
     }

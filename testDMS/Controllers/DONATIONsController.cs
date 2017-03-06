@@ -58,8 +58,8 @@ namespace testDMS.Controllers
             List<string> grants = new List<string>();
             grants.Add("No");
             grants.Add("Yes");
-            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund");
-            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME");
+            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund");
+            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME");
             ViewBag.Grants = new SelectList(grants);
             return View();
         }
@@ -95,8 +95,8 @@ namespace testDMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
-            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
+            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund", donation.CodeId);
+            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME", donation.DonorId);
 
             return View(donation);
         }
@@ -116,8 +116,8 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
-            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
+            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund", donation.CodeId);
+            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME", donation.DonorId);
 
             return View(donation);
         }
@@ -135,8 +135,8 @@ namespace testDMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", dONATION.CodeId);
-            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", dONATION.DonorId);
+            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund", dONATION.CodeId);
+            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME", dONATION.DonorId);
 
             return View(dONATION);
         }
