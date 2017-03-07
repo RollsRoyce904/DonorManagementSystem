@@ -63,7 +63,7 @@ namespace testDMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                drRepo.Edit(donor);
+                drRepo.SaveProduct(donor);
                 return RedirectToAction("Index");
             }
             ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);

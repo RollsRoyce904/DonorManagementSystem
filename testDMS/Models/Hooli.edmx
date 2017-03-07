@@ -78,19 +78,6 @@
           <Property Name="Grants" Type="nvarchar" MaxLength="50" />
           <Property Name="Appeal" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="COMPANY">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-          </Key>
-          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CompanyName" Type="nvarchar" MaxLength="100" />
-          <Property Name="CompAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="AddressTwo" Type="nvarchar" MaxLength="50" />
-          <Property Name="City" Type="nvarchar" MaxLength="50" />
-          <Property Name="CompanyState" Type="nvarchar" MaxLength="2" />
-          <Property Name="Zipcode" Type="nvarchar" MaxLength="5" />
-          <Property Name="Phone" Type="varchar" MaxLength="30" />
-        </EntityType>
         <EntityType Name="CONTACT">
           <Key>
             <PropertyRef Name="ContactId" />
@@ -321,7 +308,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CODES" EntityType="Self.CODES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="COMPANY" EntityType="Self.COMPANY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTACT" EntityType="Self.CONTACT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONATION" EntityType="Self.DONATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONOR" EntityType="Self.DONOR" Schema="dbo" store:Type="Tables" />
@@ -712,21 +698,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="COMPANY" EntityType="DonorManagementDatabaseModel.COMPANY" />
         </EntityContainer>
-        <EntityType Name="COMPANY">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-          </Key>
-          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CompAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddressTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyState" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="Zipcode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -900,20 +872,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="COMPANY">
-            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.COMPANY">
-              <MappingFragment StoreEntitySet="COMPANY">
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
-                <ScalarProperty Name="CompanyState" ColumnName="CompanyState" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="AddressTwo" ColumnName="AddressTwo" />
-                <ScalarProperty Name="CompAddress" ColumnName="CompAddress" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

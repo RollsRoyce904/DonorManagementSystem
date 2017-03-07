@@ -64,25 +64,6 @@ namespace testDMS.Controllers
             return View();
         }
 
-        // POST: DONATIONs/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION donation)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        dnRepo.Add(donation);
-        //        data.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
-        //    ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
-        //    return View(donation);
-        //}
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateDonationViewModel CDVM)
@@ -131,7 +112,7 @@ namespace testDMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                dnRepo.Edit(dONATION);
+                dnRepo.SaveDonation(dONATION);
                 return RedirectToAction("Index");
             }
 
