@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using testDMS.Models;
 using testDMS.DAL;
+using System.IO;
 
 namespace testDMS.Controllers
 {
@@ -69,15 +70,14 @@ namespace testDMS.Controllers
         public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image = null)
         {
             DONATION donation = CDVM.donation;
-
+            
             if (ModelState.IsValid)
             {
-                if (image != null)
-                {
+                
                     donation.ImageMimeType = image.ContentType;
                     donation.ImageUpload = new byte[image.ContentLength];
                     image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
-                }
+               
                 dnRepo.Add(donation);
                 return RedirectToAction("Index");
             }

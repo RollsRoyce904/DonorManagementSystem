@@ -56,13 +56,9 @@
         <td rowspan="7" style="padding:3%">
             <div class="form-group">
                 <br />
-                @if (Model.ImageUpload == null)
+                @if (Model.ImageUpload != null)
                 {
-                    <div class="form-control-static">No Image</div>
-                }
-                else
-                {
-                    <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage", "DONATIONs", new {Model.DonationId, Model.DonorId})" />
+                    <img class="img-thumbnail" width="590" height="225" src="@Url.Action("GetImage", "DONATIONs", new { Model.DonationId, Model.DonorId })" />
                 }
             </div>
         </td>
