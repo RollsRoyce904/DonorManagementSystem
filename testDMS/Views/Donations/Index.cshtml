@@ -6,15 +6,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-    <script src="~/Scripts/table2CSV.js">
-        function exportToCSV() {
+<head>
+    <script type="text/javascript" src="~/Scripts/table2CSV.js"></script>
+    <script language="javacript">
+        function exportToCSV(){
             $("table").table2csv();
             $("table").table2csv('output', { appendTo: '#out' });
             $("table").table2csv({ filename: 'DonationTable.csv' });
             $("table").table2csv({ separator: ',', newline: '\n', newline: '\n', excludeColumns: '', excludeRows: '' });
         }
     </script>
+</head>
 <style>
 
 </style>
@@ -83,6 +85,6 @@
     }
 </table>
 
-@*<input type="submit" onclick="exportToCSV()" value="Export to Excel">*@
+<input type="submit" onclick="exportToCSV();" value="Export to Excel">
 
 <input type="button" class="btn btn-default" style="background-image:url('../../Images/excel_icon.png');background-size:cover;width:75px;height:75px" />

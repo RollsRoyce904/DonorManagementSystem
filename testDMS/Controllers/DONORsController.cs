@@ -116,6 +116,11 @@ namespace testDMS.Controllers
         {
             if (ModelState.IsValid)
             {
+                DONOR myDonor = donor;
+                if (myDonor.FName == null && myDonor.LName == null)
+                {
+                    myDonor.FName = myDonor.CompanyName;
+                }
                 drRepo.Add(donor);
                 return RedirectToAction("Index");
             }
