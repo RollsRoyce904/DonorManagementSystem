@@ -40,7 +40,7 @@
 <div class="well well-lg">
 
     <div style="display: inline-block">
-        <h4>Donation Record: @Html.DisplayFor(model => model.DONOR.FNAME) @Html.DisplayFor(model => model.DONOR.LNAME)</h4>
+        <h4>Donation Record: @Html.DisplayFor(model => model.DONOR.FName) @Html.DisplayFor(model => model.DONOR.LName)</h4>
     </div>
 
     <div style="display: inline-block;float:right">
@@ -52,13 +52,18 @@
     <tr><th class="lines" style="background-color:#0096D7" colspan="2">Donation Record</th><th>Check Image</th></tr>
     <tr>
         <td class="lines">Donor:  </td>
-        <td class="lines">@Html.DisplayFor(model => model.DONOR.FNAME) @Html.DisplayFor(model => model.DONOR.LNAME)</td>
+        <td class="lines">@Html.DisplayFor(model => model.DONOR.FName) @Html.DisplayFor(model => model.DONOR.LName)</td>
         <td rowspan="7" style="padding:3%">
             <div class="form-group">
                 <br />
-                @* Need to specify width/height of image when it gets working *@
-                <label for="Upload"></label>
-                <img src="~/Images/sampleCheck.jpg" alt="check image" />
+                @if (Model.ImageUpload == null)
+                {
+                    <div class="form-control-static">No Image</div>
+                }
+                else
+                {
+                    <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage", "DONATIONs", new {Model.DonationId, Model.DonorId})" />
+                }
             </div>
         </td>
     </tr>
@@ -72,7 +77,7 @@
     <tr><td class="lines">Method of Gift: </td><td class="lines"> @Html.DisplayFor(model => model.GiftMethod)</td></tr>
     <tr><td class="lines">Gift Date:  </td><td class="lines">@Html.DisplayFor(model => model.DateGiftMade)</td></tr>
     <tr><td class="lines">Restrictions: </td><td class="lines"> @Html.DisplayFor(model => model.GiftRestrictions)</td></tr>
-    <tr><td class="lines">Code:  </td><td class="lines">@Html.DisplayFor(model => model.CODE.Fund)</td></tr>
+    <tr><td class="lines">Code:  </td><td class="lines">@Html.DisplayFor(model => model.CODES.Fund)</td></tr>
 
     <tr><td colspan="3"><br />&nbsp;<input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Back" onclick="location.href='@Url.Action("Index", "DONATIONs")'" /></td></tr>
 

@@ -31,13 +31,17 @@ namespace testDMS.Controllers
             model.Donors = Donors;
             model.Donations = Donations;
 
-            ViewBag.Person = new SelectList(data.Donor, "DonorId", "FNAME");
-            ViewBag.Department = new SelectList(data.Code, "CodeId", "Department");
-            ViewBag.Gl = new SelectList(data.Code, "CodeId", "GL");
+            ViewBag.Person = new SelectList(data.DONOR, "DonorId", "FNAME");
+            ViewBag.Department = new SelectList(data.CODES, "CodeId", "Department");
+            ViewBag.Gl = new SelectList(data.CODES, "CodeId", "GL");
 
             return View(model);
         }
 
+        public ActionResult Filter(string name, double amount, string date, string department, string gl)
+        {
 
+            return View();
+        }
     }
 }

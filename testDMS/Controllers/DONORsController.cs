@@ -51,25 +51,23 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME", donor.COMPANYID);
-            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF", donor.CONTACTID);
-            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
+            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
 
             return View(donor);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DONORID,FNAME,MINIT,LNAME,TITLE,SUFFIX,EMAIL,CELL,BIRTHDAY,GENDER,MARKERID,CONTACTID,COMPANYID")] DONOR donor)
+        public ActionResult Edit([Bind(Include = "DonorId,FName,Init,LName,Title,Suffix,Email,Cell,Birthday,Gender,MarkerId,ContactId,CompanyName,Address,City,State,Zipcode,Phone")] DONOR donor)
         {
             if (ModelState.IsValid)
             {
-                drRepo.Edit(donor);
+                drRepo.SaveProduct(donor);
                 return RedirectToAction("Index");
             }
-            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME", donor.COMPANYID);
-            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF", donor.CONTACTID);
-            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
+            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
         }
 
@@ -87,7 +85,7 @@ namespace testDMS.Controllers
             IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.GetDonations();
 
             displayData.Donations = (from d in donation
-                                 where d.DonorId == displayData.Donors.DONORID
+                                 where d.DonorId == displayData.Donors.DonorId
                                  select d);
 
             if (displayData.Donors == null)
@@ -107,25 +105,28 @@ namespace testDMS.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME");
-            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF");
-            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE");
+            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF");
+            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DONORID,FNAME,MINIT,LNAME,TITLE,SUFFIX,EMAIL,CELL,BIRTHDAY,GENDER,MARKERID,CONTACTID,COMPANYID")] DONOR donor)
+        public ActionResult Create([Bind(Include = "DonorId,FName,Init,LName,Title,Suffix,Email,Cell,Birthday,Gender,MarkerId,ContactId,CompanyName,Address,City,State,Zipcode,Phone")] DONOR donor)
         {
             if (ModelState.IsValid)
             {
+                DONOR myDonor = donor;
+                if (myDonor.FName == null && myDonor.LName == null)
+                {
+                    myDonor.FName = myDonor.CompanyName;
+                }
                 drRepo.Add(donor);
                 return RedirectToAction("Index");
             }
-
-            ViewBag.COMPANYID = new SelectList(data.Company, "COMPANYID", "COMPANYNAME", donor.COMPANYID);
-            ViewBag.CONTACTID = new SelectList(data.Contact, "CONTACTID", "TYPEOF", donor.CONTACTID);
-            ViewBag.MARKERID = new SelectList(data.IdentityMarker, "MARKERID", "MARKERTYPE", donor.MARKERID);
+            
+            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
         }
 

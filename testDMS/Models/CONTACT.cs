@@ -17,17 +17,17 @@ namespace testDMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CONTACT()
         {
-            this.DONORs = new HashSet<DONOR>();
+            this.DONOR = new HashSet<DONOR>();
         }
     
-        public int CONTACTID { get; set; }
-        public System.DateTime DATEOF { get; set; }
-        public string TYPEOF { get; set; }
-        public string METHOD { get; set; }
-        public string SUBJECTOF { get; set; }
-        public string SUMMARY { get; set; }
+        public int ContactId { get; set; }
+        public Nullable<System.DateTime> DateOf { get; set; }
+        public string TypeOf { get; set; }
+        public string Method { get; set; }
+        public string SubjectOf { get; set; }
+        public string Summary { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DONOR> DONORs { get; set; }
+        public virtual ICollection<DONOR> DONOR { get; set; }
     }
 }

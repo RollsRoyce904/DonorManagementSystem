@@ -9,6 +9,6 @@ namespace testDMS.Models
     {
         public DONOR donor { get; set; }
         public DONATION donation { get; set; }
-        public CODE code { get; set; }
+        public CODES code { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace testDMS.Models
         
         public IEnumerable<DONATION> Donations { get; set; }
 
-        public IEnumerable<NOTE> Notes { get; set; }
+        public IEnumerable<NOTES> Notes { get; set; }
     }
 }

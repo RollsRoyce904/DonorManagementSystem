@@ -17,13 +17,13 @@ namespace testDMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public IDENTITYMARKER()
         {
-            this.DONORs = new HashSet<DONOR>();
+            this.DONOR = new HashSet<DONOR>();
         }
     
-        public int MARKERID { get; set; }
-        public string MARKERTYPE { get; set; }
+        public int MarkerId { get; set; }
+        public string MarkerType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DONOR> DONORs { get; set; }
+        public virtual ICollection<DONOR> DONOR { get; set; }
     }
 }

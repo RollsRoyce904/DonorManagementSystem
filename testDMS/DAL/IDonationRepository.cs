@@ -11,7 +11,8 @@ namespace testDMS.DAL
     public interface IDonationRepository
     {
         void Add(DONATION d);
-        void Edit(DONATION d);
+        //void Edit(DONATION d);
+        void SaveDonation(DONATION d);
         void Remove(int ida, int idb);
         IEnumerable GetDonations();
         DONATION FindById(int? idOne, int? idTwo);

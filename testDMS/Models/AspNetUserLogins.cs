@@ -12,11 +12,12 @@ namespace testDMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RELATIVE
+    public partial class AspNetUserLogins
     {
-        public int RELATIVEID { get; set; }
-        public int DONORID { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     
-        public virtual DONOR DONOR { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

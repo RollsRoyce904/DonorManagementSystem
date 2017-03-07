@@ -15,33 +15,33 @@
 <hr />
 <div class="well well-lg">
     <div style="display: inline-block">
-        <h4>Delete Donor Record: @Html.DisplayFor(model => model.FNAME) @Html.DisplayFor(model => model.LNAME)</h4>
+        <h4>Delete Donor Record: @Html.DisplayFor(model => model.FName) @Html.DisplayFor(model => model.LName)</h4>
     </div>
 
     <div style="display: inline-block;float:right">
-        @Html.ActionLink("Back to Record", "Details", new { id = Model.DONORID }, new { @class = "btn btn-primary btn-large" })
+        @Html.ActionLink("Back to List", "Details", new { id = Model.DonorId }, new { @class = "btn btn-primary btn-large" })
     </div>
 </div>
 
 <div class="panel panel-default col-md-12">
 
-    <div class="panel panel-heading"><h3 style="color:#e31b23">Are you sure you want to delete @Html.DisplayFor(model => model.FNAME) @Html.DisplayFor(model => model.MINIT) @Html.DisplayFor(model => model.LNAME)'s record?</h3></div>
+    <div class="panel panel-heading"><h3 style="color:#e31b23">Are you sure you want to delete @Html.DisplayFor(model => model.FName) @Html.DisplayFor(model => model.Init) @Html.DisplayFor(model => model.LName)'s record?</h3></div>
 
     <div class="panel panel-body" >
         <table border="0">
-            <tr><th class="lines" style="background-color:#0096D7"> @Html.DisplayFor(model => model.TITLE) @Html.DisplayFor(model => model.FNAME) @Html.DisplayFor(model => model.MINIT) @Html.DisplayFor(model => model.LNAME) @Html.DisplayFor(model => model.SUFFIX)</th></tr>
+            <tr><th class="lines" style="background-color:#0096D7"> @Html.DisplayFor(model => model.Title) @Html.DisplayFor(model => model.FName) @Html.DisplayFor(model => model.Init) @Html.DisplayFor(model => model.LName) @Html.DisplayFor(model => model.Suffix)</th></tr>
             <tr><td>Email Address:</td></tr>
-            <tr><td class="lines"><a href="mailto:@Html.DisplayFor(model => model.EMAIL)" target="_top">@Html.DisplayFor(model => model.EMAIL)</a></td></tr>
-            <tr><td class="lines">Phone Number: @Html.DisplayFor(model => model.CELL) </td></tr>
-            <tr><td class="lines">Birthday: @Html.DisplayFor(model => model.BIRTHDAY)</td></tr>
-            <tr><td class="lines">Gender: @Html.DisplayFor(model => model.GENDER)</td></tr>
+            <tr><td class="lines"><a href="mailto:@Html.DisplayFor(model => model.Email)" target="_top">@Html.DisplayFor(model => model.Email)</a></td></tr>
+            <tr><td class="lines">Phone Number: @Html.DisplayFor(model => model.Cell) </td></tr>
+            <tr><td class="lines">Birthday: @Html.DisplayFor(model => model.Birthday)</td></tr>
+            <tr><td class="lines">Gender: @Html.DisplayFor(model => model.Gender)</td></tr>
             <tr><td></td></tr>
             <tr><th class="lines" style="background-color:#0096D7">Codes</th></tr>
-            <tr><td class="lines">@Html.DisplayNameFor(model => model.COMPANY.COMPANYNAME): @Html.DisplayFor(model => model.COMPANY.COMPANYNAME)</td></tr>
-            <tr><td class="lines">@Html.DisplayNameFor(model => model.CONTACT.TYPEOF): @Html.DisplayFor(model => model.CONTACT.TYPEOF)</td></tr>
-            <tr><td class="lines">@Html.DisplayNameFor(model => model.IDENTITYMARKER.MARKERTYPE):@Html.DisplayFor(model => model.IDENTITYMARKER.MARKERTYPE)</td></tr>
+            <tr><td class="lines">@Html.DisplayNameFor(model => model.CompanyName): @Html.DisplayFor(model => model.CompanyName)</td></tr>
+            <tr><td class="lines">@Html.DisplayNameFor(model => model.CONTACT.TypeOf): @Html.DisplayFor(model => model.CONTACT.TypeOf)</td></tr>
+            <tr><td class="lines">@Html.DisplayNameFor(model => model.IDENTITYMARKER.MarkerType):@Html.DisplayFor(model => model.IDENTITYMARKER.MarkerType)</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>@Html.ActionLink("Back to List", "Details", new { id = Model.DONORID }, new { @class = "btn btn-primary btn-large" })</td></tr>
+            <tr><td>@Html.ActionLink("Back to List", "Details", new { id = Model.DonorId }, new { @class = "btn btn-primary btn-large" })</td></tr>
 
 
         </table>

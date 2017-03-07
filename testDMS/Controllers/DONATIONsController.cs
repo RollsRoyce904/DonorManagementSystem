@@ -58,45 +58,32 @@ namespace testDMS.Controllers
             List<string> grants = new List<string>();
             grants.Add("No");
             grants.Add("Yes");
-            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund");
-            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME");
+            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund");
+            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "CompanyName");
             ViewBag.Grants = new SelectList(grants);
             return View();
         }
 
-        // POST: DONATIONs/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION donation)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        dnRepo.Add(donation);
-        //        data.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
-        //    ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
-        //    return View(donation);
-        //}
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateDonationViewModel CDVM)
+        public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image = null)
         {
             DONATION donation = CDVM.donation;
 
             if (ModelState.IsValid)
             {
+                if (image != null)
+                {
+                    donation.ImageMimeType = image.ContentType;
+                    donation.ImageUpload = new byte[image.ContentLength];
+                    image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
+                }
                 dnRepo.Add(donation);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
-            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
+            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund", donation.CodeId);
+            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME", donation.DonorId);
 
             return View(donation);
         }
@@ -116,8 +103,8 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", donation.CodeId);
-            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", donation.DonorId);
+            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund", donation.CodeId);
+            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME", donation.DonorId);
 
             return View(donation);
         }
@@ -127,16 +114,22 @@ namespace testDMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION dONATION)
+        public ActionResult Edit([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION dONATION, HttpPostedFileBase image = null)
         {
             if (ModelState.IsValid)
             {
-                dnRepo.Add(dONATION);
+                if (image != null)
+                {
+                    dONATION.ImageMimeType = image.ContentType;
+                    dONATION.ImageUpload = new byte[image.ContentLength];
+                    image.InputStream.Read(dONATION.ImageUpload, 0, image.ContentLength);
+                }
+                dnRepo.SaveDonation(dONATION);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CodeId = new SelectList(data.Code, "CodeId", "Fund", dONATION.CodeId);
-            ViewBag.DonorId = new SelectList(data.Donor, "DONORID", "FNAME", dONATION.DonorId);
+            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund", dONATION.CodeId);
+            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME", dONATION.DonorId);
 
             return View(dONATION);
         }
@@ -175,6 +168,19 @@ namespace testDMS.Controllers
                 data.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public FileContentResult GetImage(int donationId, int donorId)
+        {
+            DONATION donation = dnRepo.FindById(donationId, donorId);
+            if(donation != null)
+            {
+                return File(donation.ImageUpload, donation.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

@@ -26,18 +26,17 @@ namespace testDMS.Models
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<CODE> Code { get; set; }
-        public virtual DbSet<COMPANY> Company { get; set; }
-        public virtual DbSet<CONTACT> Contact { get; set; }
-        public virtual DbSet<DONATION> Donation { get; set; }
-        public virtual DbSet<DONOR> Donor { get; set; }
-        public virtual DbSet<IDENTITYMARKER> IdentityMarker { get; set; }
-        public virtual DbSet<RELATIVE> RELATIVES { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<CODES> CODES { get; set; }
+        public virtual DbSet<CONTACT> CONTACT { get; set; }
+        public virtual DbSet<DONATION> DONATION { get; set; }
+        public virtual DbSet<DONOR> DONOR { get; set; }
+        public virtual DbSet<IDENTITYMARKER> IDENTITYMARKER { get; set; }
+        public virtual DbSet<NOTES> NOTES { get; set; }
+        public virtual DbSet<RELATIVES> RELATIVES { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
-        public virtual DbSet<NOTE> NOTES { get; set; }
     }
 }

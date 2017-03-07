@@ -76,7 +76,7 @@
     {
         <tr>
             <td style="text-align:left;padding-left:3%">
-                @Html.DisplayFor(modelItem => item.DONOR.LNAME), @Html.DisplayFor(modelItem => item.DONOR.FNAME) @Html.DisplayFor(modelItem => item.DONOR.MINIT).
+                @Html.DisplayFor(modelItem => item.DONOR.LName), @Html.DisplayFor(modelItem => item.DONOR.FName) @Html.DisplayFor(modelItem => item.DONOR.Init).
             </td>
             <td style="padding-left:5%">
                 @Html.DisplayFor(modelItem => item.Amount)
@@ -85,10 +85,10 @@
                 @Html.DisplayFor(modelItem => item.DateRecieved)
             </td>
             <td style="padding-left:7%">
-                @Html.DisplayFor(modelItem => item.CODE.Department)
+                @Html.DisplayFor(modelItem => item.CODES.Department)
             </td>
             <td style="padding-left:7%">
-                @Html.DisplayFor(modelItem => item.CODE.GL)
+                @Html.DisplayFor(modelItem => item.CODES.GL)
             </td>
         </tr>
     }
