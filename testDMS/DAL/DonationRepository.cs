@@ -52,7 +52,7 @@ namespace testDMS.DAL
             context.SaveChanges();
         }
 
-        public void SaveProduct(DONATION d)
+        public void SaveDonation(DONATION d)
         {
             if (d.DonationId == 100)
             {
