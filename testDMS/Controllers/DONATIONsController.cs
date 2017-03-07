@@ -60,7 +60,7 @@ namespace testDMS.Controllers
             grants.Add("No");
             grants.Add("Yes");
             ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund");
-            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME");
+            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "CompanyName");
             ViewBag.Grants = new SelectList(grants);
             return View();
         }
