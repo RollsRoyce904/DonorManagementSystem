@@ -21,10 +21,10 @@ namespace testDMS.DAL
             context.SaveChanges();
         }
 
-        public void Edit(DONATION d)
-        {
-            context.Entry(d).State = System.Data.Entity.EntityState.Modified;
-        }
+        //public void Edit(DONATION d)
+        //{
+        //    context.Entry(d).State = System.Data.Entity.EntityState.Modified;
+        //}
 
         public DONATION FindById(int? idOne, int? idTwo)
         {
@@ -50,6 +50,33 @@ namespace testDMS.DAL
             DONATION d = context.DONATION.Find(ida, idb);
             context.DONATION.Remove(d);
             context.SaveChanges();
+        }
+
+        public void SaveProduct(DONATION d)
+        {
+            if (d.DonationId == 100)
+            {
+                context.DONATION.Add(d);
+            }
+            else
+            {
+                DONATION dbEntry = context.DONATION.Find(d.DonationId, d.DonorId);
+                if (dbEntry != null)
+                {
+                    dbEntry.Amount = d.Amount;
+                    dbEntry.TypeOf = d.TypeOf;
+                    dbEntry.DateRecieved = d.DateRecieved;
+                    dbEntry.GiftMethod = d.GiftMethod;
+                    dbEntry.DateGiftMade = d.DateGiftMade;
+                    dbEntry.CodeId = d.CodeId;
+                    dbEntry.ImageUpload = d.ImageUpload;
+                    dbEntry.GiftRestrictions = d.GiftRestrictions;
+                    dbEntry.Notes = d.Notes;
+                }
+            }
+
+            context.SaveChanges();
+
         }
     }
 }

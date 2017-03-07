@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using testDMS.Models;
@@ -16,10 +17,10 @@ namespace testDMS.DAL
             context.SaveChanges();
         }
 
-        public void Edit(DONOR d)
-        {
-            context.Entry(d).State = System.Data.Entity.EntityState.Modified;
-        }
+        //public void Edit(DONOR d)
+        //{
+        //    context.Entry(d).State = EntityState.Modified;
+        //}
 
         public DONOR FindById(int? id)
         {
@@ -58,6 +59,41 @@ namespace testDMS.DAL
             DONOR d = context.DONOR.Find(id);
             context.DONOR.Remove(d);
             context.SaveChanges();
+        }
+
+        public void SaveProduct(DONOR product)
+        {
+            if (product.DonorId == 100)
+            {
+                context.DONOR.Add(product);
+            }
+            else
+            {
+                DONOR dbEntry = context.DONOR.Find(product.DonorId);
+                if (dbEntry != null)
+                {
+                    dbEntry.FName = product.FName;
+                    dbEntry.Init = product.Init;
+                    dbEntry.LName = product.LName;
+                    dbEntry.Suffix = product.Suffix;
+                    dbEntry.Title = product.Title;
+                    dbEntry.Email = product.Email;
+                    dbEntry.Cell = product.Cell;
+                    dbEntry.Birthday = product.Birthday;
+                    dbEntry.Gender = product.Gender;
+                    dbEntry.MarkerId = product.MarkerId;
+                    dbEntry.ContactId = product.ContactId;
+                    dbEntry.CompanyName = product.CompanyName;
+                    dbEntry.Address = product.Address;
+                    dbEntry.City = product.City;
+                    dbEntry.Zipcode = product.Zipcode;
+                    dbEntry.Phone = product.Phone;
+                    dbEntry.State = product.State;
+                }
+            }
+
+            context.SaveChanges();
+
         }
     }
 }

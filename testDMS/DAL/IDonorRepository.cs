@@ -11,8 +11,9 @@ namespace testDMS.DAL
     public interface IDonorRepository
     {
         void Add(DONOR d);
-        void Edit(DONOR d);
+        //void Edit(DONOR d);
         void Remove(int id);
+        void SaveProduct(DONOR product);
         IEnumerable GetDonors();
         DONOR FindById(int? id);
         IEnumerable FindBy(string search);
