@@ -131,7 +131,7 @@ namespace testDMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                dnRepo.Add(dONATION);
+                dnRepo.Edit(dONATION);
                 return RedirectToAction("Index");
             }
 
