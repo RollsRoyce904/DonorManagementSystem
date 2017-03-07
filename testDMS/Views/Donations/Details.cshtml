@@ -56,9 +56,14 @@
         <td rowspan="7" style="padding:3%">
             <div class="form-group">
                 <br />
-                @* Need to specify width/height of image when it gets working *@
-                <label for="Upload"></label>
-                <img src="~/Images/sampleCheck.jpg" alt="check image" />
+                @if (Model.ImageUpload == null)
+                {
+                    <div class="form-control-static">No Image</div>
+                }
+                else
+                {
+                    <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage", "DONATIONs", new {Model.DonationId, Model.DonorId})" />
+                }
             </div>
         </td>
     </tr>

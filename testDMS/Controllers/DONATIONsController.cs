@@ -66,12 +66,18 @@ namespace testDMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateDonationViewModel CDVM)
+        public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image = null)
         {
             DONATION donation = CDVM.donation;
 
             if (ModelState.IsValid)
             {
+                if (image != null)
+                {
+                    donation.ImageMimeType = image.ContentType;
+                    donation.ImageUpload = new byte[image.ContentLength];
+                    image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
+                }
                 dnRepo.Add(donation);
                 return RedirectToAction("Index");
             }
@@ -108,10 +114,16 @@ namespace testDMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION dONATION)
+        public ActionResult Edit([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION dONATION, HttpPostedFileBase image = null)
         {
             if (ModelState.IsValid)
             {
+                if (image != null)
+                {
+                    dONATION.ImageMimeType = image.ContentType;
+                    dONATION.ImageUpload = new byte[image.ContentLength];
+                    image.InputStream.Read(dONATION.ImageUpload, 0, image.ContentLength);
+                }
                 dnRepo.SaveDonation(dONATION);
                 return RedirectToAction("Index");
             }
@@ -156,6 +168,19 @@ namespace testDMS.Controllers
                 data.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public FileContentResult GetImage(int donationId, int donorId)
+        {
+            DONATION donation = dnRepo.FindById(donationId, donorId);
+            if(donation != null)
+            {
+                return File(donation.ImageUpload, donation.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

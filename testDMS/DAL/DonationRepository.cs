@@ -70,6 +70,7 @@ namespace testDMS.DAL
                     dbEntry.DateGiftMade = d.DateGiftMade;
                     dbEntry.CodeId = d.CodeId;
                     dbEntry.ImageUpload = d.ImageUpload;
+                    dbEntry.ImageMimeType = d.ImageMimeType;
                     dbEntry.GiftRestrictions = d.GiftRestrictions;
                     dbEntry.Notes = d.Notes;
                 }

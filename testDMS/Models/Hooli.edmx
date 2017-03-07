@@ -105,6 +105,7 @@
           <Property Name="ImageUpload" Type="varbinary(max)" />
           <Property Name="GiftRestrictions" Type="nvarchar(max)" />
           <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="ImageMimeType" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DONOR">
           <Key>
@@ -471,6 +472,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <NavigationProperty Name="CODES" Relationship="Self.FK__DONATION__CodeId__2B0A656D" FromRole="DONATION" ToRole="CODES" />
           <NavigationProperty Name="DONOR" Relationship="Self.FK__DONATION__DonorI__2A164134" FromRole="DONATION" ToRole="DONOR" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ImageMimeType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DONOR">
           <Key>
@@ -788,6 +790,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySetMapping Name="DONATION">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.DONATION">
               <MappingFragment StoreEntitySet="DONATION">
+                <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="DonationId" ColumnName="DonationId" />
                 <ScalarProperty Name="DonorId" ColumnName="DonorId" />

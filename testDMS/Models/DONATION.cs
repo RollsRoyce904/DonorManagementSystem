@@ -25,6 +25,7 @@ namespace testDMS.Models
         public byte[] ImageUpload { get; set; }
         public string GiftRestrictions { get; set; }
         public string Notes { get; set; }
+        public string ImageMimeType { get; set; }
     
         public virtual CODES CODES { get; set; }
         public virtual DONOR DONOR { get; set; }
