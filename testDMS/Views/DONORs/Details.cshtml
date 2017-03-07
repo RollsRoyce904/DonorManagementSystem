@@ -5,6 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*<button onclick="formatPhone('@Model.Donors.CELL')">Try it</button>
+<label id="demo"></label>
+<script>
+    function formatPhone(s) {
+        var str = s;
+        var res = str.slice(0, 3) + "-" + str.slice(3, 6) + "-" + str.slice(6, 12);
+        document.getElementById("demo").innerHTML = res;
+    }
+</script>*@
+
 <style>
     td.lines {
         padding-bottom: 5px;
@@ -24,6 +34,7 @@
     </div>
 </div>
 
+
 <div class="panel panel-default col-md-3">
 
     <div class="panel panel-heading">@Model.Donors.FNAME's Information</div>
@@ -34,7 +45,7 @@
             <tr><th class="lines" style="background-color:#0096D7">@Model.Donors.TITLE @Model.Donors.FNAME @Model.Donors.MINIT @Model.Donors.LNAME @Model.Donors.SUFFIX</th></tr>
             <tr><td>Email Address:</td></tr>
             <tr><td class="lines"><a href="mailto:@Model.Donors.EMAIL" target="_top">@Model.Donors.EMAIL</a></td></tr>
-            <tr><td class="lines">Phone Number: @Model.Donors.CELL </td></tr>
+            <tr><td class="lines">Phone Number: @Model.Donors.CELL</td></tr>
             <tr><td class="lines">Birthday: @Model.Donors.BIRTHDAY</td></tr>
             <tr><td class="lines">Gender: @Model.Donors.GENDER</td></tr>
             <tr><td></td></tr>
