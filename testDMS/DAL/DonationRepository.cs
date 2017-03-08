@@ -34,8 +34,24 @@ namespace testDMS.DAL
 
         public IEnumerable FindBy(string search)
         {
-            var result = (from d in context.DONATION where d.Amount.ToString() == search ||
-                          d.DONOR.FName == search || d.DONOR.LName == search
+            var result = (from d in context.DONATION where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
+                          d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search || d.DONOR.LName == search || d.DONOR.CompanyName == search
+                          select d);
+            return result;
+        }
+
+        public IEnumerable FindBy(decimal amount1, decimal amount2)
+        {
+            var result = (from d in context.DONATION
+                          where d.Amount >= amount1 && d.Amount <= amount2
+                          select d);
+            return result;
+        }
+
+        public IEnumerable FindBy(DateTime date1, DateTime date2)
+        {
+            var result = (from d in context.DONATION
+                          where (date1 >= d.DateGiftMade && date2 <= d.DateGiftMade) || (date1 >= d.DateRecieved && date2 <= d.DateRecieved)
                           select d);
             return result;
         }

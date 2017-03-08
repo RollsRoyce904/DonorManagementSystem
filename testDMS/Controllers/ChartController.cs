@@ -38,8 +38,21 @@ namespace testDMS.Controllers
             return View(model);
         }
 
-        public ActionResult Filter(string name, double amount, string date, string department, string gl)
+        public ActionResult Search(string searchString)
         {
+            IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
+            return View();
+        }
+
+        public ActionResult AmountSearch(decimal amount1, decimal amount2)
+        {
+            IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.FindBy(amount1, amount2);
+            return View();
+        }
+
+        public ActionResult ByDate(DateTime date1, DateTime date2)
+        {
+            IEnumerable<DONATION> Donation1 = (IEnumerable<DONATION>)dnRepo.FindBy(date1, date2);
 
             return View();
         }
