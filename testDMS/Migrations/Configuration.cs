@@ -11,7 +11,7 @@ namespace testDMS.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(testDMS.Models.ApplicationDbContext context)

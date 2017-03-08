@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using testDMS.Models;
 using testDMS.DAL;
 using System.IO;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace testDMS.Controllers
 {
@@ -74,9 +76,9 @@ namespace testDMS.Controllers
             if (ModelState.IsValid)
             {
                 
-                    donation.ImageMimeType = image.ContentType;
-                    donation.ImageUpload = new byte[image.ContentLength];
-                    image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
+                    //donation.ImageMimeType = image.ContentType;
+                    //donation.ImageUpload = new byte[image.ContentLength];
+                    //image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
                
                 dnRepo.Add(donation);
                 return RedirectToAction("Index");
@@ -181,6 +183,56 @@ namespace testDMS.Controllers
             {
                 return null;
             }
+        }
+
+        public ActionResult Upload(string ActionName)
+        {
+            var path = Server.MapPath("~/App_Data/Files");
+            foreach(string item in Request.Files)
+            {
+                HttpPostedFileBase file = Request.Files[item];
+                if(file.ContentLength == 0)
+                {
+                    continue;
+                }
+                string savedFileName = Path.Combine(path, Path.GetFileName(file.FileName));
+                file.SaveAs(savedFileName);
+            }
+            return RedirectToAction(ActionName);
+        }
+
+        public ActionResult ExportToExcel()
+        {
+            // Step 1 - get the data from database
+            var myData = data.DONATION.ToList();
+
+            // instantiate the GridView control from System.Web.UI.WebControls namespace
+            // set the data source
+            GridView gridview = new GridView();
+            gridview.DataSource = myData;
+            gridview.DataBind();
+
+            // Clear all the content from the current response
+            Response.ClearContent();
+            Response.Buffer = true;
+            // set the header
+            Response.AddHeader("content-disposition", "attachment; filename = Donations.xls");
+            Response.ContentType = "application/ms-excel";
+            Response.Charset = "";
+            // create HtmlTextWriter object with StringWriter
+            using (StringWriter sw = new StringWriter())
+            {
+                using (HtmlTextWriter htw = new HtmlTextWriter(sw))
+                {
+                    // render the GridView to the HtmlTextWriter
+                    gridview.RenderControl(htw);
+                    // Output the GridView content saved into StringWriter
+                    Response.Output.Write(sw.ToString());
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+            return View();
         }
     }
 }

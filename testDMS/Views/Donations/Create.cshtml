@@ -148,13 +148,12 @@
                         <div style="position:relative;">
                             <label>Image</label>
                             <a class="btn" href="javascript:;">
-                                Choose File...
-                                <input type="file" name="image" size="40" style="position:absolute; z-index:2; top:0; left:0;
-                filter: alpha(opacity=0); opacity:0; background-color:transparent; color:transparent;" onchange="$('#upload-file-info').html($(this).val());" />
+                                <input type="file" name="image" onchange="$('#upload-file-info').html($(this).val());" />
                             </a>
                             <span class="label label-info" id="upload-file-info"></span>
                             </div>
                         </div>
+                    @*<a class="btn" href="javascript: ;">Choose File...<input type="file" name="file" /></a>*@
                 </td>
             </tr>
             <tr>
@@ -173,3 +172,5 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@*size="40" style="position:absolute; z-index:2; top:0; left:0;
+                filter: alpha(opacity=0); opacity:0; background-color:transparent; color:transparent;"*@

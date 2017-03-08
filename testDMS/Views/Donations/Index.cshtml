@@ -6,16 +6,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-    <script type="text/javascript" src="~/Scripts/table2CSV.js">
-
-        function exportToCSV(){
+@*<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/table2CSV.js">
+    function exportToCSV() {
             $("table").table2csv();
             $("table").table2csv('output', { appendTo: '#out' });
             $("table").table2csv({ filename: 'DonationTable.csv' });
             $("table").table2csv({ separator: ',', newline: '\n', newline: '\n', excludeColumns: '', excludeRows: '' });
         }
-    </script>
+    </script>*@
 
 <style>
 
@@ -83,9 +82,11 @@
                 @Html.ActionLink("Delete", "Delete", new { ida = item.DonationId, idb = item.DonorId }, new { @class = "btn btn-default", @style = "background-color:#e31b23;color:white" })
             </td>
         </tr>
+    
     }
 </table>
+<input type="button" onclick="location.href='@Url.Action("ExportToExcel","DONATIONs")'" class="btn btn-default" style="background-image:url('../../Images/excel_icon.png');background-size:cover;width:75px;height:75px" />
 
-@*<input type="submit" onclick="exportToCSV();" value="Export to Excel">*@
 
-<input type="button" onclick="exportToCSV()" class="btn btn-default" style="background-image:url('../../Images/excel_icon.png');background-size:cover;width:75px;height:75px" />
+
+
