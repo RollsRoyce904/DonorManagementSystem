@@ -18,13 +18,29 @@
     }
 
 </script>*@
-<script>
-$(function() {
-    $(#Amount).change(function() {
-        var option = $(this).find("option:selected").text();
-        var optionValue = $(this).val().submit();
-})
-})
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#Amount").change(function () {
+            var option = $(this).find("option:selected").val();
+           
+            $.ajax({
+                type: "POST",
+                url: "/Chart/AmountSearch", // the method we are calling
+                contentType: "application/json; charset=utf-8",
+                data: option,
+                dataType: "json",
+                success: function (response) {
+                    alert(response.responseText)                    
+                    // Or if you are returning something
+                    //alert('I returned... ' + option);                    
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
 </script>
 <style>
     .dateInput {
@@ -77,20 +93,7 @@ $(function() {
         </td>
         <td>
             <div style="display: inline-block; text-align:left;">
-                @using (Html.BeginForm("AmountSearch", "Chart", FormMethod.Post))
-                {
-                <select class="form-control" style="width:auto;" id="Amount" name="Amount" onchange="redirect(this.value)">
-                    <option selected="selected" value="">Choose Amount</option>
-                    <option value="0,100">0 - 100</option>
-                    <option value="101,500">101 - 500</option>
-                    <option value="501,1000">501 - 1000</option>
-                    <option value="1000,2000">1000 - 2000</option>
-                    <option value="2001,4000">2001 - 4000</option>
-                    <option value="4001">4001 - 7000</option>
-                    <option value="7001,10000">7001 - 10,000</option>
-                    <option value="10000,10000000">10,000+</option>
-                </select>
-                }
+               @Html.DropDownList("Amount", null, htmlAttributes: new { @class = "form-control", id = "Amount"})
             </div>
         </td>
         <td style="padding-left:3%">
