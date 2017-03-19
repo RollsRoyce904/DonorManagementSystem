@@ -5,19 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<script>
-    function returnAmount() {
-        $.ajax({
-            url: '@Url.Action("AmountSearch", "Chart")',
-            type: 'POST',
-            data: { type: $('discount').val },
-            succuss: function () {
-
-            }
-        })
-    }
-
-</script>*@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -32,15 +19,10 @@
                 data: JSON.stringify(option),
                 dataType: "json",
                 success: function (data) {
-                    var list = data.
-                    $.each(list, function (index, value) {
-                        alert(value);
-                    });
-                    //alert("success");
-                    //$("displayData").append(data);
+                    alert("yes");
                 },
                 error: function (response) {
-                    alert(response.responseText);
+                    alert("nope");
                 }
             });
         });
@@ -110,9 +92,11 @@
             @Html.DropDownList("GL", null, "GL", htmlAttributes: new { @class = "form-control" })
         </td>
     </tr>
-
-
-    @foreach (var item in Model.Donations)
+    
+     @Html.Partial("_ReportData");
+ 
+    
+    @*@foreach (var item in Model.Donations)
     {
         var displayName = item.DONOR.FName;
         if (item.DONOR.FName == null && item.DONOR.LName == null)
@@ -145,5 +129,5 @@
                 @Html.DisplayFor(modelItem => item.CODES.GL)
             </td>
         </tr>
-    }
+    }*@
 </table>

@@ -11,8 +11,17 @@ namespace testDMS.Models
         public string Value { get; set; }
     }
 
-    public class JsonDonationList
+    public class JsonData
     {
-        public IEnumerable<DONATION> list { get; set; }
+        public string FName { get; set; }
+        public Nullable<decimal> Amount { get; set; }
+        public Nullable<System.DateTime> DateRecieved { get; set; }
+        public string Department { get; set; }
+        public string GL { get; set; }
+    }
+
+    public class JsonDataDisplay
+    {
+        public IEnumerable<JsonData> DataList { get; set; }
     }
 }

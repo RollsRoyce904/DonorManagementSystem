@@ -25,11 +25,7 @@ namespace testDMS.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<DONOR> Donors = (IEnumerable<DONOR>)drRepo.GetDonors();
-            IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.GetDonations();
-            ChartDispalyViewModel model = new ChartDispalyViewModel();
-            model.Donors = Donors;
-            model.Donations = Donations;
+           
 
             ViewBag.Person = new SelectList(ddlData.DONOR, "DonorId", "FNAME");
             ViewBag.Department = new SelectList(ddlData.CODES, "CodeId", "Department");
@@ -50,7 +46,20 @@ namespace testDMS.Controllers
                 }, "Value", "Text", 0);
 
             ViewBag.Amount = amountList;
-            return View(model);
+            LoadData();
+
+            return View();
+        }
+
+        public ActionResult LoadData()
+        {
+            IEnumerable<DONOR> Donors = (IEnumerable<DONOR>)drRepo.GetDonors();
+            IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.GetDonations();
+            ChartDispalyViewModel model = new ChartDispalyViewModel();
+            model.Donors = Donors;
+            model.Donations = Donations;
+
+            return PartialView("~/Views/Chart/_ReportData.cshtml", model);
         }
 
         public ActionResult Search(string searchString)
@@ -59,8 +68,8 @@ namespace testDMS.Controllers
             return View();
         }
 
-        //[HttpPost]
-        public JsonResult AmountSearch(Option option)
+        [HttpPost]
+        public ActionResult AmountSearch(Option option)
         {
             Decimal amount1 = 0;
             Decimal amount2 = 0;
@@ -106,11 +115,11 @@ namespace testDMS.Controllers
                     break;
             };
 
-            IEnumerable<DONATION> myDonations = (IEnumerable<DONATION>)dnRepo.FindBy(amount1, amount2);
-            JsonDonationList myList = new JsonDonationList();
-            myList.list = myDonations;
+            ChartDispalyViewModel model = new ChartDispalyViewModel();
 
-            return Json(myDonations, "application/json", JsonRequestBehavior.AllowGet);
+            model.Donations = (IEnumerable<DONATION>)dnRepo.FindBy(amount1, amount2);
+
+            return PartialView("~/Views/Chart/_ReportData.cshtml", model);
         }
 
         public ActionResult ByDate(DateTime date1, DateTime date2)

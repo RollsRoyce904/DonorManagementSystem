@@ -7,5 +7,12 @@ namespace testDMS.Models
         public IEnumerable<DONOR> Donors { get; set; }
 
         public IEnumerable<DONATION> Donations { get; set; }
+
+        public IEnumerable<JsonData> DataList { get; set; }
+
+        public JsonData DataInstance { get; set; }
+
+        public Option JsonOption { get; set; }
+
     }
 }

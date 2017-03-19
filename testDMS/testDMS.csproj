@@ -467,6 +467,7 @@
     <Content Include="Views\DONATIONs\Details.cshtml" />
     <Content Include="Views\DONATIONs\Edit.cshtml" />
     <Content Include="Views\DONATIONs\Index.cshtml" />
+    <Content Include="Views\Chart\_ReportData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
