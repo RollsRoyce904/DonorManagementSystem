@@ -22,18 +22,22 @@
 <script type="text/javascript">
     $(function () {
         $("#Amount").change(function () {
-            var option = $(this).find("option:selected").val();
-           
+            var option = {};
+            option.OptionId = 1;
+            option.Value = $("#Amount").val()
             $.ajax({
                 type: "POST",
-                url: "/Chart/AmountSearch", // the method we are calling
+                url: "/Chart/AmountSearch",
                 contentType: "application/json; charset=utf-8",
-                data: option,
+                data: JSON.stringify(option),
                 dataType: "json",
-                success: function (response) {
-                    alert(response.responseText)                    
-                    // Or if you are returning something
-                    //alert('I returned... ' + option);                    
+                success: function (data) {
+                    var list = data.
+                    $.each(list, function (index, value) {
+                        alert(value);
+                    });
+                    //alert("success");
+                    //$("displayData").append(data);
                 },
                 error: function (response) {
                     alert(response.responseText);
@@ -124,7 +128,7 @@
             displayName = item.DONOR.LName + ", " + item.DONOR.FName + " - " + item.DONOR.CompanyName;
         }
 
-        <tr>
+        <tr id="displayData">
             <td style="text-align:left;padding-left:3%">
                 @Html.DisplayName(displayName)
             </td>

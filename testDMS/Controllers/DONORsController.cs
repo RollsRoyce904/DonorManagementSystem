@@ -16,7 +16,7 @@ namespace testDMS.Controllers
 {
     public class DONORsController : Controller
     {
-        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
+        private DonorManagementDatabaseEntities ddlData = new DonorManagementDatabaseEntities();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
 
@@ -54,8 +54,8 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
-            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
+            ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
 
             return View(donor);
         }
@@ -69,8 +69,8 @@ namespace testDMS.Controllers
                 drRepo.SaveProduct(donor);
                 return RedirectToAction("Index");
             }
-            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
-            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
+            ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
         }
 
@@ -108,8 +108,8 @@ namespace testDMS.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF");
-            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE");
+            ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF");
+            ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE");
             return View();
         }
 
@@ -128,8 +128,8 @@ namespace testDMS.Controllers
                 return RedirectToAction("Index");
             }
             
-            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
-            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
+            ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
         }
 
@@ -161,7 +161,7 @@ namespace testDMS.Controllers
         {
             if (disposing)
             {
-                data.Dispose();
+                ddlData.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -169,7 +169,7 @@ namespace testDMS.Controllers
         public ActionResult ExportToExcel()
         {
             // Step 1 - get the data from database
-            var myData = data.DONOR.ToList();
+            var myData = ddlData.DONOR.ToList();
 
             // instantiate the GridView control from System.Web.UI.WebControls namespace
             // set the data source

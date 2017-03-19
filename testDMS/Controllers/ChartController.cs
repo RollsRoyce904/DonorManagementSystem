@@ -13,7 +13,7 @@ namespace testDMS.Controllers
 {
     public class ChartController : Controller
     {
-        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
+        private DonorManagementDatabaseEntities ddlData = new DonorManagementDatabaseEntities();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
 
@@ -31,9 +31,9 @@ namespace testDMS.Controllers
             model.Donors = Donors;
             model.Donations = Donations;
 
-            ViewBag.Person = new SelectList(data.DONOR, "DonorId", "FNAME");
-            ViewBag.Department = new SelectList(data.CODES, "CodeId", "Department");
-            ViewBag.Gl = new SelectList(data.CODES, "CodeId", "GL");
+            ViewBag.Person = new SelectList(ddlData.DONOR, "DonorId", "FNAME");
+            ViewBag.Department = new SelectList(ddlData.CODES, "CodeId", "Department");
+            ViewBag.Gl = new SelectList(ddlData.CODES, "CodeId", "GL");
 
             var amountList = new SelectList(
                 new List<SelectListItem>
@@ -58,16 +58,16 @@ namespace testDMS.Controllers
             IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
             return View();
         }
-        
-        [HttpPost]
-        public JsonResult AmountSearch(string option)
+
+        //[HttpPost]
+        public JsonResult AmountSearch(Option option)
         {
             Decimal amount1 = 0;
             Decimal amount2 = 0;
 
-            switch (option)
+            switch (option.Value)
             {
-                 case "0":
+                case "0":
                     break;
                 case "1":
                     amount1 = 0;
@@ -107,8 +107,10 @@ namespace testDMS.Controllers
             };
 
             IEnumerable<DONATION> myDonations = (IEnumerable<DONATION>)dnRepo.FindBy(amount1, amount2);
+            JsonDonationList myList = new JsonDonationList();
+            myList.list = myDonations;
 
-            return Json(myDonations, JsonRequestBehavior.AllowGet);
+            return Json(myDonations, "application/json", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ByDate(DateTime date1, DateTime date2)

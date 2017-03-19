@@ -16,7 +16,7 @@ namespace testDMS.Controllers
 {
     public class DONATIONsController : Controller
     {
-        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
+        private DonorManagementDatabaseEntities ddlData = new DonorManagementDatabaseEntities();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
 
@@ -61,8 +61,8 @@ namespace testDMS.Controllers
             List<string> grants = new List<string>();
             grants.Add("No");
             grants.Add("Yes");
-            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund");
-            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "CompanyName");
+            ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund");
+            ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "CompanyName");
             ViewBag.Grants = new SelectList(grants);
             return View();
         }
@@ -75,17 +75,17 @@ namespace testDMS.Controllers
             
             if (ModelState.IsValid)
             {
-                
-                    //donation.ImageMimeType = image.ContentType;
-                    //donation.ImageUpload = new byte[image.ContentLength];
-                    //image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
-               
+
+                donation.ImageMimeType = image.ContentType;
+                donation.ImageUpload = new byte[image.ContentLength];
+                image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
+
                 dnRepo.Add(donation);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund", donation.CodeId);
-            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME", donation.DonorId);
+            ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
+            ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
             return View(donation);
         }
@@ -105,8 +105,8 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund", donation.CodeId);
-            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME", donation.DonorId);
+            ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
+            ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
             return View(donation);
         }
@@ -130,8 +130,8 @@ namespace testDMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CodeId = new SelectList(data.CODES, "CodeId", "Fund", dONATION.CodeId);
-            ViewBag.DonorId = new SelectList(data.DONOR, "DONORID", "FNAME", dONATION.DonorId);
+            ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", dONATION.CodeId);
+            ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", dONATION.DonorId);
 
             return View(dONATION);
         }
@@ -167,7 +167,7 @@ namespace testDMS.Controllers
         {
             if (disposing)
             {
-                data.Dispose();
+                ddlData.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -204,7 +204,7 @@ namespace testDMS.Controllers
         public ActionResult ExportToExcel()
         {
             // Step 1 - get the data from database
-            var myData = data.DONATION.ToList();
+            var myData = ddlData.DONATION.ToList();
 
             // instantiate the GridView control from System.Web.UI.WebControls namespace
             // set the data source
