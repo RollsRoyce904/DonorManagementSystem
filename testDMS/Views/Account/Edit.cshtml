@@ -1,0 +1,89 @@
+﻿@model testDMS.Models.AspNetUsers
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    input[type=submit] {
+        background: transparent url("../../Images/button_update-record.png") 0 0 no-repeat;
+        font-weight: bold;
+        display: inline-block;
+        text-align: center;
+        cursor: pointer;
+        height: 70px;
+        width: 201px;
+        border: 3px solid #fff;
+        border-radius: 2em;
+        color: transparent;
+    }
+</style>
+
+<hr />
+<div class="well well-lg">
+    <div style="display: inline-block">
+        <h4>Update Account Information</h4>
+    </div>
+    <div style="display: inline-block;float:right">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
+    </div>
+</div>
+
+@using (Html.BeginForm("Edit", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Edit Information For: @Html.DisplayFor(model => model.UserName)</h4>
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.NewRole, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.NewRole,
+                  new List<SelectListItem> {
+                       new SelectListItem { Value = "Administrator" , Text = "Administrator" },
+                       new SelectListItem { Value = "Executive" , Text = "Executive" },
+                       new SelectListItem { Value = "General" , Text = "General" }
+                    },
+                  new { @class = "form-control" })
+
+                @*@Html.EditorFor(model => model.NewRole, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NewRole, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+

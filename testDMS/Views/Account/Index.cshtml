@@ -1,0 +1,72 @@
+﻿@model IEnumerable<testDMS.Models.AspNetUsers>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<hr />
+<div class="well well-lg">
+    <div style="display: inline-block">
+        <h4>Account Management</h4>
+    </div>
+    <div style="display: inline-block;float:right">
+
+    </div>
+</div>
+
+@using (Html.BeginForm("Index", "Account", FormMethod.Get)) { 
+<input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Register", "Account")'" />
+@*<div style="display: inline-block;float:right">
+    <div class="form-group">
+        Search Accounts: @Html.TextBox("searchString")
+        <input type="submit" value="Filter" /><br /><br />
+    </div>
+</div>*@
+<br />
+<table class="table">
+    <tr>
+        <th>
+            Email Address
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            User Role
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewRole)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { UserName = item.UserName }) |
+            @if ((item.UserName.ToLower() != this.User.Identity.Name.ToLower()))
+            {
+                @Html.DisplayName("| ")
+                @Html.ActionLink("Delete", "Delete", new { Email = item.Email })
+            } | 
+            @Html.ActionLink("Password Reset", "ResetPassword", new { Email = item.Email })
+        </td>
+    </tr>
+}
+
+</table>
+}
