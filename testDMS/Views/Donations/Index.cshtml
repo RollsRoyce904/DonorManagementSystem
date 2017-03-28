@@ -41,6 +41,12 @@
             @Html.AntiForgeryToken()
             Search Donations: @Html.TextBox("searchString")&nbsp
             <input type="submit" value="Filter" />
+            <button onclick="goBack()">Clear Search</button>
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
         </p>
     }
 </div><br /><br />
