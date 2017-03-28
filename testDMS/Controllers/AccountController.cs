@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using testDMS.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Configuration;
+using System.Net;
+using System.Collections.Generic;
 
 namespace testDMS.Controllers
 {
@@ -19,26 +21,72 @@ namespace testDMS.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
         }
 
+        //Get users
+        public ActionResult Index(string searchString, string currentFilter, int? page)
+        {
+
+            if (searchString == null)
+            {
+                return View(data.AspNetUsers.ToList());
+            }
+            else
+            {
+                return View();// add in search here.
+            }
+        }
+        public ActionResult Edit(string UserName)
+        {
+            if (UserName == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = data.AspNetUsers.FirstOrDefault(p => p.Email == UserName);
+            //var user = await UserManager.FindByNameAsync(UserName);
+            //var userId = user.Id;
+            //IEnumerable<AspNetUsers> currentUser = (IEnumerable<AspNetUsers>)data.AspNetUsers.Find(user.Id);
+            return View(user);
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit(string Id, string Email, string LastName, string FirstName, string NewRole)
+
+
+        {
+            if (Email == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = data.AspNetUsers.FirstOrDefault(p => p.Id == Id);
+            user.Email = Email;
+            user.UserName = Email;
+            user.LastName = LastName;
+            user.FirstName = FirstName;
+            user.NewRole = NewRole;
+            data.SaveChanges();
+            return RedirectToAction("Index");
+        }
         public ApplicationSignInManager SignInManager
         {
             get
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -126,7 +174,7 @@ namespace testDMS.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -157,19 +205,20 @@ namespace testDMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Firstname = model.FirstName, LastName = model.LastName, NewRole = model.NewRole };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Account");
                 }
                 AddErrors(result);
             }
@@ -235,12 +284,58 @@ namespace testDMS.Controllers
             return View();
         }
 
+        public ActionResult Delete(string Email)
+        {
+            var user = data.AspNetUsers.FirstOrDefault(p => p.Email == Email);
+            
+            return View(user);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(string Id, string Email)
+        {
+            // Check for for both ID and Role and exit if not found
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // Look for user in the UserStore
+            var user = UserManager.Users.SingleOrDefault(u => u.Id == Id);
+
+            // If not found, exit
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Remove user from UserStore
+            var results = await UserManager.DeleteAsync(user);
+
+            // If successful
+            if (results.Succeeded)
+            {
+                // Redirect to Users page
+                return RedirectToAction("Index", "Account");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+        }
+
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string code, string Email, ResetPasswordViewModel model)
         {
-            return code == null ? View("Error") : View();
+            //return code == null ? View("Error") : View();
+
+            var user = data.AspNetUsers.FirstOrDefault(p => p.Email == Email);
+
+            return View(model);
+
         }
 
         //
@@ -248,8 +343,9 @@ namespace testDMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model, string Email)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -260,10 +356,13 @@ namespace testDMS.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+
+            string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            var result = await UserManager.ResetPasswordAsync(user.Id, code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("Index", "Account");
+                //return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             AddErrors(result);
             return View();

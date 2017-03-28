@@ -48,12 +48,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
-                        @* Need to add First and Last name to the database, etc. and get the roles working *@
+                            
                         <td>
-                            FName
+                            @Html.DisplayFor(modelItem => item.FirstName)
                         </td>
                         <td>
-                            LName
+                            @Html.DisplayFor(modelItem => item.LastName)
                         </td>
                         <td>
                             Administrator
@@ -71,8 +71,8 @@
                 }
 
             </table>
-            @*Reenable this to add user roles-not included in final product.
+        //Reenable this to add user roles-not included in final product.
                 <p>                
                 @Html.ActionLink("Edit Roles", "ViewAllRoles", null, new { @class = "btn btn-default" })               
-            </p>*@
+            </p>
             }
