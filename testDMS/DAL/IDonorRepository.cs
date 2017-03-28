@@ -11,19 +11,12 @@ namespace testDMS.DAL
     public interface IDonorRepository
     {
         void Add(DONOR d);
-
         //void Edit(DONOR d);
-
         void Remove(int id);
-
         void SaveProduct(DONOR product);
-
-        IEnumerable<DONOR> GetDonors { get; }
-
+        IEnumerable GetDonors();
         DONOR FindById(int? id);
-
         IEnumerable FindBy(string search);
-
         //IEnumerable FindBy(DateTime search);
     }
 } 

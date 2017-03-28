@@ -49,9 +49,9 @@ namespace testDMS.DAL
         //    return result;
         //}
 
-        public IEnumerable<DONOR> GetDonors
+        public IEnumerable GetDonors()
         {
-            get { return context.DONOR; }
+            return context.DONOR;
         }
 
         public void Remove(int id)
