@@ -22,21 +22,6 @@
         <h4>DONATION</h4>
         <hr />
         <table>
-
-            var displayName = item.DONOR.FName;
-            if (item.DONOR.FName == null && item.DONOR.LName == null)
-            {
-            displayName = item.DONOR.CompanyName;
-            }
-            else if (item.DONOR.LName == null && item.DONOR.FName != null)
-            {
-            displayName = item.DONOR.FName + " - " + item.DONOR.CompanyName;
-            }
-            else
-            {
-            displayName = item.DONOR.LName + ", " + item.DONOR.FName + " - " + item.DONOR.CompanyName;
-            }
-
             <tr>
                 <td>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
