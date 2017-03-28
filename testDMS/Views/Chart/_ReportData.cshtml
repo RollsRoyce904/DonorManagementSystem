@@ -1,0 +1,35 @@
+﻿@model testDMS.Models.ChartDispalyViewModel
+
+@foreach (var item in Model.Donations)
+{
+    var displayName = item.DONOR.FName;
+    if (item.DONOR.FName == null && item.DONOR.LName == null)
+    {
+        displayName = item.DONOR.CompanyName;
+    }
+    else if (item.DONOR.LName == null && item.DONOR.FName != null)
+    {
+        displayName = item.DONOR.FName + " - " + item.DONOR.CompanyName;
+    }
+    else
+    {
+        displayName = item.DONOR.LName + ", " + item.DONOR.FName + " - " + item.DONOR.CompanyName;
+    }
+    <tr>
+        <td style="text-align:left;padding-left:3%">
+            @Html.DisplayName(displayName)
+        </td>
+        <td style="padding-left:5%">
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td style="padding-left:9%">
+            @Html.DisplayFor(modelItem => item.DateRecieved)
+        </td>
+        <td style="padding-left:7%">
+            @Html.DisplayFor(modelItem => item.CODES.Department)
+        </td>
+        <td style="padding-left:7%">
+            @Html.DisplayFor(modelItem => item.CODES.GL)
+        </td>
+    </tr>
+}

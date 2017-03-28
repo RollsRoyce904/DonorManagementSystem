@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace testDMS.Models
 {
@@ -7,5 +9,6 @@ namespace testDMS.Models
         public IEnumerable<DONOR> Donors { get; set; }
 
         public IEnumerable<DONATION> Donations { get; set; }
+
     }
 }

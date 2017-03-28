@@ -8,14 +8,19 @@ using System.Web;
 using System.Web.Mvc;
 using testDMS.Models;
 using testDMS.DAL;
+using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.UI;
+using PagedList;
 
 namespace testDMS.Controllers
 {
     public class DONORsController : Controller
     {
-        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
+        private DonorManagementDatabaseEntities ddlData = new DonorManagementDatabaseEntities();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
+        public int PageSize = 5;
 
         public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo)
         {
@@ -23,17 +28,32 @@ namespace testDMS.Controllers
             this.dnRepo = dnRepo;
         }
 
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, int page = 1)
         {
-            if(searchString == null)
+
+            DonorViewModel DonorList = new DonorViewModel
             {
-                return View(drRepo.GetDonors());
-            }
-            else
-            {
-                IEnumerable<DONOR> donor = (IEnumerable<DONOR>)drRepo.FindBy(searchString);
-                return View(donor);
-            }
+                Donors = drRepo.GetDonors
+                .Where(d => searchString == null || d.FName == searchString)
+                .OrderBy(d => d.DonorId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize).ToPagedList(page, PageSize),
+                TotalItems = drRepo.GetDonors.Count()
+                
+            };
+
+            return View(DonorList);
+
+
+            //if(searchString == null)
+            //{
+            //    return View(drRepo.GetDonors());
+            //}
+            //else
+            //{
+            //    IEnumerable<DONOR> donor = (IEnumerable<DONOR>)drRepo.FindBy(searchString);
+            //    return View(donor);
+            //}
             
         }
 
@@ -51,8 +71,8 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
-            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
+            ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
 
             return View(donor);
         }
@@ -66,8 +86,8 @@ namespace testDMS.Controllers
                 drRepo.SaveProduct(donor);
                 return RedirectToAction("Index");
             }
-            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
-            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
+            ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
         }
 
@@ -105,8 +125,8 @@ namespace testDMS.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF");
-            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE");
+            ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF");
+            ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE");
             return View();
         }
 
@@ -125,8 +145,8 @@ namespace testDMS.Controllers
                 return RedirectToAction("Index");
             }
             
-            ViewBag.CONTACTID = new SelectList(data.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
-            ViewBag.MARKERID = new SelectList(data.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
+            ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
+            ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
         }
 
@@ -158,9 +178,43 @@ namespace testDMS.Controllers
         {
             if (disposing)
             {
-                data.Dispose();
+                ddlData.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult ExportToExcel()
+        {
+            // Step 1 - get the data from database
+            var myData = ddlData.DONOR.ToList();
+
+            // instantiate the GridView control from System.Web.UI.WebControls namespace
+            // set the data source
+            GridView gridview = new GridView();
+            gridview.DataSource = myData;
+            gridview.DataBind();
+
+            // Clear all the content from the current response
+            Response.ClearContent();
+            Response.Buffer = true;
+            // set the header
+            Response.AddHeader("content-disposition", "attachment; filename = Donors.xls");
+            Response.ContentType = "application/ms-excel";
+            Response.Charset = "";
+            // create HtmlTextWriter object with StringWriter
+            using (StringWriter sw = new StringWriter())
+            {
+                using (HtmlTextWriter htw = new HtmlTextWriter(sw))
+                {
+                    // render the GridView to the HtmlTextWriter
+                    gridview.RenderControl(htw);
+                    // Output the GridView content saved into StringWriter
+                    Response.Output.Write(sw.ToString());
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+            return View();
         }
     }
 }
