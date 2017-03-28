@@ -25,8 +25,8 @@ namespace testDMS.Controllers
 
         public ActionResult Index()
         {
-           
 
+            ChartDispalyViewModel model = new ChartDispalyViewModel();
             ViewBag.Person = new SelectList(ddlData.DONOR, "DonorId", "FNAME");
             ViewBag.Department = new SelectList(ddlData.CODES, "CodeId", "Department");
             ViewBag.Gl = new SelectList(ddlData.CODES, "CodeId", "GL");
@@ -53,10 +53,10 @@ namespace testDMS.Controllers
 
         public ActionResult LoadData()
         {
-            IEnumerable<DONOR> Donors = (IEnumerable<DONOR>)drRepo.GetDonors();
+            //IEnumerable<DONOR> Donors = (IEnumerable<DONOR>)drRepo.GetDonors();
             IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.GetDonations();
             ChartDispalyViewModel model = new ChartDispalyViewModel();
-            model.Donors = Donors;
+            //model.Donors = Donors;
             model.Donations = Donations;
 
             return PartialView("~/Views/Chart/_ReportData.cshtml", model);
@@ -68,13 +68,13 @@ namespace testDMS.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult AmountSearch(Option option)
+        //[HttpPost]
+        public ActionResult AmountSearch(string AmountList)
         {
             Decimal amount1 = 0;
             Decimal amount2 = 0;
 
-            switch (option.Value)
+            switch (AmountList)
             {
                 case "0":
                     break;
@@ -119,7 +119,7 @@ namespace testDMS.Controllers
 
             model.Donations = (IEnumerable<DONATION>)dnRepo.FindBy(amount1, amount2);
 
-            return PartialView("~/Views/Chart/_ReportData.cshtml", model);
+            return View("~/Views/Chart/Index.cshtml", model);
         }
 
         public ActionResult ByDate(DateTime date1, DateTime date2)

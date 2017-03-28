@@ -299,6 +299,7 @@
     <Compile Include="Models\DONOR.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DonorViewModel.cs" />
     <Compile Include="Models\Hooli.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
