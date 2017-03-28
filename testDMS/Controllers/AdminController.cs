@@ -177,6 +177,8 @@ namespace testDMS.Controllers
                 var Email = paramExpandedUserDTO.Email.Trim();
                 var UserName = paramExpandedUserDTO.Email.Trim();
                 var Password = paramExpandedUserDTO.Password.Trim();
+                var FirstName = paramExpandedUserDTO.FirstName.Trim();
+                var LastName = paramExpandedUserDTO.LastName.Trim();
 
                 if (Email == "")
                 {
@@ -193,7 +195,7 @@ namespace testDMS.Controllers
 
                 // Create user
 
-                var objNewAdminUser = new ApplicationUser { UserName = UserName, Email = Email };
+                var objNewAdminUser = new ApplicationUser { UserName = UserName, Email = Email, };
                 var AdminUserCreateResult = UserManager.Create(objNewAdminUser, Password);
 
                 if (AdminUserCreateResult.Succeeded == true)
@@ -669,8 +671,6 @@ namespace testDMS.Controllers
 
             objExpandedUserDTO.UserName = result.UserName;
             objExpandedUserDTO.Email = result.Email;
-            objExpandedUserDTO.LockoutEndDateUtc = result.LockoutEndDateUtc;
-            objExpandedUserDTO.AccessFailedCount = result.AccessFailedCount;
             objExpandedUserDTO.PhoneNumber = result.PhoneNumber;
 
             return objExpandedUserDTO;
