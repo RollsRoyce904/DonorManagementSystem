@@ -48,10 +48,24 @@
 
     @foreach (var item in Model)
     {
-        var name = item.FName + " " + item.LName;
+
+        var displayName = item.FName;
+        if (item.FName == null && item.LName == null)
+        {
+            displayName = item.CompanyName;
+        }
+        else if (item.LName == null && item.FName != null)
+        {
+            displayName = item.FName + " - " + item.CompanyName;
+        }
+        else
+        {
+            displayName = item.LName + ", " + item.FName + " - " + item.CompanyName;
+        }
+
         <tr>
             <td>
-                @Html.ActionLink(name, "Details", new { id = item.DonorId })
+                @Html.ActionLink(displayName, "Details", new { id = item.DonorId })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
