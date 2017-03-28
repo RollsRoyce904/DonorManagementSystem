@@ -76,9 +76,9 @@ namespace testDMS.Controllers
             if (ModelState.IsValid)
             {
 
-                donation.ImageMimeType = image.ContentType;
-                donation.ImageUpload = new byte[image.ContentLength];
-                image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
+                //donation.ImageMimeType = image.ContentType;
+                //donation.ImageUpload = new byte[image.ContentLength];
+                //image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
 
                 dnRepo.Add(donation);
                 return RedirectToAction("Index");
