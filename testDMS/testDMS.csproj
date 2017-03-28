@@ -245,10 +245,10 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\DONATIONsController.cs" />
     <Compile Include="Controllers\DONORsController.cs" />
+    <Compile Include="Controllers\DonorViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DAL\DonationRepository.cs" />
@@ -261,6 +261,34 @@
     <Compile Include="Migrations\201611022216350_initial.cs" />
     <Compile Include="Migrations\201611022216350_initial.Designer.cs">
       <DependentUpon>201611022216350_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703072223463_Update-Database.cs" />
+    <Compile Include="Migrations\201703072223463_Update-Database.Designer.cs">
+      <DependentUpon>201703072223463_Update-Database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703072335508_DefaultConnection.cs" />
+    <Compile Include="Migrations\201703072335508_DefaultConnection.Designer.cs">
+      <DependentUpon>201703072335508_DefaultConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703131401087_DonorManagementDatabaseEntities.cs" />
+    <Compile Include="Migrations\201703131401087_DonorManagementDatabaseEntities.Designer.cs">
+      <DependentUpon>201703131401087_DonorManagementDatabaseEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703131412366_DefaultConnection1.cs" />
+    <Compile Include="Migrations\201703131412366_DefaultConnection1.Designer.cs">
+      <DependentUpon>201703131412366_DefaultConnection1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703141116237_DefaultConnection2.cs" />
+    <Compile Include="Migrations\201703141116237_DefaultConnection2.Designer.cs">
+      <DependentUpon>201703141116237_DefaultConnection2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703141139258_DonorManagementDatabaseEntities1.cs" />
+    <Compile Include="Migrations\201703141139258_DonorManagementDatabaseEntities1.Designer.cs">
+      <DependentUpon>201703141139258_DonorManagementDatabaseEntities1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703141146390_DonorManagementDatabaseEntities2.cs" />
+    <Compile Include="Migrations\201703141146390_DonorManagementDatabaseEntities2.Designer.cs">
+      <DependentUpon>201703141146390_DonorManagementDatabaseEntities2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -323,7 +351,6 @@
     <Compile Include="Models\NOTES.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Option.cs" />
     <Compile Include="Models\RELATIVES.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
@@ -448,14 +475,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
-    <Content Include="Views\Admin\ViewAllRoles.cshtml" />
-    <Content Include="Views\Admin\AddRole.cshtml" />
-    <Content Include="Views\Admin\Create.cshtml" />
-    <Content Include="Views\Admin\EditUser.cshtml" />
-    <Content Include="Views\Admin\EditRoles.cshtml" />
     <Content Include="Views\DONORs\Create.cshtml" />
     <Content Include="Views\DONORs\Delete.cshtml" />
     <Content Include="Views\DONORs\Details.cshtml" />
@@ -468,7 +489,9 @@
     <Content Include="Views\DONATIONs\Details.cshtml" />
     <Content Include="Views\DONATIONs\Edit.cshtml" />
     <Content Include="Views\DONATIONs\Index.cshtml" />
-    <Content Include="Views\Chart\_ReportData.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -482,6 +505,27 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611022216350_initial.resx">
       <DependentUpon>201611022216350_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703072223463_Update-Database.resx">
+      <DependentUpon>201703072223463_Update-Database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703072335508_DefaultConnection.resx">
+      <DependentUpon>201703072335508_DefaultConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703131401087_DonorManagementDatabaseEntities.resx">
+      <DependentUpon>201703131401087_DonorManagementDatabaseEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703131412366_DefaultConnection1.resx">
+      <DependentUpon>201703131412366_DefaultConnection1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703141116237_DefaultConnection2.resx">
+      <DependentUpon>201703141116237_DefaultConnection2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703141139258_DonorManagementDatabaseEntities1.resx">
+      <DependentUpon>201703141139258_DonorManagementDatabaseEntities1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703141146390_DonorManagementDatabaseEntities2.resx">
+      <DependentUpon>201703141146390_DonorManagementDatabaseEntities2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
