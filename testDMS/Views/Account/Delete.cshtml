@@ -4,59 +4,61 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    td.lines {
+        padding-bottom: 5px;
+        padding-top: 5px;
+        border-bottom: solid lightgray;
+    }
 
-<h2>Delete</h2>
+    th {
+        padding: 15px;
+        text-align: center;
+        width: 50%;
+        background-color: #0096D7;
+    }
 
-<div>
-    <h4>AspNetUsers</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+    table {
+        border-collapse: initial;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NewRole)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NewRole)
-        </dd>
-
-    </dl>
+</style>
+<hr />
+<div class="well well-lg">
+    <div style="display: inline-block">
+        <h4>Review and Delete User</h4>
+    </div>
+    <div style="display: inline-block;float:right">
+        @Html.ActionLink("Back Account List", "Index", "Home", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
+    </div>
 </div>
-<p>
-@using (Html.BeginForm("Delete", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.Email)
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Delete" class="btn btn-default" />
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:#0096d7"><h4>Delete user @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)?</h4></div>
+    <div class="panel-body">
+        <div>
+
+            <hr />
+            <table>
+                <tr><td class="lines">Email  </td><td class="lines">@Html.DisplayFor(model => model.Email)</td></tr>
+                <tr><td class="lines">Name:  </td><td class="lines">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</td></tr>
+                <tr><td class="lines">User Role:  </td><td class="lines">@Html.DisplayFor(model => model.NewRole)</td></tr>
+            </table>
+            @Html.ActionLink("Edit", "Edit", new { UserName = Model.UserName }) |
+
+            <div style="display: inline-block;float:right">
+                @using (Html.BeginForm("Delete", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Email)
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Delete User" class="btn btn-default" style="background-color:#E31B23"/>
+                        </div>
+                    </div>
+                }
+                </div>
+            </div>
         </div>
     </div>
-}
 
-    @Html.ActionLink("Edit", "Edit", new { UserName = Model.UserName }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

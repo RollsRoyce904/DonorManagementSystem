@@ -24,9 +24,9 @@
         <input type="submit" value="Filter" /><br /><br />
     </div>
 </div>*@
-<br />
+<br /><br/>
 <table class="table">
-    <tr>
+    <tr style="background-color:#0096D7;">
         <th>
             Email Address
         </th>
@@ -57,7 +57,7 @@
             @Html.DisplayFor(modelItem => item.NewRole)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { UserName = item.UserName }) |
+            @Html.ActionLink("Edit", "Edit", new { UserName = item.UserName }) 
             @if ((item.UserName.ToLower() != this.User.Identity.Name.ToLower()))
             {
                 @Html.DisplayName("| ")
