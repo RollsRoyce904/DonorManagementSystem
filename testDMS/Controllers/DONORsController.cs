@@ -11,7 +11,6 @@ using testDMS.DAL;
 using System.Web.UI.WebControls;
 using System.IO;
 using System.Web.UI;
-using PagedList;
 
 namespace testDMS.Controllers
 {
@@ -20,7 +19,6 @@ namespace testDMS.Controllers
         private DonorManagementDatabaseEntities ddlData = new DonorManagementDatabaseEntities();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
-        public int PageSize = 5;
 
         public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo)
         {
@@ -28,32 +26,17 @@ namespace testDMS.Controllers
             this.dnRepo = dnRepo;
         }
 
-        public ActionResult Index(string searchString, int page = 1)
+        public ActionResult Index(string searchString)
         {
-
-            DonorViewModel DonorList = new DonorViewModel
+            if(searchString == null)
             {
-                Donors = drRepo.GetDonors
-                .Where(d => searchString == null || d.FName == searchString)
-                .OrderBy(d => d.DonorId)
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize).ToPagedList(page, PageSize),
-                TotalItems = drRepo.GetDonors.Count()
-                
-            };
-
-            return View(DonorList);
-
-
-            //if(searchString == null)
-            //{
-            //    return View(drRepo.GetDonors());
-            //}
-            //else
-            //{
-            //    IEnumerable<DONOR> donor = (IEnumerable<DONOR>)drRepo.FindBy(searchString);
-            //    return View(donor);
-            //}
+                return View(drRepo.GetDonors());
+            }
+            else
+            {
+                IEnumerable<DONOR> donor = (IEnumerable<DONOR>)drRepo.FindBy(searchString);
+                return View(donor);
+            }
             
         }
 
