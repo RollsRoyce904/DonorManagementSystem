@@ -350,6 +350,7 @@
     <Compile Include="Models\NOTES.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Option.cs" />
     <Compile Include="Models\RELATIVES.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
