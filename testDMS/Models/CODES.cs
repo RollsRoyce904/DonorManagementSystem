@@ -30,5 +30,6 @@ namespace testDMS.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DONATION> DONATION { get; set; }
+        
     }
 }

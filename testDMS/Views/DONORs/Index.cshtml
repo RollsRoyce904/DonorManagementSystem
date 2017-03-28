@@ -1,4 +1,6 @@
-﻿@model IEnumerable<testDMS.Models.DONOR>
+﻿@model testDMS.Models.DonorViewModel
+@using PagedList.Mvc
+
 
 @{
     ViewBag.Title = "Index";
@@ -19,7 +21,6 @@
             @Html.AntiForgeryToken()
             Search Donors: @Html.TextBox("SearchString")&nbsp
             <input type="submit" value="Filter" /><br />
-            <a href="~/Views/DONORs/Index.cshtml">~/Views/DONORs/Index.cshtml</a>
         </p>
     }
 </div><br /><br />
@@ -46,7 +47,7 @@
         </th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Donors)
     {
 
         var displayName = item.FName;
@@ -85,5 +86,7 @@
         </tr>
     }
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model.Donors, page => Url.Action("Index", new { page }))
 <input type="button" onclick="location.href='@Url.Action("ExportToExcel","DONORs")'" class="btn btn-default" style="background-image:url('../../Images/excel_icon.png');background-size:cover;width:75px;height:75px" />
 

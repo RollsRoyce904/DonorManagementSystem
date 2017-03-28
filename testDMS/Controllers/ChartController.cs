@@ -53,7 +53,7 @@ namespace testDMS.Controllers
 
         public ActionResult LoadData()
         {
-            IEnumerable<DONOR> Donors = (IEnumerable<DONOR>)drRepo.GetDonors();
+            IEnumerable<DONOR> Donors = (IEnumerable<DONOR>)drRepo.GetDonors;
             IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.GetDonations();
             ChartDispalyViewModel model = new ChartDispalyViewModel();
             model.Donors = Donors;
