@@ -21,7 +21,9 @@ namespace testDMS.Controllers
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
 
-        public int PageSize = 5;
+        //public int PageSize = 5;
+        //public int PageNumber = 1;
+
 
         public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo)
         {
@@ -29,32 +31,58 @@ namespace testDMS.Controllers
             this.dnRepo = dnRepo;
         }
 
-        public ActionResult Index(string searchString, int page = 1)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            int count = 0;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            //DonorViewModel DonorList = new DonorViewModel
+            //{ 
+            //     Donors = drRepo.GetDonors
+            //     .Where(d => searchString == null || d.FName == searchString)
+            //     .OrderBy(d => d.DonorId)
+            //     .Skip((page - 1) * PageSize)
+            //     .Take(PageSize).ToPagedList(pageNumber:page ?? 1, PageSize),
+            //     TotalItems = drRepo.GetDonors.Count()
+
+            // };
+
+            count = drRepo.GetDonors.Count();
 
             DonorViewModel DonorList = new DonorViewModel
-            { 
-                 Donors = drRepo.GetDonors
-                 .Where(d => searchString == null || d.FName == searchString)
-                 .OrderBy(d => d.DonorId)
-                 .Skip((page - 1) * PageSize)
-                 .Take(PageSize).ToPagedList(page, PageSize),
-                 TotalItems = drRepo.GetDonors.Count()
-                 
-             };
+            {
+                Donors = drRepo.GetDonors.Take(count).ToPagedList(pageNumber, pageSize)
+            };
+
+          
  
              return View(DonorList);
  
 
-            if(searchString == null)
-            {
-                return View(drRepo.GetDonors);
-            }
-            else
-            {
-                IEnumerable<DONOR> donor = (IEnumerable<DONOR>)drRepo.FindBy(searchString);
-                return View(donor);
-            }
+            //if(searchString == null)
+            //{
+            //    return View(drRepo.GetDonors);
+            //}
+            //else
+            //{
+            //    IEnumerable<DONOR> donor = (IEnumerable<DONOR>)drRepo.FindBy(searchString);
+            //    return View(donor);
+            //}
             
         }
 

@@ -17,7 +17,8 @@ namespace testDMS.DAL
         IEnumerable GetDonations();
         DONATION FindById(int? idOne, int? idTwo);
         IEnumerable FindBy(string search);
-        IEnumerable FindBy(decimal amount1, decimal amount2);
-        IEnumerable FindBy(DateTime date1, DateTime date2);
+        IEnumerable FindBy(string search, decimal? amount1, decimal? amount2, DateTime? date1, DateTime? date2);
+        //IEnumerable FindBy(decimal amount1, decimal amount2);
+        //IEnumerable FindBy(DateTime date1, DateTime date2);
     }
 }
