@@ -41,73 +41,95 @@ d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search 
             return result;
         }
 
-        public IEnumerable FindBy(string search, decimal? amount1, decimal? amount2, DateTime? date1, DateTime? date2)
+        public IEnumerable FindBy(string search, decimal? amount1, decimal? amount2, DateTime? date1, DateTime? date2, string dep, string gl)
         {
-            if (amount1 == null && amount2 == null && date1 == null && date2 == null)
-            {//search != null && 
+            var result = (from d in context.DONATION
+                          where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
+                                d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search ||
+                                d.DONOR.LName == search || d.DONOR.CompanyName == search &&
+                                (d.Amount >= amount1 && d.Amount <= amount2) &&
+                                (d.DateRecieved >= date1 && d.DateRecieved <= date2) &&
+                                d.CODES.Department == dep && d.CODES.GL == gl
+                          select d);
 
-                var result = (from d in context.DONATION
-                              where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
-                                    d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search || 
-                                    d.DONOR.LName == search || d.DONOR.CompanyName == search
-                              select d);
+            return result;
+            //if ((amount1 == null && amount2 == null) && (date1 == null && date2 == null) && dep == null && gl == null)
+            //{//search != null && 
+            //    //returns data from only search string
+            //    var result = (from d in context.DONATION
+            //                  where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
+            //                        d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search || 
+            //                        d.DONOR.LName == search || d.DONOR.CompanyName == search
+            //                  select d);
 
-                return result;
+            //    return result;
 
-            }
-            else if ((amount1 != null && amount2 != null) && (date1 == null || date2 == null))
-            {//search != null || 
+            //}
+            //else if ((amount1 != null && amount2 != null) && (date1 == null || date2 == null) && dep == null && gl == null)
+            //{//search != null || 
+            //    //returns data from amounts and search string if its not null
+            //    var result = (from d in context.DONATION
+            //                  where (d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
+            //                         d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search || 
+            //                         d.DONOR.LName == search || d.DONOR.CompanyName == search) && 
+            //                        (d.Amount >= amount1 && d.Amount <= amount2)
+            //                  select d);
 
-                var result = (from d in context.DONATION
-                              where (d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
-                                     d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search || 
-                                     d.DONOR.LName == search || d.DONOR.CompanyName == search) && 
-                                    (d.Amount >= amount1 && d.Amount <= amount2)
-                              select d);
+            //    return result;
 
-                return result;
+            //}
+            //else if ((amount1 != null && amount2 != null) && (date1 != null && date2 != null))
+            //{//search != null && 
+            //    //returns data from search amounts and dates if theyre not null
+            //    var result = (from d in context.DONATION
+            //                  where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
+            //                        d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search || 
+            //                        d.DONOR.LName == search || d.DONOR.CompanyName == search && 
+            //                        (d.Amount >= amount1 && d.Amount <= amount2) && 
+            //                        (d.DateRecieved >= date1 && d.DateRecieved <= date2)
+            //                  select d);
 
-            }
-            else if ((amount1 != null && amount2 != null) && (date1 != null && date2 != null))
-            {//search != null && 
+            //    return result;
 
-                var result = (from d in context.DONATION
-                              where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
-                                    d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search || 
-                                    d.DONOR.LName == search || d.DONOR.CompanyName == search && 
-                                    (d.Amount >= amount1 && d.Amount <= amount2) && 
-                                    (d.DateRecieved >= date1 && d.DateRecieved <= date2)
-                              select d);
+            //}
+            //else if ((amount1 != null && amount2 != null) && (date1 != null && date2 != null) && dep != null && gl == null)
+            //{
+            //    //returns data if dep isnt null
+            //    var result = (from d in context.DONATION
+            //                  where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
+            //                        d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search ||
+            //                        d.DONOR.LName == search || d.DONOR.CompanyName == search &&
+            //                        (d.Amount >= amount1 && d.Amount <= amount2) &&
+            //                        (d.DateRecieved >= date1 && d.DateRecieved <= date2) &&
+            //                        d.CODES.Department == dep
+            //                  select d);
 
-                return result;
+            //    return result;
+            //}
+            //else if ((amount1 != null && amount2 != null) && (date1 != null && date2 != null) && dep != null & gl != null)
+            //{
+            //    //returns data if dep and gl isnt null
+            //    var result = (from d in context.DONATION
+            //                  where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
+            //                        d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search ||
+            //                        d.DONOR.LName == search || d.DONOR.CompanyName == search &&
+            //                        (d.Amount >= amount1 && d.Amount <= amount2) &&
+            //                        (d.DateRecieved >= date1 && d.DateRecieved <= date2) &&
+            //                        d.CODES.Department == dep && d.CODES.GL == gl
+            //                  select d);
 
-            }
-            else
-            {
+            //    return result;
+            //}
+            //else
+            //{
 
-                var result = (from d in context.DONATION select d);
+            //    var result = (from d in context.DONATION select d);
 
-                return result;
+            //    return result;
 
-            }
-            
+            //}
+
         }
-
-        //public IEnumerable FindBy(decimal amount1, decimal amount2)
-        //{
-        //    var result = (from d in context.DONATION
-        //                  where d.Amount >= amount1 && d.Amount <= amount2
-        //                  select d);
-        //    return result;
-        //}
-
-        //public IEnumerable FindBy(DateTime date1, DateTime date2)
-        //{
-        //    var result = (from d in context.DONATION
-        //                  where (date1 >= d.DateGiftMade && date2 <= d.DateGiftMade) || (date1 >= d.DateRecieved && date2 <= d.DateRecieved)
-        //                  select d);
-        //    return result;
-        //}
 
         public IEnumerable GetDonations()
         {
