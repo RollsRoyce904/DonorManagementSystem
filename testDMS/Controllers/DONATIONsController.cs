@@ -27,22 +27,42 @@ namespace testDMS.Controllers
         }
 
         // GET: DONATIONs
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder)
         {
-            if(searchString == null)
+            if (searchString == null)
             {
-                return View(dnRepo.GetDonations());
+                ViewBag.DonationSortParam = String.IsNullOrEmpty(sortOrder) ? "donationID_desc" : "";
+                ViewBag.DateSortParam = sortOrder == "DateGiftRecieved" ? "dateRecieved_desc" : "DateGiftRecieved";
+                var donations = from DONATION d in dnRepo.GetDonations()
+                                select d;
+                switch (sortOrder)
+                {
+                    case "donationID_desc":
+                        donations = donations.OrderByDescending(d => d.DonationId);
+                        break;
+                    case "DateGiftRecieved":
+                        donations = donations.OrderBy(d => d.DateRecieved);
+                        break;
+                    case "dateRecieved_desc":
+                        donations = donations.OrderByDescending(d => d.DateRecieved);
+                        break;
+                    default:
+                        donations = donations.OrderBy(d => d.DonationId);
+                        break;
+                }
+                return View(donations.ToList());
             }
             else
             {
-                IEnumerable<DONATION> donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
-                return View(donations);
-            }   
+                IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
+                return View(donation);
+            }
         }
 
         // GET: DONATIONs/Details/5
         public ActionResult Details(int? ida, int? idb)
         {
+            //if both the donor and donation id = 0 return a bad request message
             if (ida == null || idb == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -59,6 +79,7 @@ namespace testDMS.Controllers
         public ActionResult Create()
         {
             ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund");
+
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FName");
 
             List<string> Fund = new List<string>();
@@ -198,6 +219,8 @@ namespace testDMS.Controllers
                 dnRepo.Add(donation);
                 return RedirectToAction("Index");
             }
+
+
 
             ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
