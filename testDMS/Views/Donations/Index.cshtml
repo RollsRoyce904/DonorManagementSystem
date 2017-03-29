@@ -6,15 +6,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/table2CSV.js">
-        function exportToCSV() {
-                $("table").table2csv();
-                $("table").table2csv('output', { appendTo: '#out' });
-                $("table").table2csv({ filename: 'DonationTable.csv' });
-                $("table").table2csv({ separator: ',', newline: '\n', newline: '\n', excludeColumns: '', excludeRows: '' });
-            }
-        </script>*@
 
 <style>
 
@@ -41,6 +32,12 @@
             @Html.AntiForgeryToken()
             Search Donations: @Html.TextBox("searchString")&nbsp
             <input type="submit" value="Filter" />
+            <button onclick="goBack()">Clear Search</button>
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
         </p>
     }
 </div><br /><br />
@@ -53,7 +50,7 @@
             @Html.DisplayName("Donor")
         </th>
         <th>
-            @Html.DisplayName("Date")
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParam })
         </th>
         <th>
             @Html.DisplayName("Reason")

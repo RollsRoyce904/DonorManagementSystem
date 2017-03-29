@@ -20,8 +20,16 @@
         <p style="">
             @Html.AntiForgeryToken()
             Search Donors: @Html.TextBox("SearchString")&nbsp
-            <input type="submit" value="Filter" /><br />
-        </p>
+            <input type="submit" value="Filter" />
+            <button onclick="goBack()">Clear Search</button>
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+            <br />
+            
+        </p>        
     }
 </div><br /><br />
 
