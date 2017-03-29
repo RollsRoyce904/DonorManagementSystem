@@ -46,8 +46,13 @@
         <th style="padding-left:2%">
             @Html.DisplayName("Amount")
         </th>
+
         <th>
-            @Html.DisplayName("Donor")
+            @Html.ActionLink("Donation", "Index", new { sortOrder = ViewBag.DonationSortParam })
+        </th>
+
+        <th>
+            @Html.ActionLink("Donor", "Index", new { sortOrder = ViewBag.DonationSortParam })
         </th>
         <th>
             @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParam })
@@ -64,6 +69,11 @@
             <td style="padding-left:2%">
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DonationId)
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.DONOR.FName)
             </td>

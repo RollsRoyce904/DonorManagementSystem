@@ -37,8 +37,8 @@ namespace testDMS.Controllers
                                 select d;
                 switch (sortOrder)
                 {
-                    case "donationID_desc":
-                        donations = donations.OrderByDescending(d => d.DonationId);
+                    case "DonationID":
+                        donations = donations.OrderBy(d => d.DonationId);
                         break;
                     case "DateGiftRecieved":
                         donations = donations.OrderBy(d => d.DateRecieved);
@@ -47,7 +47,7 @@ namespace testDMS.Controllers
                         donations = donations.OrderByDescending(d => d.DateRecieved);
                         break;
                     default:
-                        donations = donations.OrderBy(d => d.DonationId);
+                        donations = donations.OrderByDescending(d => d.DonationId);
                         break;
                 }
                 return View(donations.ToList());
