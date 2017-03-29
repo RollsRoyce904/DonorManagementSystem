@@ -27,7 +27,7 @@ namespace testDMS.Controllers
         }
 
         // GET: DONATIONs
-        public ActionResult Index(string searchString, string sortOrder)
+        public ActionResult Index(string searchString, string sortOrder, string dateMade, string dateRecieved)
         {
             if (searchString == null)
             {

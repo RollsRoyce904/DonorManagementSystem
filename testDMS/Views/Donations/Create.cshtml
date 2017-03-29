@@ -53,7 +53,7 @@
                     <div class="form-group">
                         @Html.Label("Date Received", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.donation.DateRecieved, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.donation.DateRecieved, new { htmlAttributes = new { @class = "form-control", type =  "date"} })
                             @Html.ValidationMessageFor(model => model.donation.DateRecieved, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                     <div class="form-group">
                         @Html.Label("Date Made", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.donation.DateGiftMade, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.donation.DateGiftMade, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                             @Html.ValidationMessageFor(model => model.donation.DateGiftMade, "", new { @class = "text-danger" })
                         </div>
                     </div>
