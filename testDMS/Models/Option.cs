@@ -24,4 +24,13 @@ namespace testDMS.Models
     {
         public IEnumerable<JsonData> DataList { get; set; }
     }
+
+    public class Searches
+    {
+        public string typeOne { get; set; }
+        public string typeTwo { get; set; }
+        public string typeThree { get; set; }
+        public string typeFour { get; set; }
+        public string typeFive { get; set; }
+    }
 }
