@@ -69,6 +69,18 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="NewRole" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="CODELIST">
+          <Key>
+            <PropertyRef Name="CodeId" />
+          </Key>
+          <Property Name="CodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fund" Type="nvarchar" MaxLength="2" />
+          <Property Name="GL" Type="nvarchar" MaxLength="4" />
+          <Property Name="Department" Type="nvarchar" MaxLength="2" />
+          <Property Name="Program" Type="nvarchar" MaxLength="50" />
+          <Property Name="Grants" Type="nvarchar" MaxLength="50" />
+          <Property Name="Appeal" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="CODES">
           <Key>
             <PropertyRef Name="CodeId" />
@@ -157,6 +169,16 @@
           </Key>
           <Property Name="RelativeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DonorId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -311,6 +333,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CODELIST" EntityType="Self.CODELIST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CODES" EntityType="Self.CODES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTACT" EntityType="Self.CONTACT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONATION" EntityType="Self.DONATION" Schema="dbo" store:Type="Tables" />
@@ -318,6 +341,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySet Name="IDENTITYMARKER" EntityType="Self.IDENTITYMARKER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NOTES" EntityType="Self.NOTES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RELATIVES" EntityType="Self.RELATIVES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
             <DefiningQuery>SELECT 
     [database_firewall_rules].[id] AS [id], 
@@ -706,7 +730,31 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="CODELIST" EntityType="DonorManagementDatabaseModel.CODELIST" />
+          <EntitySet Name="sysdiagrams" EntityType="DonorManagementDatabaseModel.sysdiagrams" />
         </EntityContainer>
+        <EntityType Name="CODELIST">
+          <Key>
+            <PropertyRef Name="CodeId" />
+          </Key>
+          <Property Name="CodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fund" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="GL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Grants" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Appeal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -884,6 +932,30 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="CODELIST">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.CODELIST">
+              <MappingFragment StoreEntitySet="CODELIST">
+                <ScalarProperty Name="Appeal" ColumnName="Appeal" />
+                <ScalarProperty Name="Grants" ColumnName="Grants" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="GL" ColumnName="GL" />
+                <ScalarProperty Name="Fund" ColumnName="Fund" />
+                <ScalarProperty Name="CodeId" ColumnName="CodeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

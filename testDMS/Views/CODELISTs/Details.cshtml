@@ -1,0 +1,66 @@
+﻿@model testDMS.Models.CODELIST
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CODELIST</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fund)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fund)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Program)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Program)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Grants)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grants)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Appeal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Appeal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CodeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

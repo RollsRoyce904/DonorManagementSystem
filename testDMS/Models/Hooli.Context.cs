@@ -38,5 +38,7 @@ namespace testDMS.Models
         public virtual DbSet<NOTES> NOTES { get; set; }
         public virtual DbSet<RELATIVES> RELATIVES { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<CODELIST> CODELIST { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

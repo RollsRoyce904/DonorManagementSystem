@@ -247,6 +247,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ChartController.cs" />
+    <Compile Include="Controllers\CODELISTsController.cs" />
     <Compile Include="Controllers\DONATIONsController.cs" />
     <Compile Include="Controllers\DONORsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -307,6 +308,9 @@
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChartDispalyViewModel.cs" />
+    <Compile Include="Models\CODELIST.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CODES.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
@@ -355,6 +359,9 @@
     </Compile>
     <Compile Include="Models\Option.cs" />
     <Compile Include="Models\RELATIVES.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRolesDTO.cs" />
@@ -497,6 +504,11 @@
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Chart\_ReportData.cshtml" />
     <Content Include="Views\DONATIONs\DonorCreate.cshtml" />
+    <Content Include="Views\CODELISTs\Create.cshtml" />
+    <Content Include="Views\CODELISTs\Delete.cshtml" />
+    <Content Include="Views\CODELISTs\Details.cshtml" />
+    <Content Include="Views\CODELISTs\Edit.cshtml" />
+    <Content Include="Views\CODELISTs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

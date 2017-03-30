@@ -1,0 +1,63 @@
+﻿@model IEnumerable<testDMS.Models.CODELIST>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fund)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Program)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grants)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Appeal)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fund)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Program)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grants)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Appeal)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CodeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CodeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CodeId })
+        </td>
+    </tr>
+}
+
+</table>
