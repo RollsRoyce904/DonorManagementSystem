@@ -1,17 +1,16 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using testDMS.Models;
-using testDMS.DAL;
-using System.Web.UI.WebControls;
-using System.IO;
 using System.Web.UI;
-using PagedList;
+using System.Web.UI.WebControls;
+using testDMS.DAL;
+using testDMS.Models;
 
 namespace testDMS.Controllers
 {
@@ -60,10 +59,8 @@ namespace testDMS.Controllers
                 Donors = donor.Take(count).ToPagedList(pageNumber, pageSize)
             };
 
-          
- 
-             return View(DonorList);
-            
+            return View(DonorList);
+
         }
 
         public ActionResult Edit(int? id)
@@ -110,13 +107,13 @@ namespace testDMS.Controllers
             }
 
             displayData.Donors = drRepo.FindById(Convert.ToInt32(id));
-            
+
             IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.GetDonations();
-            IEnumerable<NOTES> note = ntRepo.GetNotes(Convert.ToInt32(id)); 
+            IEnumerable<NOTES> note = ntRepo.GetNotes(Convert.ToInt32(id));
 
             displayData.Donations = (from d in donation
-                                 where d.DonorId == displayData.Donors.DonorId
-                                 select d);
+                                     where d.DonorId == displayData.Donors.DonorId
+                                     select d);
 
             displayData.Notes = note;
 
@@ -175,7 +172,7 @@ namespace testDMS.Controllers
                 drRepo.Add(donor);
                 return RedirectToAction("Index");
             }
-            
+
             ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
             ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);

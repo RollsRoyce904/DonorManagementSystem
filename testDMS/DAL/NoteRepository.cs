@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq; 
-using System.Web;
+﻿using System.Collections.Generic;
+using System.Linq;
 using testDMS.Models;
 
 namespace testDMS.DAL
@@ -27,6 +25,7 @@ namespace testDMS.DAL
         {
             NOTES note = context.NOTES.Find(ida, idb);
             context.NOTES.Remove(note);
-            context.SaveChanges();        }
+            context.SaveChanges();
+        }
     }
 }

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using testDMS.Models;
-using testDMS.DAL;
-using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using testDMS.DAL;
+using testDMS.Models;
 
 namespace testDMS.Controllers
 {
@@ -208,7 +207,7 @@ namespace testDMS.Controllers
         public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image = null)
         {
             DONATION donation = CDVM.donation;
-            
+
             if (ModelState.IsValid)
             {
 
@@ -302,7 +301,7 @@ namespace testDMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int ida, int idb)
         {
-             dnRepo.Remove(ida, idb);
+            dnRepo.Remove(ida, idb);
             return RedirectToAction("Index");
         }
 
@@ -318,7 +317,7 @@ namespace testDMS.Controllers
         public FileContentResult GetImage(int donationId, int donorId)
         {
             DONATION donation = dnRepo.FindById(donationId, donorId);
-            if(donation != null)
+            if (donation != null)
             {
                 return File(donation.ImageUpload, donation.ImageMimeType);
             }
@@ -331,10 +330,10 @@ namespace testDMS.Controllers
         public ActionResult Upload(string ActionName)
         {
             var path = Server.MapPath("~/App_Data/Files");
-            foreach(string item in Request.Files)
+            foreach (string item in Request.Files)
             {
                 HttpPostedFileBase file = Request.Files[item];
-                if(file.ContentLength == 0)
+                if (file.ContentLength == 0)
                 {
                     continue;
                 }

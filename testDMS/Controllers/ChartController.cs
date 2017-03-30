@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using testDMS.Models;
-using testDMS.DAL;
 using System.IO;
+using System.Linq;
+using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using testDMS.DAL;
+using testDMS.Models;
 
 namespace testDMS.Controllers
 {
@@ -43,7 +39,7 @@ namespace testDMS.Controllers
             var amountList = new SelectList(
                 new List<SelectListItem>
                 {
-                    new SelectListItem {Text = "Amount", Value="0", Selected=true },
+                                new SelectListItem {Text = "Amount", Value="0", Selected=true },
                     new SelectListItem {Text = "0-100", Value="1" },
                     new SelectListItem {Text = "101-500", Value="2" },
                     new SelectListItem {Text = "501-1000", Value="3" },
@@ -183,7 +179,7 @@ namespace testDMS.Controllers
             ChartDispalyViewModel model = new ChartDispalyViewModel();
             model.Donors = Donors;
             model.Donations = Donations;
-            
+
 
             return View("~/Views/Chart/Index.cshtml", model);
         }
@@ -258,7 +254,7 @@ namespace testDMS.Controllers
             GridView gridview = new GridView();
             gridview.DataSource = myData;
             gridview.DataBind();
-            
+
             // Clear all the content from the current response
             Response.ClearContent();
             Response.Buffer = true;
