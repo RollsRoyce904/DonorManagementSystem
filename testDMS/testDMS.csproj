@@ -495,6 +495,7 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Chart\_ReportData.cshtml" />
+    <Content Include="Views\DONATIONs\DonorCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
