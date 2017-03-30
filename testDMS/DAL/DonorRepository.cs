@@ -36,7 +36,7 @@ namespace testDMS.DAL
                           r.CompanyName == search
                           select r);
 
-            return result;
+           return result;
         }
 
         //public IEnumerable FindBy(DateTime search)
