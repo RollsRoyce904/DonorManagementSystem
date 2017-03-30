@@ -10,6 +10,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using testDMS.DAL;
 using testDMS.Models;
+using PagedList;
 
 namespace testDMS.Controllers
 {
@@ -26,14 +27,20 @@ namespace testDMS.Controllers
         }
 
         // GET: DONATIONs
-        public ActionResult Index(string searchString, string sortOrder, string dateMade, string dateRecieved)
+        public ActionResult Index(string searchString, string sortOrder, string dateMade, string dateRecieved, int? page)
         {
+            int count = 0;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
             if (searchString == null)
             {
                 ViewBag.DonationSortParam = String.IsNullOrEmpty(sortOrder) ? "donationID_desc" : "";
                 ViewBag.DateSortParam = sortOrder == "DateGiftRecieved" ? "dateRecieved_desc" : "DateGiftRecieved";
                 var donations = from DONATION d in dnRepo.GetDonations()
                                 select d;
+                count = donations.Count();
+                DonationViewModel dvm = new DonationViewModel();
+                dvm.Donations = donations.Take(count).ToPagedList(pageNumber, pageSize);
                 switch (sortOrder)
                 {
                     case "DonationID":
@@ -49,12 +56,15 @@ namespace testDMS.Controllers
                         donations = donations.OrderByDescending(d => d.DonationId);
                         break;
                 }
-                return View(donations.ToList());
+                return View(dvm);
             }
             else
             {
                 IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
-                return View(donation);
+                count = donation.Count();
+                DonationViewModel dvm = new DonationViewModel();
+                dvm.Donations = donation.Take(count).ToPagedList(pageNumber, pageSize);
+                return View(dvm);
             }
         }
 

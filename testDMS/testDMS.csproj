@@ -325,6 +325,7 @@
     <Compile Include="Models\DONATION.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DonationViewModel.cs" />
     <Compile Include="Models\DONOR.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
