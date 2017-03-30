@@ -53,7 +53,7 @@ d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search 
                                     d.DONOR.LName == search || d.DONOR.CompanyName == search
                               select d);
                
-                if(amount1 != null)
+                if(amount1 > 0)
                 {
                     result = result.Where(d => (d.Amount >= amount1 && d.Amount <= amount2));
                 }
@@ -78,7 +78,7 @@ d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search 
             else
             {
                 var result = from d in context.DONATION select d;
-                if (amount1 != null)
+                if (amount1 > 0)
                 {
                     result = result.Where(d => (d.Amount >= amount1 && d.Amount <= amount2));
                 }
