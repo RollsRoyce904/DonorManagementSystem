@@ -21,10 +21,6 @@ namespace testDMS.Controllers
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
 
-        //public int PageSize = 5;
-        //public int PageNumber = 1;
-
-
         public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo)
         {
             this.drRepo = drRepo;
@@ -40,49 +36,31 @@ namespace testDMS.Controllers
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
+            IEnumerable<DONOR> donor = new List<DONOR>();
+
             if (searchString != null)
             {
                 page = 1;
+                donor = (IEnumerable<DONOR>)drRepo.FindBy(searchString);
             }
             else
             {
                 searchString = currentFilter;
+                donor = drRepo.GetDonors;
             }
 
             ViewBag.CurrentFilter = searchString;
-
-            //DonorViewModel DonorList = new DonorViewModel
-            //{ 
-            //     Donors = drRepo.GetDonors
-            //     .Where(d => searchString == null || d.FName == searchString)
-            //     .OrderBy(d => d.DonorId)
-            //     .Skip((page - 1) * PageSize)
-            //     .Take(PageSize).ToPagedList(pageNumber:page ?? 1, PageSize),
-            //     TotalItems = drRepo.GetDonors.Count()
-
-            // };
 
             count = drRepo.GetDonors.Count();
 
             DonorViewModel DonorList = new DonorViewModel
             {
-                Donors = drRepo.GetDonors.Take(count).ToPagedList(pageNumber, pageSize)
+                Donors = donor.Take(count).ToPagedList(pageNumber, pageSize)
             };
 
           
  
              return View(DonorList);
- 
-
-            //if(searchString == null)
-            //{
-            //    return View(drRepo.GetDonors);
-            //}
-            //else
-            //{
-            //    IEnumerable<DONOR> donor = (IEnumerable<DONOR>)drRepo.FindBy(searchString);
-            //    return View(donor);
-            //}
             
         }
 
