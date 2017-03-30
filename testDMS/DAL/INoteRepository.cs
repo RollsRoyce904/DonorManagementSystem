@@ -11,5 +11,7 @@ namespace testDMS.DAL
         void Add(NOTES note);
 
         IEnumerable<NOTES> GetNotes(int id);
+
+        void Remove(int ida, int idb);
     }
 }

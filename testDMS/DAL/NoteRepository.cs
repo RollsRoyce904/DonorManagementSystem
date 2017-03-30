@@ -22,5 +22,11 @@ namespace testDMS.DAL
                          select n;
             return result;
         }
+
+        public void Remove(int ida, int idb)
+        {
+            NOTES note = context.NOTES.Find(ida, idb);
+            context.NOTES.Remove(note);
+            context.SaveChanges();        }
     }
 }

@@ -112,7 +112,7 @@ namespace testDMS.Controllers
             displayData.Donors = drRepo.FindById(Convert.ToInt32(id));
             
             IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.GetDonations();
-            IEnumerable<NOTES> note = (IEnumerable<NOTES>)ntRepo.GetNotes(Convert.ToInt32(id)); 
+            IEnumerable<NOTES> note = ntRepo.GetNotes(Convert.ToInt32(id)); 
 
             displayData.Donations = (from d in donation
                                  where d.DonorId == displayData.Donors.DonorId
@@ -137,6 +137,20 @@ namespace testDMS.Controllers
             ntRepo.Add(notes);
 
             return RedirectToAction("Details", new { id });
+        }
+
+        public ActionResult DeleteNote(int ida, int idb)
+        {
+            NoteDeleted(ida, idb);
+            return RedirectToAction("Details", new { id = idb });
+        }
+
+        [HttpPost]
+        public ActionResult NoteDeleted(int ida, int idb)
+        {
+            ntRepo.Remove(ida, idb);
+
+            return RedirectToAction("Details", new { id = idb });
         }
 
 

@@ -105,13 +105,14 @@
         <div class="panel panel-body">
             @Html.TextArea("Note", null, new { @class = "form-control", id = "Notes", @style = "max-width: 100%" })
             <div style="text-align: right;">
-                <input type="submit" class="btn btn-info" style="background-color:#0096D7" value="Add Note" />
+                <input type="submit" class="btn btn-primary btn-large" style="background-color:#0096D7" value="Add Note" />
+                
             </div>
             <hr />
             <h4>Notes History:</h4>
             <table class="table table-striped">
 
-                <tr style="background-color:#0096D7"><th>#</th><th>Date</th><th>Note</th></tr>
+                <tr style="background-color:#0096D7"><th>#</th><th>Date</th><th>Note</th><th></th></tr>
                 @{ 
                     int y = 1;
                     foreach (var items in Model.Notes)
@@ -120,6 +121,7 @@
                             <td>@y:</td>
                             <td>@items.DateMade</td>
                             <td>@items.Note</td>
+                            <td>@Html.ActionLink("Delete Note", "DeleteNote", new { ida = items.NoteId, idb = items.DonorId }, new { @class = "btn btn-primary btn-large", name = "Delete" })</td>
                         </tr>
                         y++;
                     }
