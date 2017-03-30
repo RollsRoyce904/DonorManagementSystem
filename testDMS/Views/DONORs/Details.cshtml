@@ -98,54 +98,30 @@
 
 </div>
 
-@using (Html.BeginForm("Details", "DONORs", new { id = Model.Donors.DonorId },  FormMethod.Post))
+@using (Html.BeginForm("AddNote", "DONORs", new { id = Model.Donors.DonorId },  FormMethod.Post))
 {
     <div class="panel panel-default col-md-12">
         <div class="panel panel-heading">Notes on @Model.Donors.FName</div>
         <div class="panel panel-body">
-            @Html.TextArea("Notes", null, new { @class = "form-control", @style = "max-width: 100%" })
+            @Html.TextArea("Note", null, new { @class = "form-control", id = "Notes", @style = "max-width: 100%" })
             <div style="text-align: right;">
-                <input type="button" class="btn btn-info" style="background-color:#0096D7" value="Add Note" />
+                <input type="submit" class="btn btn-info" style="background-color:#0096D7" value="Add Note" />
             </div>
             <hr />
             <h4>Notes History:</h4>
             <table class="table table-striped">
 
                 <tr style="background-color:#0096D7"><th>#</th><th>Date</th><th>Note</th></tr>
-
                 @{ 
-                                        foreach (var items in Model.Notes.Where(d => d.DonorId == Model.Donors.DonorId))
-                    {
-                    <tr>
-                        <td>@x:</td>
-                        <td>@items.Note</td>
-                    </tr>
-                }
-                }
-                @*Dummy notes to demo display*@
-                <tr>
-                    <td>1</td>
-                    <td>2/8/1995</td>
-                    <td>Call only on weekends.</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>5/6/2010</td>
-                    <td>Grandma is ill, mention in next call.</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>3/8/2016</td>
-                    <td>Grandma passed away, likes to donate on her b.day (2/2)</td>
-                </tr>
-                @{
-                    foreach (var items in Model.Donors.NOTES)
+                    int y = 1;
+                    foreach (var items in Model.Notes)
                     {
                         <tr>
-                            <td>@x:</td>
+                            <td>@y:</td>
                             <td>@items.DateMade</td>
                             <td>@items.Note</td>
                         </tr>
+                        y++;
                     }
                 }
             </table>

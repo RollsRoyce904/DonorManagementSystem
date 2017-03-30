@@ -46,6 +46,7 @@ namespace testDMS.App_Start
             container.RegisterType<DonorManagementDatabaseEntities>(new InjectionFactory(c => new DonorManagementDatabaseEntities()));
             container.RegisterType<IDonationRepository, DonationRepository>();
             container.RegisterType<IDonorRepository, DonorRepository>();
+            container.RegisterType<INoteRepository, NoteRepository>();
 
             container.RegisterType<ApplicationSignInManager>(new InjectionFactory(c => HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>()));
             container.RegisterType<ApplicationUserManager>(new InjectionFactory(c => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()));

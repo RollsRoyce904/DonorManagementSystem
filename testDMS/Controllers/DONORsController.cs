@@ -20,11 +20,13 @@ namespace testDMS.Controllers
         private DonorManagementDatabaseEntities ddlData = new DonorManagementDatabaseEntities();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
+        INoteRepository ntRepo;
 
-        public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo)
+        public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo, INoteRepository ntRepo)
         {
             this.drRepo = drRepo;
             this.dnRepo = dnRepo;
+            this.ntRepo = ntRepo;
         }
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -110,10 +112,13 @@ namespace testDMS.Controllers
             displayData.Donors = drRepo.FindById(Convert.ToInt32(id));
             
             IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.GetDonations();
+            IEnumerable<NOTES> note = (IEnumerable<NOTES>)ntRepo.GetNotes(Convert.ToInt32(id)); 
 
             displayData.Donations = (from d in donation
                                  where d.DonorId == displayData.Donors.DonorId
                                  select d);
+
+            displayData.Notes = note;
 
             if (displayData.Donors == null)
             {
@@ -122,12 +127,17 @@ namespace testDMS.Controllers
             return View(displayData);
         }
 
-        //[HttpPost]---------Method to take in the new note for the donor
-        //public ActionResult Details(int id, string notes)
-        //{
+        [HttpPost]//Method to take in the new note for the donor
+        public ActionResult AddNote(int id, string note)
+        {
+            NOTES notes = new NOTES();
+            notes.DonorId = id;
+            notes.Note = note;
+            notes.DateMade = DateTime.Now;
+            ntRepo.Add(notes);
 
-        //    return View();
-        //}
+            return RedirectToAction("Details", new { id });
+        }
 
 
         public ActionResult Create()

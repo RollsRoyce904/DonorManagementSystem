@@ -255,6 +255,8 @@
     <Compile Include="DAL\DonorRepository.cs" />
     <Compile Include="DAL\IDonationRepository.cs" />
     <Compile Include="DAL\IDonorRepository.cs" />
+    <Compile Include="DAL\INoteRepository.cs" />
+    <Compile Include="DAL\NoteRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

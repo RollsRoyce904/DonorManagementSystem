@@ -198,7 +198,7 @@ namespace testDMS.Controllers
                 case 0:
                     break;
                 case 1:
-                    amount1 = 0;
+                    amount1 = 1;
                     amount2 = 100;
                     break;
                 case 2:
