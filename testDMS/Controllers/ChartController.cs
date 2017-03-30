@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -186,6 +186,7 @@ namespace testDMS.Controllers
 
         public ActionResult Search(string searchString, int amount, DateTime? date1, DateTime? date2, string department, string gl)
         {
+
             int amount1 = 0;
             int amount2 = 0;
 
@@ -236,32 +237,94 @@ namespace testDMS.Controllers
 
             model.Donations = Donations;
 
+            model.searchString = searchString;
+            model.amount = amount;
+            model.date1 = date1;
+            model.date2 = date2;
+            model.department = department;
+            model.gl = gl;
+
             LoadSelectList();
 
             return View("~/Views/Chart/Index.cshtml", model);
         }
 
-        public ActionResult ExportToExcel()
+
+        public ActionResult ExportToExcel(string searchString, int? amount, DateTime? date1, DateTime? date2, string department, string gl)
         {
+            int amount1 = 0;
+            int amount2 = 0;
+
+            switch (amount)
+            {
+                case 0:
+                    break;
+                case 1:
+                    amount1 = 1;
+                    amount2 = 100;
+                    break;
+                case 2:
+                    amount1 = 101;
+                    amount2 = 500;
+                    break;
+                case 3:
+                    amount1 = 501;
+                    amount2 = 1000;
+                    break;
+                case 4:
+                    amount1 = 1001;
+                    amount2 = 2000;
+                    break;
+                case 5:
+                    amount1 = 2001;
+                    amount2 = 4000;
+                    break;
+                case 6:
+                    amount1 = 4001;
+                    amount2 = 7000;
+                    break;
+                case 7:
+                    amount1 = 7001;
+                    amount2 = 10000;
+                    break;
+                case 8:
+                    amount1 = 10001;
+                    amount2 = 1000000;
+                    break;
+                default:
+                    break;
+            };
+
+            var Donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString,
+                amount1, amount2, date1, date2, department, gl);
+            BindingList<DONATION> bList = new BindingList<DONATION>();
+
+            foreach (var item in Donations)
+            {
+                bList.Add(item);
+            }
+
             DateTime dt = DateTime.Now;
             string date = dt.ToShortDateString();
 
             // Step 1 - get the data from database
-            var myData = ddlData.DONATION.ToList();
+            //var myData = ddlData.DONATION.ToList();
 
             // instantiate the GridView control from System.Web.UI.WebControls namespace
             // set the data source
             GridView gridview = new GridView();
-            gridview.DataSource = myData;
+            gridview.DataSource = bList;
             gridview.DataBind();
 
             // Clear all the content from the current response
             Response.ClearContent();
             Response.Buffer = true;
+
             // set the header
             Response.AddHeader("content-disposition", "attachment; filename = Report-" + date + ".xls");
             Response.ContentType = "application/ms-excel";
             Response.Charset = "";
+
             // create HtmlTextWriter object with StringWriter
             using (StringWriter sw = new StringWriter())
             {

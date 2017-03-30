@@ -45,7 +45,7 @@ d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search 
         {
 
             //returns data from only search string
-            if (search.Length > 0)
+            if (search != null && search.Length > 0)
             {
                 var result = (from d in context.DONATION
                               where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
@@ -63,12 +63,12 @@ d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search 
                     result = result.Where(d => (d.DateGiftMade >= date1 && d.DateGiftMade <= date2) || (d.DateRecieved >= date1 & d.DateRecieved <= date2));
                 }
 
-                if (dep.Length > 0)
+                if (dep != null && dep.Length > 0)
                 {
                     result = result.Where(d => d.CODES.Department == dep);
                 }
 
-                if (gl.Length > 0)
+                if ( gl != null && gl.Length > 0)
                 {
                     result = result.Where(d => d.CODES.GL == gl);
                 }
@@ -88,12 +88,12 @@ d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search 
                     result = result.Where(d => (d.DateGiftMade >= date1 && d.DateGiftMade <= date2) || (d.DateRecieved >= date1 & d.DateRecieved <= date2));
                 }
 
-                if (dep.Length > 0)
+                if (dep != null && dep.Length > 0)
                 {
                     result = result.Where(d => d.CODES.Department == dep);
                 }
 
-                if (gl.Length > 0)
+                if ( gl != null && gl.Length > 0)
                 {
                     result = result.Where(d => d.CODES.GL == gl);
                 }
