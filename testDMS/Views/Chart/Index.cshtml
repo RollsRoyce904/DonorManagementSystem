@@ -21,6 +21,7 @@
     <h4 style="display: inline-block">Donation Information</h4>
 
     <div style="display: inline-block;float:right">
+        <input type="button" value="Export To Excel" onclick="location.href='@Url.Action("ExportToExcel","Chart", new { searchString = Model.searchString, amount = Model.amount, date1 = Model.date1, date2 = Model.date2, department = Model.department, gl = Model.gl } )'" class="btn btn-default" />
         @Html.ActionLink("Back to Home", "Index", "Home", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
     </div>
 
@@ -32,20 +33,23 @@
 <table class="table table-striped" border="0">
 
     <tr style="background-color:#0096D7">
-        <th style="width:25%">
+        <th style="width:22%">
             @Html.DisplayName("Donor")
         </th>
-        <th style="width: 15%">
+        <th style="width: 12%">
             @Html.DisplayName("Amount")
         </th>
         <th style="width: 30%">
             @Html.DisplayName("Date")
         </th>
-        <th style="width: 15%">
+        <th style="width: 14%">
             @Html.DisplayName("Department")
         </th>
-        <th style="width: 15%">
+        <th style="width: 10%">
             @Html.DisplayName("GL Code")
+        </th>
+        <th>
+
         </th>
     </tr>
 
@@ -73,6 +77,9 @@
             <td>
                 @Html.DropDownList("GL", null, "GL", htmlAttributes: new { @class = "form-control", id = "GL" })
             </td>
+        <td>
+            <input class="btn btn-default" style="" type="submit" value="Get Report" />
+        </td>
         </tr>
 
         @foreach(var item in Model.Donations)
@@ -102,17 +109,23 @@
                     @Html.DisplayFor(modelItem => item.DateRecieved)
                 </td>
                 <td style="padding-left:7%">
-                    @Html.DisplayFor(modelItem => item.CODES.Department)
+                    @*@Html.DisplayFor(modelItem => item.CODES.Department)*@
                 </td>
                 <td style="padding-left:7%">
-                    @Html.DisplayFor(modelItem => item.CODES.GL)
+                    @*@Html.DisplayFor(modelItem => item.CODES.GL)*@
+                </td>
+                <td>
+
                 </td>
             </tr>
         }
     </table>
     <div>
-        <input class="btn btn-default" style="margin-left: 50%;" type="submit" value="Get Report" />
+        
     </div>
-    <input type="button" onclick="location.href='@Url.Action("ExportToExcel","Chart")'" class="btn btn-default" style="background-image:url('../../Images/excel_icon.png');background-size:cover;width:75px;height:75px" />
-    
+    @*@Html.ActionLink("Export", "ExportToExcel", new { searchString = ViewBag.searchString, amount = ViewBag.amount, date1 = ViewBag.date1, date2 = ViewBag.date2, department = ViewBag.department, gl = ViewBag.gl }, new { @class = "btn btn-primary" })*@
+   
 }
+
+
+

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using System.Web;
 using testDMS.Models;
 
 namespace testDMS.DAL
@@ -27,10 +26,10 @@ namespace testDMS.DAL
         //}
 
         public IEnumerable FindBy(string search)
-        {
+        {//d.CODES.Department == search || d.CODES.GL == search || 
             var result = (from d in context.DONATION
                           where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
-d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search || d.DONOR.LName == search || d.DONOR.CompanyName == search
+                            d.DONOR.FName == search || d.DONOR.LName == search || d.DONOR.CompanyName == search
                           select d);
             return result;
         }
@@ -45,33 +44,32 @@ d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search 
         {
 
             //returns data from only search string
-            if (search.Length > 0)
-            {
+            if (search != null && search.Length > 0)
+            { //d.CODES.Department == search || d.CODES.GL == search || 
                 var result = (from d in context.DONATION
                               where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
-                                    d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search ||
-                                    d.DONOR.LName == search || d.DONOR.CompanyName == search
+                                    d.DONOR.FName == search || d.DONOR.LName == search || d.DONOR.CompanyName == search
                               select d);
-               
-                if(amount1 > 0)
+
+                if (amount1 > 0)
                 {
                     result = result.Where(d => (d.Amount >= amount1 && d.Amount <= amount2));
                 }
 
-                if(date1 != null)
+                if (date1 != null)
                 {
                     result = result.Where(d => (d.DateGiftMade >= date1 && d.DateGiftMade <= date2) || (d.DateRecieved >= date1 & d.DateRecieved <= date2));
                 }
 
-                if (dep.Length > 0)
-                {
-                    result = result.Where(d => d.CODES.Department == dep);
-                }
+                //if (dep != null && dep.Length > 0)
+                //{
+                //    result = result.Where(d => d.CODES.Department == dep);
+                //}
 
-                if (gl.Length > 0)
-                {
-                    result = result.Where(d => d.CODES.GL == gl);
-                }
+                //if (gl != null && gl.Length > 0)
+                //{
+                //    result = result.Where(d => d.CODES.GL == gl);
+                //}
 
                 return result;
             }
@@ -88,19 +86,19 @@ d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search 
                     result = result.Where(d => (d.DateGiftMade >= date1 && d.DateGiftMade <= date2) || (d.DateRecieved >= date1 & d.DateRecieved <= date2));
                 }
 
-                if (dep.Length > 0)
-                {
-                    result = result.Where(d => d.CODES.Department == dep);
-                }
+                //if (dep != null && dep.Length > 0)
+                //{
+                //    result = result.Where(d => d.CODES.Department == dep);
+                //}
 
-                if (gl.Length > 0)
-                {
-                    result = result.Where(d => d.CODES.GL == gl);
-                }
+                //if (gl != null && gl.Length > 0)
+                //{
+                //    result = result.Where(d => d.CODES.GL == gl);
+                //}
                 return result;
             }
-             
-            
+
+
         }
 
         public IEnumerable GetDonations()
@@ -131,7 +129,7 @@ d.CODES.Department == search || d.CODES.GL == search || d.DONOR.FName == search 
                     dbEntry.DateRecieved = d.DateRecieved;
                     dbEntry.GiftMethod = d.GiftMethod;
                     dbEntry.DateGiftMade = d.DateGiftMade;
-                    dbEntry.CodeId = d.CodeId;
+                    //dbEntry.CodeId = d.CodeId;
                     dbEntry.ImageUpload = d.ImageUpload;
                     dbEntry.ImageMimeType = d.ImageMimeType;
                     dbEntry.GiftRestrictions = d.GiftRestrictions;

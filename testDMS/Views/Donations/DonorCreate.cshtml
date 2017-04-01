@@ -17,7 +17,7 @@
     </div>
 </div>
 
-@using (Html.BeginForm("Create", "DONATIONs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("AddDonation", "DONATIONs", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
