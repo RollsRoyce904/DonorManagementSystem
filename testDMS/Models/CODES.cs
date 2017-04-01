@@ -14,12 +14,6 @@ namespace testDMS.Models
     
     public partial class CODES
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CODES()
-        {
-            this.DONATION = new HashSet<DONATION>();
-        }
-    
         public int CodeId { get; set; }
         public string Fund { get; set; }
         public string GL { get; set; }
@@ -27,8 +21,9 @@ namespace testDMS.Models
         public string Program { get; set; }
         public string Grants { get; set; }
         public string Appeal { get; set; }
+        public Nullable<int> DonationId { get; set; }
+        public Nullable<int> DonorId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DONATION> DONATION { get; set; }
+        public virtual DONATION DONATION1 { get; set; }
     }
 }

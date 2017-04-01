@@ -92,6 +92,8 @@
           <Property Name="Program" Type="nvarchar" MaxLength="50" />
           <Property Name="Grants" Type="nvarchar" MaxLength="50" />
           <Property Name="Appeal" Type="nvarchar" MaxLength="50" />
+          <Property Name="DonationId" Type="int" />
+          <Property Name="DonorId" Type="int" />
         </EntityType>
         <EntityType Name="CONTACT">
           <Key>
@@ -116,7 +118,6 @@
           <Property Name="DateRecieved" Type="date" />
           <Property Name="GiftMethod" Type="nvarchar" MaxLength="12" />
           <Property Name="DateGiftMade" Type="date" />
-          <Property Name="CodeId" Type="int" />
           <Property Name="ImageUpload" Type="varbinary(max)" />
           <Property Name="GiftRestrictions" Type="nvarchar(max)" />
           <Property Name="Notes" Type="varchar(max)" />
@@ -198,15 +199,17 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="create_date" Type="datetime" Nullable="false" />
           <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__DONATION__CodeId__2B0A656D">
-          <End Role="CODES" Type="Self.CODES" Multiplicity="0..1" />
-          <End Role="DONATION" Type="Self.DONATION" Multiplicity="*" />
+        <Association Name="FK__CODES__47A6A41B">
+          <End Role="DONATION" Type="Self.DONATION" Multiplicity="0..1" />
+          <End Role="CODES" Type="Self.CODES" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CODES">
-              <PropertyRef Name="CodeId" />
+            <Principal Role="DONATION">
+              <PropertyRef Name="DonationId" />
+              <PropertyRef Name="DonorId" />
             </Principal>
-            <Dependent Role="DONATION">
-              <PropertyRef Name="CodeId" />
+            <Dependent Role="CODES">
+              <PropertyRef Name="DonationId" />
+              <PropertyRef Name="DonorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -352,9 +355,9 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
     [database_firewall_rules].[modify_date] AS [modify_date]
     FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__DONATION__CodeId__2B0A656D" Association="Self.FK__DONATION__CodeId__2B0A656D">
-            <End Role="CODES" EntitySet="CODES" />
+          <AssociationSet Name="FK__CODES__47A6A41B" Association="Self.FK__CODES__47A6A41B">
             <End Role="DONATION" EntitySet="DONATION" />
+            <End Role="CODES" EntitySet="CODES" />
           </AssociationSet>
           <AssociationSet Name="FK__DONATION__DonorI__2A164134" Association="Self.FK__DONATION__DonorI__2A164134">
             <End Role="DONOR" EntitySet="DONOR" />
@@ -470,7 +473,9 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Grants" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Appeal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DONATION" Relationship="Self.FK__DONATION__CodeId__2B0A656D" FromRole="CODES" ToRole="DONATION" />
+          <Property Name="DonationId" Type="Int32" />
+          <Property Name="DonorId" Type="Int32" />
+          <NavigationProperty Name="DONATION1" Relationship="DonorManagementDatabaseModel.FK__CODES__47A6A41B" FromRole="CODES" ToRole="DONATION" />
         </EntityType>
         <EntityType Name="CONTACT">
           <Key>
@@ -496,13 +501,12 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="DateRecieved" Type="DateTime" Precision="0" />
           <Property Name="GiftMethod" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Name="DateGiftMade" Type="DateTime" Precision="0" />
-          <Property Name="CodeId" Type="Int32" />
           <Property Name="ImageUpload" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="GiftRestrictions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CODES" Relationship="Self.FK__DONATION__CodeId__2B0A656D" FromRole="DONATION" ToRole="CODES" />
           <NavigationProperty Name="DONOR" Relationship="Self.FK__DONATION__DonorI__2A164134" FromRole="DONATION" ToRole="DONOR" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ImageMimeType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CODES1" Relationship="DonorManagementDatabaseModel.FK__CODES__47A6A41B" FromRole="DONATION" ToRole="CODES" />
         </EntityType>
         <EntityType Name="DONOR">
           <Key>
@@ -604,18 +608,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DONATION__CodeId__2B0A656D">
-          <End Role="CODES" Type="Self.CODES" Multiplicity="0..1" />
-          <End Role="DONATION" Type="Self.DONATION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CODES">
-              <PropertyRef Name="CodeId" />
-            </Principal>
-            <Dependent Role="DONATION">
-              <PropertyRef Name="CodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__DONOR__ContactId__2739D489">
           <End Role="CONTACT" Type="Self.CONTACT" Multiplicity="0..1" />
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="*" />
@@ -702,10 +694,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK__DONATION__CodeId__2B0A656D" Association="Self.FK__DONATION__CodeId__2B0A656D">
-            <End Role="CODES" EntitySet="CODES" />
-            <End Role="DONATION" EntitySet="DONATION" />
-          </AssociationSet>
           <AssociationSet Name="FK__DONOR__ContactId__2739D489" Association="Self.FK__DONOR__ContactId__2739D489">
             <End Role="CONTACT" EntitySet="CONTACT" />
             <End Role="DONOR" EntitySet="DONOR" />
@@ -732,6 +720,10 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           </AssociationSet>
           <EntitySet Name="CODELIST" EntityType="DonorManagementDatabaseModel.CODELIST" />
           <EntitySet Name="sysdiagrams" EntityType="DonorManagementDatabaseModel.sysdiagrams" />
+          <AssociationSet Name="FK__CODES__47A6A41B" Association="DonorManagementDatabaseModel.FK__CODES__47A6A41B">
+            <End Role="DONATION" EntitySet="DONATION" />
+            <End Role="CODES" EntitySet="CODES" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CODELIST">
           <Key>
@@ -755,6 +747,20 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <Association Name="FK__CODES__47A6A41B">
+          <End Type="DonorManagementDatabaseModel.DONATION" Role="DONATION" Multiplicity="0..1" />
+          <End Type="DonorManagementDatabaseModel.CODES" Role="CODES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONATION">
+              <PropertyRef Name="DonationId" />
+              <PropertyRef Name="DonorId" />
+            </Principal>
+            <Dependent Role="CODES">
+              <PropertyRef Name="DonationId" />
+              <PropertyRef Name="DonorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -822,6 +828,8 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySetMapping Name="CODES">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.CODES">
               <MappingFragment StoreEntitySet="CODES">
+                <ScalarProperty Name="DonorId" ColumnName="DonorId" />
+                <ScalarProperty Name="DonationId" ColumnName="DonationId" />
                 <ScalarProperty Name="CodeId" ColumnName="CodeId" />
                 <ScalarProperty Name="Fund" ColumnName="Fund" />
                 <ScalarProperty Name="GL" ColumnName="GL" />
@@ -856,7 +864,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
                 <ScalarProperty Name="DateRecieved" ColumnName="DateRecieved" />
                 <ScalarProperty Name="GiftMethod" ColumnName="GiftMethod" />
                 <ScalarProperty Name="DateGiftMade" ColumnName="DateGiftMade" />
-                <ScalarProperty Name="CodeId" ColumnName="CodeId" />
                 <ScalarProperty Name="ImageUpload" ColumnName="ImageUpload" />
                 <ScalarProperty Name="GiftRestrictions" ColumnName="GiftRestrictions" />
               </MappingFragment>

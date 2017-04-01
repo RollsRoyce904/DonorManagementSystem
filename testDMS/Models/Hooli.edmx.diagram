@@ -20,7 +20,6 @@
         <EntityTypeShape EntityType="DonorManagementDatabaseModel.database_firewall_rules" Width="1.5" PointX="9.75" PointY="8.375" IsExpanded="true" />
         <AssociationConnector Association="DonorManagementDatabaseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="DonorManagementDatabaseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="DonorManagementDatabaseModel.FK__DONATION__CodeId__2B0A656D" ManuallyRouted="false" />
         <AssociationConnector Association="DonorManagementDatabaseModel.FK__DONOR__ContactId__2739D489" ManuallyRouted="false" />
         <AssociationConnector Association="DonorManagementDatabaseModel.FK__DONATION__DonorI__2A164134" ManuallyRouted="false" />
         <AssociationConnector Association="DonorManagementDatabaseModel.FK__DONOR__MarkerId__2645B050" ManuallyRouted="false" />
@@ -29,6 +28,7 @@
         <AssociationConnector Association="DonorManagementDatabaseModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DonorManagementDatabaseModel.CODELIST" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="DonorManagementDatabaseModel.sysdiagrams" Width="1.5" PointX="7.375" PointY="11.75" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK__CODES__47A6A41B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
