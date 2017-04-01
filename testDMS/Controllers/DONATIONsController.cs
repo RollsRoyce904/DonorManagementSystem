@@ -93,6 +93,23 @@ namespace testDMS.Controllers
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FName");
 
+            List<string> TypeOf = new List<string>();
+
+            TypeOf.Add("Pledge");
+            TypeOf.Add("Cash");
+            TypeOf.Add("Bequest");
+
+            ViewBag.TypeOf = new SelectList(TypeOf, "TypeOf");
+
+            List<string> GiftMethod = new List<string>();
+
+            GiftMethod.Add("Check");
+            GiftMethod.Add("ACH Transfer");
+            GiftMethod.Add("Credit Card");
+            GiftMethod.Add("Cash");
+
+            ViewBag.GiftMethod = new SelectList(GiftMethod, "GiftMethod");
+
             List<string> Fund = new List<string>();
             Fund.Add("01");
             Fund.Add("02");
@@ -239,6 +256,8 @@ namespace testDMS.Controllers
 
             //ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
+            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
+            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
             ViewBag.Fund = new SelectList(ddlData.CODES, "Fund");
             ViewBag.GL = new SelectList(ddlData.CODES, "GL");
             ViewBag.Department = new SelectList(ddlData.CODES, "Department");
