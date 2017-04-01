@@ -11,6 +11,7 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class DONATION
     {
@@ -24,8 +25,12 @@ namespace testDMS.Models
         public int DonorId { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public string TypeOf { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> DateRecieved { get; set; }
         public string GiftMethod { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> DateGiftMade { get; set; }
         public byte[] ImageUpload { get; set; }
         public string GiftRestrictions { get; set; }
