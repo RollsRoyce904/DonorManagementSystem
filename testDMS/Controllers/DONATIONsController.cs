@@ -378,8 +378,8 @@ namespace testDMS.Controllers
         public ActionResult AddDonation(CreateDonationViewModel CDVM, int id, HttpPostedFileBase image = null)
         {
             DONATION donation = CDVM.donation;
-            DONOR donor = CDVM.donor;
-            donor.DonorId = id;
+            //DONOR donor = CDVM.donor;
+            donation.DonorId = id;
 
             if (ModelState.IsValid)
             {
