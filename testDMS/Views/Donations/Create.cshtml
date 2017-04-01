@@ -49,15 +49,6 @@
                         </div>
                     </div>
 
-                    @*Add date box*@
-                    <div class="form-group">
-                        @Html.Label("Date Received", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.donation.DateRecieved, new { htmlAttributes = new { @class = "form-control", type =  "date"} })
-                            @Html.ValidationMessageFor(model => model.donation.DateRecieved, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
                     <div class="form-group">
                         @Html.Label("Gift Method", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
@@ -72,6 +63,15 @@
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.donation.DateGiftMade, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                             @Html.ValidationMessageFor(model => model.donation.DateGiftMade, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*Add date box*@
+                    <div class="form-group">
+                        @Html.Label("Date Received", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.donation.DateRecieved, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                            @Html.ValidationMessageFor(model => model.donation.DateRecieved, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -146,10 +146,10 @@
                     </div>
                     <div class="form-group">
                         <div style="position:relative;">
-                            <label>Image</label>
+                            @*<label>Image</label>
                             <a class="btn" href="javascript:;">
                                 <input type="file" name="image" onchange="$('#upload-file-info').html($(this).val());" />
-                            </a>
+                            </a>*@
                             <span class="label label-info" id="upload-file-info"></span>
                             </div>
                         </div>
