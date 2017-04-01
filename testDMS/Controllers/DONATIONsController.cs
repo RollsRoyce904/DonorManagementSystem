@@ -40,7 +40,7 @@ namespace testDMS.Controllers
                                 select d;
                 count = donations.Count();
                 DonationViewModel dvm = new DonationViewModel();
-                dvm.Donations = donations.Take(count).ToPagedList(pageNumber, pageSize);
+                //dvm.Donations = donations.Take(count).ToPagedList(pageNumber, pageSize);
                 switch (sortOrder)
                 {
                     case "DonationID":
@@ -56,6 +56,7 @@ namespace testDMS.Controllers
                         donations = donations.OrderByDescending(d => d.DonationId);
                         break;
                 }
+                dvm.Donations = new PagedList<DONATION>(donations, pageNumber, pageSize);
                 return View(dvm);
             }
             else
@@ -217,7 +218,7 @@ namespace testDMS.Controllers
         public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image = null)
         {
             DONATION donation = CDVM.donation;
-
+            donation.Notes = CDVM.donation.Notes;
             if (ModelState.IsValid)
             {
 
