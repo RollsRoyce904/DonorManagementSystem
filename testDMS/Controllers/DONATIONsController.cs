@@ -93,6 +93,13 @@ namespace testDMS.Controllers
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FName");
 
+            List<string> GiftMethod = new List<string>();
+
+            GiftMethod.Add("Check");
+            GiftMethod.Add("ACH");
+
+            ViewBag.GiftMethod = new SelectList(GiftMethod, "GiftMethod");
+
             List<string> Fund = new List<string>();
             Fund.Add("01");
             Fund.Add("02");
