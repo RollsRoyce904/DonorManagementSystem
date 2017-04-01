@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -10,7 +11,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using testDMS.DAL;
 using testDMS.Models;
-using PagedList;
 
 namespace testDMS.Controllers
 {
@@ -19,11 +19,13 @@ namespace testDMS.Controllers
         private DonorManagementDatabaseEntities ddlData = new DonorManagementDatabaseEntities();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
+        ICodeRepository cdRepo;
 
-        public DONATIONsController(IDonorRepository drRepo, IDonationRepository dnRepo)
+        public DONATIONsController(IDonorRepository drRepo, IDonationRepository dnRepo, ICodeRepository cdRepo)
         {
             this.drRepo = drRepo;
             this.dnRepo = dnRepo;
+            this.cdRepo = cdRepo;
         }
 
         // GET: DONATIONs
@@ -217,6 +219,8 @@ namespace testDMS.Controllers
         public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image = null)
         {
             DONATION donation = CDVM.donation;
+            CODES code = CDVM.code;
+
 
             if (ModelState.IsValid)
             {
@@ -225,13 +229,15 @@ namespace testDMS.Controllers
                 //donation.ImageUpload = new byte[image.ContentLength];
                 //image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
 
+                cdRepo.Add(code);
                 dnRepo.Add(donation);
+
                 return RedirectToAction("Index");
             }
 
 
 
-            ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
+            //ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
             ViewBag.Fund = new SelectList(ddlData.CODES, "Fund");
             ViewBag.GL = new SelectList(ddlData.CODES, "GL");
@@ -244,10 +250,10 @@ namespace testDMS.Controllers
 
         public ActionResult AddDonation(int id)
         {
-           
-            ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund");
 
-            DONOR donor =  drRepo.FindById(id);
+            //ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund");
+
+            DONOR donor = drRepo.FindById(id);
 
             CreateDonationViewModel cdvm = new CreateDonationViewModel();
             cdvm.donor = donor;
@@ -394,7 +400,7 @@ namespace testDMS.Controllers
 
 
 
-            ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
+            //ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
             ViewBag.Fund = new SelectList(ddlData.CODES, "Fund");
             ViewBag.GL = new SelectList(ddlData.CODES, "GL");
@@ -420,7 +426,7 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
+            //ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
             return View(donation);
@@ -445,7 +451,7 @@ namespace testDMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", dONATION.CodeId);
+            // ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", dONATION.CodeId);
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", dONATION.DonorId);
 
             return View(dONATION);

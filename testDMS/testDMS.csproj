@@ -252,8 +252,10 @@
     <Compile Include="Controllers\DONORsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DAL\CodeRepository.cs" />
     <Compile Include="DAL\DonationRepository.cs" />
     <Compile Include="DAL\DonorRepository.cs" />
+    <Compile Include="DAL\ICodeRepository.cs" />
     <Compile Include="DAL\IDonationRepository.cs" />
     <Compile Include="DAL\IDonorRepository.cs" />
     <Compile Include="DAL\INoteRepository.cs" />
