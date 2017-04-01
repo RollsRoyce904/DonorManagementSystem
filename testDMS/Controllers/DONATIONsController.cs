@@ -395,7 +395,7 @@ namespace testDMS.Controllers
                 //image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
 
                 dnRepo.Add(donation);
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","DONORs",new {id});
             }
 
 
