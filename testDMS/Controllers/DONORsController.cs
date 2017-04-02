@@ -47,20 +47,20 @@ namespace testDMS.Controllers
             else
             {
                 searchString = currentFilter;
-                donor = drRepo.GetDonors;
+                donor = drRepo.GetDonors;                             
             }
 
             ViewBag.CurrentFilter = searchString;
 
             count = drRepo.GetDonors.Count();
 
-            DonorViewModel DonorList = new DonorViewModel
-            {
-                Donors = donor.Take(count).ToPagedList(pageNumber, pageSize)
-            };
-
+                            DonorViewModel DonorList = new DonorViewModel
+                {
+                    Donors = donor.Take(count).ToPagedList(pageNumber, pageSize)
+                };
+                     
             return View(DonorList);
-
+            
         }
 
         public ActionResult Edit(int? id)

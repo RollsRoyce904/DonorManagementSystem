@@ -42,6 +42,7 @@ namespace testDMS.Models
         public string City { get; set; }
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Please enter a valid zipcode.")]
         public string Zipcode { get; set; }
+        [RegularExpression("^[0-9]{10,11}$", ErrorMessage = "Please enter a valid 10 digit phone number. Do not include dashes.")]
         public string Phone { get; set; }
         public string State { get; set; }
     
