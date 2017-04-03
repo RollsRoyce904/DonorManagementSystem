@@ -33,7 +33,7 @@ namespace testDMS.Controllers
             int count = 0;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentSort = sortOrder;           
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
@@ -52,15 +52,18 @@ namespace testDMS.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            count = drRepo.GetDonors.Count();
+            //count = drRepo.GetDonors.Count();
+            count = donor.Count();
 
-                            DonorViewModel DonorList = new DonorViewModel
+            ViewBag.Count = count;
+
+            DonorViewModel DonorList = new DonorViewModel
                 {
                     Donors = donor.Take(count).ToPagedList(pageNumber, pageSize)
                 };
-                     
-            return View(DonorList);
+
             
+            return View(DonorList);                        
         }
 
         public ActionResult Edit(int? id)
