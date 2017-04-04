@@ -33,7 +33,7 @@ namespace testDMS.Controllers
             int count = 0;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentSort = sortOrder;           
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
@@ -47,20 +47,23 @@ namespace testDMS.Controllers
             else
             {
                 searchString = currentFilter;
-                donor = drRepo.GetDonors;
+                donor = drRepo.GetDonors;                             
             }
 
             ViewBag.CurrentFilter = searchString;
 
-            count = drRepo.GetDonors.Count();
+            //count = drRepo.GetDonors.Count();
+            count = donor.Count();
+
+            ViewBag.Count = count;
 
             DonorViewModel DonorList = new DonorViewModel
-            {
-                Donors = donor.Take(count).ToPagedList(pageNumber, pageSize)
-            };
+                {
+                    Donors = donor.Take(count).ToPagedList(pageNumber, pageSize)
+                };
 
-            return View(DonorList);
-
+            
+            return View(DonorList);                        
         }
 
         public ActionResult Edit(int? id)
@@ -155,6 +158,60 @@ namespace testDMS.Controllers
         {
             ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF");
             ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE");
+            List<string> StateMethod = new List<string>();
+
+            StateMethod.Add("AL");
+            StateMethod.Add("AK");
+            StateMethod.Add("AZ");
+            StateMethod.Add("AR");
+            StateMethod.Add("CA");
+            StateMethod.Add("CO");
+            StateMethod.Add("CT");
+            StateMethod.Add("DE");
+            StateMethod.Add("FL");
+            StateMethod.Add("GA");
+            StateMethod.Add("HI");
+            StateMethod.Add("ID");
+            StateMethod.Add("IL");
+            StateMethod.Add("IN");
+            StateMethod.Add("IA");
+            StateMethod.Add("KS");
+            StateMethod.Add("KY");
+            StateMethod.Add("LA");
+            StateMethod.Add("ME");
+            StateMethod.Add("MD");
+            StateMethod.Add("MA");
+            StateMethod.Add("MI");
+            StateMethod.Add("MN");
+            StateMethod.Add("MS");
+            StateMethod.Add("MO");
+            StateMethod.Add("MT");
+            StateMethod.Add("NE");
+            StateMethod.Add("NV");
+            StateMethod.Add("NH");
+            StateMethod.Add("NJ");
+            StateMethod.Add("NM");
+            StateMethod.Add("NY");
+            StateMethod.Add("NC");
+            StateMethod.Add("ND");
+            StateMethod.Add("OH");
+            StateMethod.Add("OK");
+            StateMethod.Add("OR");
+            StateMethod.Add("PA");
+            StateMethod.Add("RI");
+            StateMethod.Add("SC");
+            StateMethod.Add("SD");
+            StateMethod.Add("TN");
+            StateMethod.Add("TX");
+            StateMethod.Add("UT");
+            StateMethod.Add("VT");
+            StateMethod.Add("VA");
+            StateMethod.Add("WA");
+            StateMethod.Add("WV");
+            StateMethod.Add("WI");
+            StateMethod.Add("WY");
+            
+            ViewBag.StateMethod = new SelectList(StateMethod, "StateMethod");
             return View();
         }
 

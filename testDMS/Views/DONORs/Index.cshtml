@@ -21,12 +21,14 @@
             @Html.AntiForgeryToken()
             Search Donors: @Html.TextBox("SearchString")&nbsp
             <input type="submit" value="Filter" />
-            <button onclick="goBack()">Clear Search</button>
-            <script>
-                function goBack() {
-                    window.history.back();
-                }
-            </script>
+            <input type="button" value="Clear Search" onclick="location.href='@Url.Action("Index", "DONORs")'" />
+            
+            <script type="text/javascript">
+                @if (ViewBag.Count == 0){
+                    <text> alert("No results for this search! Please try another!") </text>
+            };
+            </script>          
+            
             <br />
             
         </p>        
