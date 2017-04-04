@@ -34,19 +34,21 @@ namespace testDMS.Controllers
         }
 
         //Get users
+
         public ActionResult Index()
         {
-            
 
             var user = UserManager.FindById(User.Identity.GetUserId());
             if (user.NewRole == "Administrator")
             {
-                return View();
+                ViewBag.role = user.NewRole;
+
+                return View(data.AspNetUsers.ToList());
 
             }
             else
             {
-                return View(user);
+                return View(data.AspNetUsers.ToList().Where(p => p.Id == user.Id));
             }
             //if (searchString == null)
             //{
