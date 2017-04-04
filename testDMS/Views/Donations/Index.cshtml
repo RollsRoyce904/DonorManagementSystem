@@ -1,4 +1,4 @@
-﻿@model testDMS.Models.DonationViewModel
+﻿@model IEnumerable<testDMS.Models.DONATION>
 @using PagedList.Mvc
 @Scripts.Render("~/bundles/mycustomjquery")
 
@@ -60,7 +60,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Donations)
+    @foreach (var item in Model)
     {
         <tr>
             <td style="padding-left:2%">
@@ -89,7 +89,7 @@
     
     }
 </table>
-@Html.PagedListPager(Model.Donations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+@*@Html.PagedListPager(Model.Donations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
 <input type="button" onclick="location.href='@Url.Action("ExportToExcel","DONATIONs")'" class="btn btn-default" style="background-image:url('../../Images/excel_icon.png');background-size:cover;width:75px;height:75px" />
 
 
