@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using testDMS.DAL;
 using testDMS.Models;
+using System.Linq;
 
 namespace testDMS.Controllers
 {
@@ -15,15 +16,11 @@ namespace testDMS.Controllers
         private DonorManagementDatabaseEntities ddlData = new DonorManagementDatabaseEntities();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
-        ICodeListRepository clRepo;
-        ICodeRepository cdRepo;
 
-        public ChartController(IDonorRepository drRepo, IDonationRepository dnRepo, ICodeListRepository clRepo, ICodeRepository cdRepo)
+        public ChartController(IDonorRepository drRepo, IDonationRepository dnRepo)
         {
             this.drRepo = drRepo;
             this.dnRepo = dnRepo;
-            this.clRepo = clRepo;
-            this.cdRepo = cdRepo;
         }
 
         public ActionResult Index()
@@ -37,11 +34,12 @@ namespace testDMS.Controllers
         public ActionResult LoadSelectList()
         {
             ViewBag.Person = new SelectList(ddlData.DONOR, "DonorId", "FNAME");
-            ViewBag.Department = new SelectList(ddlData.CODELIST, "Department", "Department");
-            ViewBag.Gl = new SelectList(ddlData.CODELIST, "GL", "GL");
 
-            var amountList = new SelectList(
-                new List<SelectListItem>
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+
+            ViewBag.Gl = new SelectList(ddlData.GLS, "GLID", "GL");
+
+            var amountList = new SelectList(new List<SelectListItem>
                 {
                     new SelectListItem {Text = "Amount", Value="0", Selected=true },
                     new SelectListItem {Text = "0-100", Value="1" },
@@ -56,21 +54,6 @@ namespace testDMS.Controllers
 
             ViewBag.Amount = amountList;
 
-
-            ViewBag.Fund = new SelectList(ddlData.CODELIST, "Funds", "Funds");
-
-          
-
-            ViewBag.GL = new SelectList(ddlData.CODELIST, "GL", "GL");
-            
-
-            ViewBag.Department = new SelectList(ddlData.CODELIST, "Department", "Department");
-            
-            ViewBag.Program = new SelectList(ddlData.CODELIST, "Program", "Program");
-
-            
-            ViewBag.Grant = new SelectList(ddlData.CODELIST, "Grant", "Grant");
-
             return View("~/Views/Chart/Index.cshtml");
         }
 
@@ -78,15 +61,10 @@ namespace testDMS.Controllers
         {
             IEnumerable<DONOR> Donors = drRepo.GetDonors;
             IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.GetDonations();
-            IEnumerable<CODELIST> CodeList = clRepo.GetCodeList;
-            //IEnumerable<CODES> Codes = cdRepo.GetCodes();
-
 
             ChartDispalyViewModel model = new ChartDispalyViewModel();
             model.Donors = Donors;
             model.Donations = Donations;
-            model.CodeList = CodeList;
-
 
             return View("~/Views/Chart/Index.cshtml", model);
         }
@@ -139,6 +117,8 @@ namespace testDMS.Controllers
 
             IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString,
                 amount1, amount2, date1, date2, department, gl);
+           
+
 
             ChartDispalyViewModel model = new ChartDispalyViewModel();
 
@@ -204,11 +184,20 @@ namespace testDMS.Controllers
 
             var Donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString,
                 amount1, amount2, date1, date2, department, gl);
-            BindingList<DONATION> bList = new BindingList<DONATION>();
-
+            
+            BindingList<CHARTDATA> bList = new BindingList<CHARTDATA>();
+           
             foreach (var item in Donations)
             {
-                bList.Add(item);
+                var cData = new CHARTDATA
+                {
+                    DonorName = item.DONOR.FName,
+                    Amount = item.Amount,
+                    DateReceived = item.DateRecieved,
+                    Department = item.Department,
+                    GL = item.GL
+                };
+                bList.Add(cData);
             }
 
             DateTime dt = DateTime.Now;

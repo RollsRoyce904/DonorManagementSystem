@@ -39,8 +39,14 @@ namespace testDMS.Models
         public virtual DbSet<NOTES> NOTES { get; set; }
         public virtual DbSet<RELATIVES> RELATIVES { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
-        public virtual DbSet<CODELIST> CODELIST { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<APPEALS> APPEALS { get; set; }
+        public virtual DbSet<CHARTDATA> CHARTDATA { get; set; }
+        public virtual DbSet<DEPARTMENTS> DEPARTMENTS { get; set; }
+        public virtual DbSet<FUNDS> FUNDS { get; set; }
+        public virtual DbSet<GLS> GLS { get; set; }
+        public virtual DbSet<GRANTS> GRANTS { get; set; }
+        public virtual DbSet<PROGRAMS> PROGRAMS { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

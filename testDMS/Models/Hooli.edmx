@@ -15,6 +15,13 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
+        <EntityType Name="APPEALS">
+          <Key>
+            <PropertyRef Name="AppealID" />
+          </Key>
+          <Property Name="AppealID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Appeal" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -69,17 +76,16 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="NewRole" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="CODELIST">
+        <EntityType Name="CHARTDATA">
           <Key>
-            <PropertyRef Name="CodeId" />
+            <PropertyRef Name="ChartId" />
           </Key>
-          <Property Name="CodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Fund" Type="nvarchar" MaxLength="2" />
-          <Property Name="GL" Type="nvarchar" MaxLength="4" />
+          <Property Name="ChartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DonorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="numeric" Precision="9" Scale="2" />
+          <Property Name="DateReceived" Type="date" />
           <Property Name="Department" Type="nvarchar" MaxLength="2" />
-          <Property Name="Program" Type="nvarchar" MaxLength="50" />
-          <Property Name="Grants" Type="nvarchar" MaxLength="50" />
-          <Property Name="Appeal" Type="nvarchar" MaxLength="50" />
+          <Property Name="GL" Type="nvarchar" MaxLength="4" />
         </EntityType>
         <EntityType Name="CONTACT">
           <Key>
@@ -91,6 +97,13 @@
           <Property Name="Method" Type="nvarchar" MaxLength="10" />
           <Property Name="SubjectOf" Type="nvarchar(max)" />
           <Property Name="Summary" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DEPARTMENTS">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Department" Type="nvarchar" MaxLength="2" />
         </EntityType>
         <EntityType Name="DONATION">
           <Key>
@@ -138,6 +151,27 @@
           <Property Name="Phone" Type="varchar" MaxLength="30" />
           <Property Name="State" Type="nvarchar" MaxLength="2" />
         </EntityType>
+        <EntityType Name="FUNDS">
+          <Key>
+            <PropertyRef Name="FundID" />
+          </Key>
+          <Property Name="FundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fund" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="GLS">
+          <Key>
+            <PropertyRef Name="GLID" />
+          </Key>
+          <Property Name="GLID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GL" Type="nvarchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="GRANTS">
+          <Key>
+            <PropertyRef Name="GrantID" />
+          </Key>
+          <Property Name="GrantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GrantName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="IDENTITYMARKER">
           <Key>
             <PropertyRef Name="MarkerId" />
@@ -154,6 +188,13 @@
           <Property Name="DonorId" Type="int" Nullable="false" />
           <Property Name="Note" Type="nvarchar(max)" />
           <Property Name="DateMade" Type="date" />
+        </EntityType>
+        <EntityType Name="PROGRAMS">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Program" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="RELATIVES">
           <Key>
@@ -340,17 +381,23 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DonorManagementDatabaseModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APPEALS" EntityType="Self.APPEALS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CODELIST" EntityType="Self.CODELIST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHARTDATA" EntityType="Self.CHARTDATA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTACT" EntityType="Self.CONTACT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DEPARTMENTS" EntityType="Self.DEPARTMENTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONATION" EntityType="Self.DONATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONOR" EntityType="Self.DONOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FUNDS" EntityType="Self.FUNDS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GLS" EntityType="Self.GLS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GRANTS" EntityType="Self.GRANTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IDENTITYMARKER" EntityType="Self.IDENTITYMARKER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NOTES" EntityType="Self.NOTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PROGRAMS" EntityType="Self.PROGRAMS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RELATIVES" EntityType="Self.RELATIVES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
@@ -711,7 +758,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="CODELIST" EntityType="DonorManagementDatabaseModel.CODELIST" />
           <EntitySet Name="sysdiagrams" EntityType="DonorManagementDatabaseModel.sysdiagrams" />
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -743,19 +789,14 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="APPEALS" EntityType="DonorManagementDatabaseModel.APPEALS" />
+          <EntitySet Name="CHARTDATA" EntityType="DonorManagementDatabaseModel.CHARTDATA" />
+          <EntitySet Name="DEPARTMENTS" EntityType="DonorManagementDatabaseModel.DEPARTMENTS" />
+          <EntitySet Name="FUNDS" EntityType="DonorManagementDatabaseModel.FUNDS" />
+          <EntitySet Name="GLS" EntityType="DonorManagementDatabaseModel.GLS" />
+          <EntitySet Name="GRANTS" EntityType="DonorManagementDatabaseModel.GRANTS" />
+          <EntitySet Name="PROGRAMS" EntityType="DonorManagementDatabaseModel.PROGRAMS" />
         </EntityContainer>
-        <EntityType Name="CODELIST">
-          <Key>
-            <PropertyRef Name="CodeId" />
-          </Key>
-          <Property Name="CodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fund" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="GL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Name="Department" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Grants" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Appeal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -777,6 +818,59 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="APPEALS">
+          <Key>
+            <PropertyRef Name="AppealID" />
+          </Key>
+          <Property Name="AppealID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Appeal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CHARTDATA">
+          <Key>
+            <PropertyRef Name="ChartId" />
+          </Key>
+          <Property Name="ChartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DonorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="DateReceived" Type="DateTime" Precision="0" />
+          <Property Name="Department" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="GL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DEPARTMENTS">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Department" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FUNDS">
+          <Key>
+            <PropertyRef Name="FundID" />
+          </Key>
+          <Property Name="FundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fund" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GLS">
+          <Key>
+            <PropertyRef Name="GLID" />
+          </Key>
+          <Property Name="GLID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GRANTS">
+          <Key>
+            <PropertyRef Name="GrantID" />
+          </Key>
+          <Property Name="GrantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GrantName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PROGRAMS">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -946,19 +1040,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="CODELIST">
-            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.CODELIST">
-              <MappingFragment StoreEntitySet="CODELIST">
-                <ScalarProperty Name="Appeal" ColumnName="Appeal" />
-                <ScalarProperty Name="Grants" ColumnName="Grants" />
-                <ScalarProperty Name="Program" ColumnName="Program" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="GL" ColumnName="GL" />
-                <ScalarProperty Name="Fund" ColumnName="Fund" />
-                <ScalarProperty Name="CodeId" ColumnName="CodeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -994,6 +1075,66 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DonorManagementDatabaseModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DonorManagementDatabaseModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="APPEALS">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.APPEALS">
+              <MappingFragment StoreEntitySet="APPEALS">
+                <ScalarProperty Name="Appeal" ColumnName="Appeal" />
+                <ScalarProperty Name="AppealID" ColumnName="AppealID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHARTDATA">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.CHARTDATA">
+              <MappingFragment StoreEntitySet="CHARTDATA">
+                <ScalarProperty Name="GL" ColumnName="GL" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DonorName" ColumnName="DonorName" />
+                <ScalarProperty Name="ChartId" ColumnName="ChartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEPARTMENTS">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.DEPARTMENTS">
+              <MappingFragment StoreEntitySet="DEPARTMENTS">
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNDS">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.FUNDS">
+              <MappingFragment StoreEntitySet="FUNDS">
+                <ScalarProperty Name="Fund" ColumnName="Fund" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GLS">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.GLS">
+              <MappingFragment StoreEntitySet="GLS">
+                <ScalarProperty Name="GL" ColumnName="GL" />
+                <ScalarProperty Name="GLID" ColumnName="GLID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GRANTS">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.GRANTS">
+              <MappingFragment StoreEntitySet="GRANTS">
+                <ScalarProperty Name="GrantName" ColumnName="GrantName" />
+                <ScalarProperty Name="GrantID" ColumnName="GrantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROGRAMS">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.PROGRAMS">
+              <MappingFragment StoreEntitySet="PROGRAMS">
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
