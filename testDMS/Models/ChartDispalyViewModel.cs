@@ -11,6 +11,8 @@ namespace testDMS.Models
 
         public IEnumerable<CODES> Codes { get; set; }
 
+        public IEnumerable<CODELIST> CodeList { get; set; }
+
         public string searchString { get; set; }
 
         public int? amount { get; set; }
@@ -22,12 +24,6 @@ namespace testDMS.Models
         public string department { get; set; }
 
         public string gl { get; set; }
-
-        //public IEnumerable<JsonData> DataList { get; set; }
-
-        //public JsonData DataInstance { get; set; }
-
-        //public Option JsonOption { get; set; }
 
     }
 }

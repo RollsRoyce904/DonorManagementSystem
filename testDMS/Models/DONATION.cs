@@ -11,34 +11,27 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class DONATION
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DONATION()
-        {
-            this.CODES1 = new HashSet<CODES>();
-        }
-    
         public int DonationId { get; set; }
         public int DonorId { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public string TypeOf { get; set; }
-
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> DateRecieved { get; set; }
         public string GiftMethod { get; set; }
-
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> DateGiftMade { get; set; }
         public byte[] ImageUpload { get; set; }
         public string GiftRestrictions { get; set; }
         public string Notes { get; set; }
         public string ImageMimeType { get; set; }
+        public string Fund { get; set; }
+        public string GL { get; set; }
+        public string Department { get; set; }
+        public string Program { get; set; }
+        public string GrantS { get; set; }
+        public string Appeal { get; set; }
     
         public virtual DONOR DONOR { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CODES> CODES1 { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using testDMS.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using testDMS.Models;
 
 namespace testDMS.DAL
 {
@@ -10,6 +12,14 @@ namespace testDMS.DAL
         {
             context.CODES.Add(code);
             context.SaveChanges();
+        }
+
+        public IEnumerable<CODES> GetCodes()
+        {
+            var results = (from c in context.CODES
+                           select c);
+
+            return results;
         }
 
         public void Remove(int id)

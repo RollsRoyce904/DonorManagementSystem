@@ -34,15 +34,21 @@ namespace testDMS.Controllers
             int count = 0;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
+
             if (searchString == null)
             {
+
                 ViewBag.DonationSortParam = String.IsNullOrEmpty(sortOrder) ? "donationID_desc" : "";
                 ViewBag.DateSortParam = sortOrder == "DateGiftRecieved" ? "dateRecieved_desc" : "DateGiftRecieved";
+
                 var donations = from DONATION d in dnRepo.GetDonations()
                                 select d;
+
                 count = donations.Count();
+
                 DonationViewModel dvm = new DonationViewModel();
                 dvm.Donations = donations.Take(count).ToPagedList(pageNumber, pageSize);
+
                 switch (sortOrder)
                 {
                     case "DonationID":
@@ -57,15 +63,19 @@ namespace testDMS.Controllers
                     default:
                         donations = donations.OrderByDescending(d => d.DonationId);
                         break;
+
                 }
+
                 return View(dvm);
             }
             else
             {
                 IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
                 count = donation.Count();
+
                 DonationViewModel dvm = new DonationViewModel();
                 dvm.Donations = donation.Take(count).ToPagedList(pageNumber, pageSize);
+
                 return View(dvm);
             }
         }
@@ -78,18 +88,21 @@ namespace testDMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             DONATION donation = dnRepo.FindById(ida, idb);
+
             if (donation == null)
             {
                 return HttpNotFound();
             }
+
             return View(donation);
         }
 
         // GET: DONATIONs/Create
         public ActionResult Create()
         {
-            ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund");
+            ViewBag.CodeId = new SelectList(ddlData.CODELIST, "CodeId", "Fund");
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FName");
 
@@ -236,7 +249,7 @@ namespace testDMS.Controllers
         public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image = null)
         {
             DONATION donation = CDVM.donation;
-            CODES code = CDVM.code;
+            //CODES code = CDVM.code;
 
 
             if (ModelState.IsValid)
@@ -246,7 +259,7 @@ namespace testDMS.Controllers
                 //donation.ImageUpload = new byte[image.ContentLength];
                 //image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
 
-                cdRepo.Add(code);
+                //cdRepo.Add(code);
                 dnRepo.Add(donation);
 
                 return RedirectToAction("Index");
@@ -258,11 +271,11 @@ namespace testDMS.Controllers
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
             ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
             ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
-            ViewBag.Fund = new SelectList(ddlData.CODES, "Fund");
-            ViewBag.GL = new SelectList(ddlData.CODES, "GL");
-            ViewBag.Department = new SelectList(ddlData.CODES, "Department");
-            ViewBag.Program = new SelectList(ddlData.CODES, "Program");
-            ViewBag.Grant = new SelectList(ddlData.CODES, "Grant");
+            //ViewBag.Fund = new SelectList(ddlData.CODES, "Fund");
+            //ViewBag.GL = new SelectList(ddlData.CODES, "GL");
+            //ViewBag.Department = new SelectList(ddlData.CODES, "Department");
+            //ViewBag.Program = new SelectList(ddlData.CODES, "Program");
+            //ViewBag.Grant = new SelectList(ddlData.CODES, "Grant");
 
             return View(donation);
         }
@@ -320,35 +333,6 @@ namespace testDMS.Controllers
             Department.Add("15");
 
             ViewBag.Department = new SelectList(Department, "Department");
-
-            List<string> Program = new List<string>();
-            Program.Add("MED");
-            Program.Add("PSYCH");
-            Program.Add("CFID");
-            Program.Add("EDUC");
-            Program.Add("VPK");
-            Program.Add("KIND");
-            Program.Add("DS");
-            Program.Add("ABA");
-            Program.Add("SPEECH");
-            Program.Add("OT & PT");
-            Program.Add("TUTOR");
-            Program.Add("TUTORC");
-            Program.Add("FAC");
-            Program.Add("IT");
-            Program.Add("FD");
-            Program.Add("MARKET");
-            Program.Add("BO");
-            Program.Add("BASICS");
-            Program.Add("TEAM UP");
-            Program.Add("WEBB");
-            Program.Add("MGMT");
-            Program.Add("FAAST");
-            Program.Add("PROJSRCH");
-            Program.Add("FIN");
-            Program.Add("HR");
-            Program.Add("INTAKE");
-            Program.Add("CS");
 
             ViewBag.Program = new SelectList(Program, "Program");
 
@@ -414,18 +398,18 @@ namespace testDMS.Controllers
                 //image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
 
                 dnRepo.Add(donation);
-                return RedirectToAction("Details","DONORs",new {id});
+                return RedirectToAction("Details", "DONORs", new { id });
             }
 
 
 
             //ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
-            ViewBag.Fund = new SelectList(ddlData.CODES, "Fund");
-            ViewBag.GL = new SelectList(ddlData.CODES, "GL");
-            ViewBag.Department = new SelectList(ddlData.CODES, "Department");
-            ViewBag.Program = new SelectList(ddlData.CODES, "Program");
-            ViewBag.Grant = new SelectList(ddlData.CODES, "Grant");
+            //ViewBag.Fund = new SelectList(ddlData.CODES, "Fund");
+            //ViewBag.GL = new SelectList(ddlData.CODES, "GL");
+            //ViewBag.Department = new SelectList(ddlData.CODES, "Department");
+            //ViewBag.Program = new SelectList(ddlData.CODES, "Program");
+            //ViewBag.Grant = new SelectList(ddlData.CODES, "Grant");
 
             return View(donation);
         }
@@ -515,6 +499,7 @@ namespace testDMS.Controllers
         public FileContentResult GetImage(int donationId, int donorId)
         {
             DONATION donation = dnRepo.FindById(donationId, donorId);
+
             if (donation != null)
             {
                 return File(donation.ImageUpload, donation.ImageMimeType);
@@ -528,14 +513,18 @@ namespace testDMS.Controllers
         public ActionResult Upload(string ActionName)
         {
             var path = Server.MapPath("~/App_Data/Files");
+
             foreach (string item in Request.Files)
             {
                 HttpPostedFileBase file = Request.Files[item];
+
                 if (file.ContentLength == 0)
                 {
                     continue;
                 }
+
                 string savedFileName = Path.Combine(path, Path.GetFileName(file.FileName));
+
                 file.SaveAs(savedFileName);
             }
             return RedirectToAction(ActionName);

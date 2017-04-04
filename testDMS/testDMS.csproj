@@ -252,9 +252,11 @@
     <Compile Include="Controllers\DONORsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DAL\CodeListRepository.cs" />
     <Compile Include="DAL\CodeRepository.cs" />
     <Compile Include="DAL\DonationRepository.cs" />
     <Compile Include="DAL\DonorRepository.cs" />
+    <Compile Include="DAL\ICodeListRepository.cs" />
     <Compile Include="DAL\ICodeRepository.cs" />
     <Compile Include="DAL\IDonationRepository.cs" />
     <Compile Include="DAL\IDonorRepository.cs" />
@@ -313,9 +315,6 @@
     <Compile Include="Models\CODELIST.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CODES.cs">
-      <DependentUpon>Hooli.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CONTACT.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
@@ -361,6 +360,12 @@
     </Compile>
     <Compile Include="Models\Option.cs" />
     <Compile Include="Models\RELATIVES.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">

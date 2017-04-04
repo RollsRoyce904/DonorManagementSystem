@@ -1,4 +1,5 @@
-﻿using testDMS.Models;
+﻿using System.Collections.Generic;
+using testDMS.Models;
 
 namespace testDMS.DAL
 {
@@ -7,6 +8,9 @@ namespace testDMS.DAL
         void Add(CODES code);
 
         void Remove(int id);
+
+        IEnumerable<CODES> GetCodes();
+
 
     }
 }

@@ -81,20 +81,6 @@
           <Property Name="Grants" Type="nvarchar" MaxLength="50" />
           <Property Name="Appeal" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="CODES">
-          <Key>
-            <PropertyRef Name="CodeId" />
-          </Key>
-          <Property Name="CodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Fund" Type="nvarchar" MaxLength="2" />
-          <Property Name="GL" Type="nvarchar" MaxLength="4" />
-          <Property Name="Department" Type="nvarchar" MaxLength="2" />
-          <Property Name="Program" Type="nvarchar" MaxLength="50" />
-          <Property Name="Grants" Type="nvarchar" MaxLength="50" />
-          <Property Name="Appeal" Type="nvarchar" MaxLength="50" />
-          <Property Name="DonationId" Type="int" />
-          <Property Name="DonorId" Type="int" />
-        </EntityType>
         <EntityType Name="CONTACT">
           <Key>
             <PropertyRef Name="ContactId" />
@@ -122,6 +108,12 @@
           <Property Name="GiftRestrictions" Type="nvarchar(max)" />
           <Property Name="Notes" Type="varchar(max)" />
           <Property Name="ImageMimeType" Type="varchar" MaxLength="50" />
+          <Property Name="Fund" Type="nvarchar" MaxLength="2" />
+          <Property Name="GL" Type="nvarchar" MaxLength="4" />
+          <Property Name="Department" Type="nvarchar" MaxLength="2" />
+          <Property Name="Program" Type="nvarchar" MaxLength="50" />
+          <Property Name="GrantS" Type="nvarchar" MaxLength="50" />
+          <Property Name="Appeal" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DONOR">
           <Key>
@@ -199,20 +191,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="create_date" Type="datetime" Nullable="false" />
           <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__CODES__47A6A41B">
-          <End Role="DONATION" Type="Self.DONATION" Multiplicity="0..1" />
-          <End Role="CODES" Type="Self.CODES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DONATION">
-              <PropertyRef Name="DonationId" />
-              <PropertyRef Name="DonorId" />
-            </Principal>
-            <Dependent Role="CODES">
-              <PropertyRef Name="DonationId" />
-              <PropertyRef Name="DonorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__DONATION__DonorI__2A164134">
           <End Role="DONOR" Type="Self.DONOR" Multiplicity="1" />
           <End Role="DONATION" Type="Self.DONATION" Multiplicity="*" />
@@ -329,6 +307,37 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DonorManagementDatabaseModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -337,7 +346,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CODELIST" EntityType="Self.CODELIST" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CODES" EntityType="Self.CODES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTACT" EntityType="Self.CONTACT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONATION" EntityType="Self.DONATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONOR" EntityType="Self.DONOR" Schema="dbo" store:Type="Tables" />
@@ -355,10 +363,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
     [database_firewall_rules].[modify_date] AS [modify_date]
     FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__CODES__47A6A41B" Association="Self.FK__CODES__47A6A41B">
-            <End Role="DONATION" EntitySet="DONATION" />
-            <End Role="CODES" EntitySet="CODES" />
-          </AssociationSet>
           <AssociationSet Name="FK__DONATION__DonorI__2A164134" Association="Self.FK__DONATION__DonorI__2A164134">
             <End Role="DONOR" EntitySet="DONOR" />
             <End Role="DONATION" EntitySet="DONATION" />
@@ -462,21 +466,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NewRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="CODES">
-          <Key>
-            <PropertyRef Name="CodeId" />
-          </Key>
-          <Property Name="CodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fund" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="GL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Name="Department" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Grants" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Appeal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DonationId" Type="Int32" />
-          <Property Name="DonorId" Type="Int32" />
-          <NavigationProperty Name="DONATION1" Relationship="DonorManagementDatabaseModel.FK__CODES__47A6A41B" FromRole="CODES" ToRole="DONATION" />
-        </EntityType>
         <EntityType Name="CONTACT">
           <Key>
             <PropertyRef Name="ContactId" />
@@ -506,7 +495,12 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <NavigationProperty Name="DONOR" Relationship="Self.FK__DONATION__DonorI__2A164134" FromRole="DONATION" ToRole="DONOR" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ImageMimeType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CODES1" Relationship="DonorManagementDatabaseModel.FK__CODES__47A6A41B" FromRole="DONATION" ToRole="CODES" />
+          <Property Name="Fund" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="GL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GrantS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Appeal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DONOR">
           <Key>
@@ -678,7 +672,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
-          <EntitySet Name="CODES" EntityType="Self.CODES" />
           <EntitySet Name="CONTACT" EntityType="Self.CONTACT" />
           <EntitySet Name="DONATION" EntityType="Self.DONATION" />
           <EntitySet Name="DONOR" EntityType="Self.DONOR" />
@@ -720,10 +713,36 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           </AssociationSet>
           <EntitySet Name="CODELIST" EntityType="DonorManagementDatabaseModel.CODELIST" />
           <EntitySet Name="sysdiagrams" EntityType="DonorManagementDatabaseModel.sysdiagrams" />
-          <AssociationSet Name="FK__CODES__47A6A41B" Association="DonorManagementDatabaseModel.FK__CODES__47A6A41B">
-            <End Role="DONATION" EntitySet="DONATION" />
-            <End Role="CODES" EntitySet="CODES" />
-          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DonorManagementDatabaseModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DonorManagementDatabaseModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
         <EntityType Name="CODELIST">
           <Key>
@@ -747,20 +766,17 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK__CODES__47A6A41B">
-          <End Type="DonorManagementDatabaseModel.DONATION" Role="DONATION" Multiplicity="0..1" />
-          <End Type="DonorManagementDatabaseModel.CODES" Role="CODES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DONATION">
-              <PropertyRef Name="DonationId" />
-              <PropertyRef Name="DonorId" />
-            </Principal>
-            <Dependent Role="CODES">
-              <PropertyRef Name="DonationId" />
-              <PropertyRef Name="DonorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -825,21 +841,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CODES">
-            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.CODES">
-              <MappingFragment StoreEntitySet="CODES">
-                <ScalarProperty Name="DonorId" ColumnName="DonorId" />
-                <ScalarProperty Name="DonationId" ColumnName="DonationId" />
-                <ScalarProperty Name="CodeId" ColumnName="CodeId" />
-                <ScalarProperty Name="Fund" ColumnName="Fund" />
-                <ScalarProperty Name="GL" ColumnName="GL" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="Program" ColumnName="Program" />
-                <ScalarProperty Name="Grants" ColumnName="Grants" />
-                <ScalarProperty Name="Appeal" ColumnName="Appeal" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CONTACT">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.CONTACT">
               <MappingFragment StoreEntitySet="CONTACT">
@@ -855,6 +856,12 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySetMapping Name="DONATION">
             <EntityTypeMapping TypeName="DonorManagementDatabaseModel.DONATION">
               <MappingFragment StoreEntitySet="DONATION">
+                <ScalarProperty Name="Appeal" ColumnName="Appeal" />
+                <ScalarProperty Name="GrantS" ColumnName="GrantS" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="GL" ColumnName="GL" />
+                <ScalarProperty Name="Fund" ColumnName="Fund" />
                 <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="DonationId" ColumnName="DonationId" />
@@ -963,6 +970,30 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DonorManagementDatabaseModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DonorManagementDatabaseModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DonorManagementDatabaseModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DonorManagementDatabaseModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DonorManagementDatabaseModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DonorManagementDatabaseModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DonorManagementDatabaseModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DonorManagementDatabaseModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DonorManagementDatabaseModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
