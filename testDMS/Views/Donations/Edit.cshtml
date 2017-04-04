@@ -79,7 +79,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.TypeOf, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownList("TypeOf", null, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.DropDownList("TypeOf", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.TypeOf, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.GiftMethod, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownList("GiftMethod", null, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.DropDownList("GiftMethod", null, htmlAttributes: new { @class = "form-control" } )
                             @Html.ValidationMessageFor(model => model.GiftMethod, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -107,15 +107,6 @@
                             @Html.ValidationMessageFor(model => model.DateGiftMade, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
-                    @*<div class="form-group">
-        @Html.LabelFor(model => model.CodeId, "CodeId", htmlAttributes: new { @class = "control-label col-md-3" })
-        <div class="col-md-9">
-            @Html.DropDownList("CodeId", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CodeId, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.GiftRestrictions, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
@@ -132,6 +123,46 @@
                 </td>
 
                 <td>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Department, "Department", htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("Department", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Fund, "Fund", htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("Fund", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Fund, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GL, "GL", htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("GL", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.GL, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Program, "Program", htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("Program", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Program, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GrantS, "Grants", htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("Grant", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.GrantS, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div style="position:relative;">
                             <label>Image</label>
