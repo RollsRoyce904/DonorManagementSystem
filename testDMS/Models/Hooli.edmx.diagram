@@ -25,8 +25,14 @@
         <AssociationConnector Association="DonorManagementDatabaseModel.FK__NOTES__DonorId__2DE6D218" ManuallyRouted="false" />
         <AssociationConnector Association="DonorManagementDatabaseModel.FK__RELATIVES__Donor__30C33EC3" ManuallyRouted="false" />
         <AssociationConnector Association="DonorManagementDatabaseModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DonorManagementDatabaseModel.CODELIST" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="DonorManagementDatabaseModel.sysdiagrams" Width="1.5" PointX="7.375" PointY="11.75" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.APPEALS" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.CHARTDATA" Width="1.5" PointX="9.75" PointY="11.75" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.DEPARTMENTS" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.FUNDS" Width="1.5" PointX="11.75" PointY="11.75" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.GLS" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.GRANTS" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.PROGRAMS" Width="1.5" PointX="12.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

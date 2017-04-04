@@ -247,17 +247,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ChartController.cs" />
-    <Compile Include="Controllers\CODELISTsController.cs" />
     <Compile Include="Controllers\DONATIONsController.cs" />
     <Compile Include="Controllers\DONORsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="DAL\CodeListRepository.cs" />
-    <Compile Include="DAL\CodeRepository.cs" />
     <Compile Include="DAL\DonationRepository.cs" />
     <Compile Include="DAL\DonorRepository.cs" />
-    <Compile Include="DAL\ICodeListRepository.cs" />
-    <Compile Include="DAL\ICodeRepository.cs" />
     <Compile Include="DAL\IDonationRepository.cs" />
     <Compile Include="DAL\IDonorRepository.cs" />
     <Compile Include="DAL\INoteRepository.cs" />
@@ -299,6 +294,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\APPEALS.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetRoles.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
@@ -311,10 +309,10 @@
     <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ChartDispalyViewModel.cs" />
-    <Compile Include="Models\CODELIST.cs">
+    <Compile Include="Models\CHARTDATA.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChartDispalyViewModel.cs" />
     <Compile Include="Models\CONTACT.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
@@ -326,6 +324,9 @@
     <Compile Include="Models\database_firewall_rules.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DEPARTMENTS.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DisplayDataViewModel.cs" />
     <Compile Include="Models\DONATION.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
@@ -335,6 +336,15 @@
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DonorViewModel.cs" />
+    <Compile Include="Models\FUNDS.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GLS.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GRANTS.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Hooli.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -359,6 +369,9 @@
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Option.cs" />
+    <Compile Include="Models\PROGRAMS.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RELATIVES.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>

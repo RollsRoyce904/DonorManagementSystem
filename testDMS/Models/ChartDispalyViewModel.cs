@@ -9,10 +9,6 @@ namespace testDMS.Models
 
         public IEnumerable<DONATION> Donations { get; set; }
 
-        public IEnumerable<CODES> Codes { get; set; }
-
-        public IEnumerable<CODELIST> CodeList { get; set; }
-
         public string searchString { get; set; }
 
         public int? amount { get; set; }
