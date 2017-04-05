@@ -1,0 +1,157 @@
+﻿@model testDMS.Models.DONATION
+@{
+    ViewBag.Title = "DonorEdit";
+}
+
+<style>
+    td {
+        padding: 15px;
+        text-align: left;
+        width: 50%;
+        vertical-align: top;
+    }
+
+    th {
+        padding: 15px;
+        text-align: center;
+        width: 50%;
+        background-color: #0096D7;
+    }
+
+    table {
+        border-collapse: initial;
+    }
+
+    input[type=submit] {
+        background: transparent url("../../Images/button_update-donation.png") 0 0 no-repeat;
+        font-weight: bold;
+        display: inline-block;
+        text-align: center;
+        cursor: pointer;
+        height: 70px;
+        width: 201px;
+        border: 3px solid #fff;
+        border-radius: 2em;
+        color: transparent;
+    }
+</style>
+<hr />
+<div class="well well-lg">
+    <div style="display: inline-block">
+        <h4>Update Donation Record</h4>
+    </div>
+
+    <div style="display: inline-block;float:right">
+        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Back" onclick="location.href='@Url.Action("Index", "DONATIONs")'" />
+    </div>
+</div>
+
+@using (Html.BeginForm("Edit", "DONATIONs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Donation Information
+                </th>
+                <th>
+                    Check Image
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.DonationId)
+                    @Html.HiddenFor(model => model.DonorId)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TypeOf, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("TypeOf", null, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TypeOf, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateRecieved, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.DateRecieved, new { htmlAttributes = new { @class = "form-control", type = "date", name = "eDate" } })
+                            @Html.ValidationMessageFor(model => model.DateRecieved, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GiftMethod, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("GiftMethod", null, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.GiftMethod, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateGiftMade, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.DateGiftMade, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                            @Html.ValidationMessageFor(model => model.DateGiftMade, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                            @Html.LabelFor(model => model.CodeId, "CodeId", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownList("CodeId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CodeId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GiftRestrictions, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.GiftRestrictions, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.GiftRestrictions, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <hr style="width:80%" />
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" value="" class="btn btn-default" />
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="form-group">
+                        <div style="position:relative;">
+                            <label>Image</label>
+                            <a class="btn" href="javascript:;">
+                                Choose File...
+                                <input type="file" name="Image" size="40" style="position:absolute; z-index:2; top:0; left:0;
+                filter: alpha(opacity=0); opacity:0; background-color:transparent; color:transparent;" onchange="$('#upload-file-info').html($(this).val());" />
+                            </a>
+                            <span class="label label-info" id="upload-file-info"></span>
+                            @if (Model.ImageUpload == null)
+                            {
+                                <div class="form-control-static">No Image Uploaded</div>
+                            }
+                            else
+                            {
+                                <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage", "DONATIONs", new {Model.DonationId, Model.DonorId})" />
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+}

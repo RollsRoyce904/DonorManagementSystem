@@ -511,6 +511,8 @@
     <Content Include="Views\CODELISTs\Details.cshtml" />
     <Content Include="Views\CODELISTs\Edit.cshtml" />
     <Content Include="Views\CODELISTs\Index.cshtml" />
+    <Content Include="Views\DONORs\TeamHooli.cshtml" />
+    <Content Include="Views\DONATIONs\DonorEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
