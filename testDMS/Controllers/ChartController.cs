@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using testDMS.DAL;
 using testDMS.Models;
+using System.Linq;
 
 namespace testDMS.Controllers
 {
@@ -33,13 +34,14 @@ namespace testDMS.Controllers
         public ActionResult LoadSelectList()
         {
             ViewBag.Person = new SelectList(ddlData.DONOR, "DonorId", "FNAME");
-            ViewBag.Department = new SelectList(ddlData.CODES, "CodeId", "Department");
-            ViewBag.Gl = new SelectList(ddlData.CODES, "CodeId", "GL");
 
-            var amountList = new SelectList(
-                new List<SelectListItem>
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+
+            ViewBag.Gl = new SelectList(ddlData.GLS, "GLID", "GL");
+
+            var amountList = new SelectList(new List<SelectListItem>
                 {
-                                new SelectListItem {Text = "Amount", Value="0", Selected=true },
+                    new SelectListItem {Text = "Amount", Value="0", Selected=true },
                     new SelectListItem {Text = "0-100", Value="1" },
                     new SelectListItem {Text = "101-500", Value="2" },
                     new SelectListItem {Text = "501-1000", Value="3" },
@@ -52,134 +54,17 @@ namespace testDMS.Controllers
 
             ViewBag.Amount = amountList;
 
-            List<string> Fund = new List<string>();
-            Fund.Add("01");
-            Fund.Add("02");
-            Fund.Add("03");
-
-            ViewBag.Fund = new SelectList(Fund, "Funds");
-
-            List<string> GL = new List<string>();
-            GL.Add("4110");
-            GL.Add("4120");
-            GL.Add("4130");
-            GL.Add("4135");
-            GL.Add("4140");
-            GL.Add("4200");
-            GL.Add("4201");
-            GL.Add("4202");
-            GL.Add("4310");
-            GL.Add("4320");
-            GL.Add("4330");
-            GL.Add("4340");
-            GL.Add("4400");
-            GL.Add("4500");
-
-            ViewBag.GL = new SelectList(GL, "GLCode");
-
-            List<string> Department = new List<string>();
-            Department.Add("01");
-            Department.Add("02");
-            Department.Add("03");
-            Department.Add("04");
-            Department.Add("05");
-            Department.Add("06");
-            Department.Add("07");
-            Department.Add("08");
-            Department.Add("09");
-            Department.Add("10");
-            Department.Add("11");
-            Department.Add("12");
-            Department.Add("13");
-            Department.Add("14");
-            Department.Add("15");
-
-            ViewBag.Department = new SelectList(Department, "Department");
-
-            List<string> Program = new List<string>();
-            Program.Add("MED");
-            Program.Add("PSYCH");
-            Program.Add("CFID");
-            Program.Add("EDUC");
-            Program.Add("VPK");
-            Program.Add("KIND");
-            Program.Add("DS");
-            Program.Add("ABA");
-            Program.Add("SPEECH");
-            Program.Add("OT & PT");
-            Program.Add("TUTOR");
-            Program.Add("TUTORC");
-            Program.Add("FAC");
-            Program.Add("IT");
-            Program.Add("FD");
-            Program.Add("MARKET");
-            Program.Add("BO");
-            Program.Add("BASICS");
-            Program.Add("TEAM UP");
-            Program.Add("WEBB");
-            Program.Add("MGMT");
-            Program.Add("FAAST");
-            Program.Add("PROJSRCH");
-            Program.Add("FIN");
-            Program.Add("HR");
-            Program.Add("INTAKE");
-            Program.Add("CS");
-
-            ViewBag.Program = new SelectList(Program, "Program");
-
-            List<string> Grant = new List<string>();
-            Grant.Add("ABLE");
-            Grant.Add("AETNA FDN");
-            Grant.Add("ALFRED DUPONT");
-            Grant.Add("BANCROFT");
-            Grant.Add("BAPTIST");
-            Grant.Add("BOA-PROJSRCH");
-            Grant.Add("CEO");
-            Grant.Add("CF-CHARTRAND");
-            Grant.Add("CF-KIND");
-            Grant.Add("CF-RIVERSIDE");
-            Grant.Add("CF-WEAVER");
-            Grant.Add("DEERWOOD");
-            Grant.Add("DOLLAR");
-            Grant.Add("ELC");
-            Grant.Add("FAAST");
-            Grant.Add("FRYE FDN");
-            Grant.Add("GOODING CTR");
-            Grant.Add("HEAL");
-            Grant.Add("HOLLAND");
-            Grant.Add("HOPE");
-            Grant.Add("HORACE MAX");
-            Grant.Add("JAGUAR FDN");
-            Grant.Add("JCA");
-            Grant.Add("JCC");
-            Grant.Add("JESSIE BALL");
-            Grant.Add("KIRBO");
-            Grant.Add("KESLER");
-            Grant.Add("LEVY FDN");
-            Grant.Add("LUCY GOODING");
-            Grant.Add("NETWORK");
-            Grant.Add("SELDERS");
-            Grant.Add("STELLAR");
-            Grant.Add("TD BANK");
-            Grant.Add("TILTON");
-            Grant.Add("TRUIST");
-            Grant.Add("TURCK");
-            Grant.Add("UNITED WAY");
-            Grant.Add("WELLS FARGO");
-
-            ViewBag.Grant = new SelectList(Grant, "Grant");
-
             return View("~/Views/Chart/Index.cshtml");
         }
 
         public ActionResult LoadData()
         {
-            IEnumerable<DONOR> Donors = (IEnumerable<DONOR>)drRepo.GetDonors;
+            IEnumerable<DONOR> Donors = drRepo.GetDonors;
             IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.GetDonations();
+
             ChartDispalyViewModel model = new ChartDispalyViewModel();
             model.Donors = Donors;
             model.Donations = Donations;
-
 
             return View("~/Views/Chart/Index.cshtml", model);
         }
@@ -232,6 +117,8 @@ namespace testDMS.Controllers
 
             IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString,
                 amount1, amount2, date1, date2, department, gl);
+           
+
 
             ChartDispalyViewModel model = new ChartDispalyViewModel();
 
@@ -297,11 +184,20 @@ namespace testDMS.Controllers
 
             var Donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString,
                 amount1, amount2, date1, date2, department, gl);
-            BindingList<DONATION> bList = new BindingList<DONATION>();
-
+            
+            BindingList<CHARTDATA> bList = new BindingList<CHARTDATA>();
+           
             foreach (var item in Donations)
             {
-                bList.Add(item);
+                var cData = new CHARTDATA
+                {
+                    DonorName = item.DONOR.FName,
+                    Amount = item.Amount,
+                    DateReceived = item.DateRecieved,
+                    Department = item.Department,
+                    GL = item.GL
+                };
+                bList.Add(cData);
             }
 
             DateTime dt = DateTime.Now;

@@ -12,18 +12,9 @@ namespace testDMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CODES
+    public partial class PROGRAMS
     {
-        public int CodeId { get; set; }
-        public string Fund { get; set; }
-        public string GL { get; set; }
-        public string Department { get; set; }
+        public int ProgramID { get; set; }
         public string Program { get; set; }
-        public string Grants { get; set; }
-        public string Appeal { get; set; }
-        public Nullable<int> DonationId { get; set; }
-        public Nullable<int> DonorId { get; set; }
-    
-        public virtual DONATION DONATION1 { get; set; }
     }
 }

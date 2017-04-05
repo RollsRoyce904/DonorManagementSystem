@@ -1,12 +1,9 @@
-using System;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
+using System;
+using System.Web;
 using testDMS.DAL;
 using testDMS.Models;
-using System.Web;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 
 namespace testDMS.App_Start
 {
@@ -47,7 +44,6 @@ namespace testDMS.App_Start
             container.RegisterType<IDonationRepository, DonationRepository>();
             container.RegisterType<IDonorRepository, DonorRepository>();
             container.RegisterType<INoteRepository, NoteRepository>();
-            container.RegisterType<ICodeRepository, CodeRepository>();
 
             container.RegisterType<ApplicationSignInManager>(new InjectionFactory(c => HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>()));
             container.RegisterType<ApplicationUserManager>(new InjectionFactory(c => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()));

@@ -9,8 +9,6 @@ namespace testDMS.Models
 
         public IEnumerable<DONATION> Donations { get; set; }
 
-        public IEnumerable<CODES> Codes { get; set; }
-
         public string searchString { get; set; }
 
         public int? amount { get; set; }
@@ -22,12 +20,6 @@ namespace testDMS.Models
         public string department { get; set; }
 
         public string gl { get; set; }
-
-        //public IEnumerable<JsonData> DataList { get; set; }
-
-        //public JsonData DataInstance { get; set; }
-
-        //public Option JsonOption { get; set; }
 
     }
 }

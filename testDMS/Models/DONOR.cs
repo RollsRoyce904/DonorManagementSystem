@@ -11,8 +11,7 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class DONOR
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -29,10 +28,8 @@ namespace testDMS.Models
         public string LName { get; set; }
         public string Title { get; set; }
         public string Suffix { get; set; }
-        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
         public string Cell { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> Birthday { get; set; }
         public string Gender { get; set; }
         public Nullable<int> MarkerId { get; set; }
@@ -40,9 +37,7 @@ namespace testDMS.Models
         public string CompanyName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Please enter a valid zipcode.")]
         public string Zipcode { get; set; }
-        [RegularExpression("^[0-9]{10,11}$", ErrorMessage = "Please enter a valid 10 digit phone number. Do not include dashes.")]
         public string Phone { get; set; }
         public string State { get; set; }
     

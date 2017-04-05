@@ -10,16 +10,10 @@
 namespace testDMS.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class CODELIST
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int CodeId { get; set; }
-        public string Fund { get; set; }
-        public string GL { get; set; }
-        public string Department { get; set; }
-        public string Program { get; set; }
-        public string Grants { get; set; }
-        public string Appeal { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

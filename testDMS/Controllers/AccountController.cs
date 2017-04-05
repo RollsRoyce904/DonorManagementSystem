@@ -34,17 +34,30 @@ namespace testDMS.Controllers
         }
 
         //Get users
-        public ActionResult Index(string searchString, string currentFilter, int? page)
+
+        public ActionResult Index()
         {
 
-            if (searchString == null)
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user.NewRole == "Administrator")
             {
+                ViewBag.role = user.NewRole;
+
                 return View(data.AspNetUsers.ToList());
+
             }
             else
             {
-                return View();// add in search here.
+                return View(data.AspNetUsers.ToList().Where(p => p.Id == user.Id));
             }
+            //if (searchString == null)
+            //{
+            //    return View(data.AspNetUsers.ToList());
+            //}
+            //else
+            //{
+            //    return View();// add in search here.
+            //}
         }
         public ActionResult Edit(string UserName)
         {
