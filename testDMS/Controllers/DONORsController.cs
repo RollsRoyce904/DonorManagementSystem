@@ -301,5 +301,10 @@ namespace testDMS.Controllers
             }
             return View();
         }
+
+        public ActionResult displayTeam()
+        {
+            return View("~/Views/DONORs/TeamHooli.cshtml");
+        }
     }
 }

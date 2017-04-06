@@ -68,12 +68,16 @@
 
 <div class="panel panel-default col-md-9">
 
-    <div class="panel panel-heading">@Model.Donors.FName's Donations</div>
+    <div class="panel panel-heading">@Model.Donors.FName's Donations
+        <div style="display: inline-block;float:right">
+            @Html.ActionLink("Add Donation", "AddDonation", "DONATIONs", new { id = Model.Donors.DonorId }, new { @class = "btn btn-primary btn-large" })
+            </div>
+        </div>
 
     <div class="panel panel-body" style="min-height: 400px; max-height:400px; overflow-y: scroll">
 
         <table class="table table-striped">
-            <tr style="background-color:#0096D7"><th></th><th>Amount</th><th>Type</th><th>Date Made</th><th>Date Received</th><th>Method</th><th>Restrictions</th><th>Code</th></tr>
+            <tr style="background-color:#0096D7"><th></th><th>Amount</th><th>Type</th><th>Date Made</th><th>Date Received</th><th>Method</th><th>Restrictions</th><th>Code</th><th>Edit Donation</th></tr>
 
             @{ int x = 1;
                 foreach (var items in Model.Donations)
@@ -88,15 +92,14 @@
                         <td>@items.GiftRestrictions</td>
                         <td>code</td>@*placeholder until code is working.*@
                         @*<td>@items.CODE.Fund</td>*@
+                        <td>@Html.ActionLink("Edit", "Edit", "DONATIONs",new { ida = items.DonationId, idb = items.DonorId }, new { @class = "btn btn-default", @style = "background-color:#174B7C;color:white" })</td>
                     </tr>
                     x++;
                 }
             }
-            <tr><td colspan="8" style="text-align: right">@Html.ActionLink("Add Donation", "AddDonation", "DONATIONs", new { id = Model.Donors.DonorId }, new { @class = "btn btn-primary btn-large" })</td></tr>
+            @*<tr><td colspan="8" style="text-align: right">@Html.ActionLink("Add Donation", "AddDonation", "DONATIONs", new { id = Model.Donors.DonorId }, new { @class = "btn btn-primary btn-large" })</td></tr>*@
         </table>
-
     </div>
-
 </div>
 
 @using (Html.BeginForm("AddNote", "DONORs", new { id = Model.Donors.DonorId },  FormMethod.Post))

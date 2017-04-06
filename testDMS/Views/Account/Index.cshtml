@@ -16,14 +16,12 @@
     </div>
 </div>
 
-@using (Html.BeginForm("Index", "Account", FormMethod.Get)) { 
-<input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Register", "Account")'" />
-@*<div style="display: inline-block;float:right">
-    <div class="form-group">
-        Search Accounts: @Html.TextBox("searchString")
-        <input type="submit" value="Filter" /><br /><br />
-    </div>
-</div>*@
+@using (Html.BeginForm("Index", "Account", FormMethod.Get))
+{
+    if (@ViewBag.role == "Administrator")
+    {
+        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Register", "Account")'" />
+    }
 <br /><br/>
 <table class="table">
     <tr style="background-color:#0096D7;">
