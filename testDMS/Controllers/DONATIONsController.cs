@@ -317,6 +317,85 @@ namespace testDMS.Controllers
             return View(dONATION);
         }
 
+        public ActionResult EditDonation(int? ida, int? idb)
+        {
+            if (ida == null || idb == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            DONATION donation = dnRepo.FindById(ida, idb);
+
+            if (donation == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<string> TypeOf = new List<string>();
+
+            TypeOf.Add("Pledge");
+            TypeOf.Add("Cash");
+            TypeOf.Add("Bequest");
+
+            ViewBag.TypeOf = new SelectList(TypeOf, "TypeOf");
+
+            List<string> GiftMethod = new List<string>();
+
+            GiftMethod.Add("Check");
+            GiftMethod.Add("ACH Transfer");
+            GiftMethod.Add("Credit Card");
+            GiftMethod.Add("Cash");
+
+            ViewBag.GiftMethod = new SelectList(GiftMethod, "GiftMethod");
+
+            ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
+
+            ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
+
+            ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
+
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+
+            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "ProgramID", "Program");
+
+            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantID", "GrantName");
+
+
+            return View("~/Views/DONATIONs/DonorEdit.cshtml",donation);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditDonation([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION dONATION, HttpPostedFileBase image = null)
+        {
+            if (ModelState.IsValid)
+            {
+                if (image != null)
+                {
+                    dONATION.ImageMimeType = image.ContentType;
+                    dONATION.ImageUpload = new byte[image.ContentLength];
+                    image.InputStream.Read(dONATION.ImageUpload, 0, image.ContentLength);
+                }
+                dnRepo.SaveDonation(dONATION);
+                return RedirectToAction("Details", "DONORs", new {id = dONATION.DonorId });
+            }
+
+            ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
+
+            ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", dONATION.DonorId);
+
+            ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
+
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+
+            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "ProgramID", "Program");
+
+            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantID", "GrantName");
+
+
+            return View(dONATION);
+        }
+
         // GET: DONATIONs/Delete/5
         public ActionResult Delete(int? ida, int? idb)
         {

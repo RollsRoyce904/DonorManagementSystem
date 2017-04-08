@@ -92,7 +92,7 @@
                         <td>@items.GiftRestrictions</td>
                         <td>code</td>@*placeholder until code is working.*@
                         @*<td>@items.CODE.Fund</td>*@
-                        <td>@Html.ActionLink("Edit", "Edit", "DONATIONs",new { ida = items.DonationId, idb = items.DonorId }, new { @class = "btn btn-default", @style = "background-color:#174B7C;color:white" })</td>
+                        <td>@Html.ActionLink("Edit", "EditDonation", "DONATIONs",new { ida = items.DonationId, idb = items.DonorId }, new { @class = "btn btn-default", @style = "background-color:#174B7C;color:white" })</td>
                     </tr>
                     x++;
                 }

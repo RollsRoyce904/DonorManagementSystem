@@ -93,13 +93,13 @@ namespace testDMS.Controllers
             if (ModelState.IsValid)
             {
                 drRepo.SaveProduct(donor);
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new {id = donor.DonorId});
             }
             ViewBag.CONTACTID = new SelectList(ddlData.CONTACT, "CONTACTID", "TYPEOF", donor.ContactId);
             ViewBag.MARKERID = new SelectList(ddlData.IDENTITYMARKER, "MARKERID", "MARKERTYPE", donor.MarkerId);
             return View(donor);
         }
-
+       
         public ActionResult Details(int? id)
         {
             DisplayDataViewModel displayData = new DisplayDataViewModel();

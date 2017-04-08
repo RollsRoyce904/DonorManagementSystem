@@ -11,7 +11,8 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DONOR
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,6 +29,7 @@ namespace testDMS.Models
         public string LName { get; set; }
         public string Title { get; set; }
         public string Suffix { get; set; }
+        [Required]
         public string Email { get; set; }
         public string Cell { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
@@ -37,6 +39,7 @@ namespace testDMS.Models
         public string CompanyName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
+        [RegularExpression(@"\d{5}$", ErrorMessage = "Invalid Zip Code")]
         public string Zipcode { get; set; }
         public string Phone { get; set; }
         public string State { get; set; }
