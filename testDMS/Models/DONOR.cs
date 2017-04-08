@@ -30,7 +30,9 @@ namespace testDMS.Models
         public string Title { get; set; }
         public string Suffix { get; set; }
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [RegularExpression(@"\d{10,11}$", ErrorMessage = "Invalid Phone Number. Please enter a valid 10 or 11 digit phone number without spaces, parentheses, or dashes.")]
         public string Cell { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public string Gender { get; set; }
@@ -41,6 +43,7 @@ namespace testDMS.Models
         public string City { get; set; }
         [RegularExpression(@"\d{5}$", ErrorMessage = "Invalid Zip Code")]
         public string Zipcode { get; set; }
+        [RegularExpression(@"\d{10,11}$", ErrorMessage = "Invalid Phone Number. Please enter a valid 10 or 11 digit phone number without spaces, parentheses, or dashes.")]
         public string Phone { get; set; }
         public string State { get; set; }
     

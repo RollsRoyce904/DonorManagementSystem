@@ -398,6 +398,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\15974978_1346930228682778_2583150426241328271_o %281%29.jpg" />
+    <Content Include="Images\15995320_1346925222016612_3849604259535960624_o %281%29.jpg" />
     <Content Include="Images\bevel.png" />
     <Content Include="Images\button_account.png" />
     <Content Include="Images\button_accountsL.png" />
