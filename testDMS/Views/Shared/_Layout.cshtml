@@ -46,9 +46,9 @@
         @RenderBody()
         <hr/>
         <footer style="text-align: center;">
-            <p>&copy; @DateTime.Now.Year - Hope Haven Donor Management System</p>
+            <p>&copy; @DateTime.Now.Year - Hope Haven Donor Management System by @Html.ActionLink("Hooli", "displayTeam", "DONORs")</p>
             @*<p>Developed by <a href="~/Views/Shared/TeamHooli.cshtml">Hooli</a></p>*@
-            @Html.ActionLink("Hooli", "displayTeam", "DONORs")
+            @*@Html.ActionLink("Hooli", "displayTeam", "DONORs")*@
         </footer>
     </div>
 </body>
