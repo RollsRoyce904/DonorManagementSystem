@@ -151,6 +151,17 @@
           <Property Name="Phone" Type="varchar" MaxLength="30" />
           <Property Name="State" Type="nvarchar" MaxLength="2" />
         </EntityType>
+        <EntityType Name="FILES">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ContentType" Type="nvarchar" MaxLength="100" />
+          <Property Name="Content" Type="varbinary(max)" />
+          <Property Name="DonationId" Type="int" />
+          <Property Name="DonorId" Type="int" />
+        </EntityType>
         <EntityType Name="FUNDS">
           <Key>
             <PropertyRef Name="FundID" />
@@ -265,6 +276,20 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </Principal>
             <Dependent Role="DONOR">
               <PropertyRef Name="MarkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FILES__65370702">
+          <End Role="DONATION" Type="Self.DONATION" Multiplicity="0..1" />
+          <End Role="FILES" Type="Self.FILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONATION">
+              <PropertyRef Name="DonationId" />
+              <PropertyRef Name="DonorId" />
+            </Principal>
+            <Dependent Role="FILES">
+              <PropertyRef Name="DonationId" />
+              <PropertyRef Name="DonorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -392,6 +417,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySet Name="DEPARTMENTS" EntityType="Self.DEPARTMENTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONATION" EntityType="Self.DONATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONOR" EntityType="Self.DONOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FILES" EntityType="Self.FILES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FUNDS" EntityType="Self.FUNDS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GLS" EntityType="Self.GLS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GRANTS" EntityType="Self.GRANTS" Schema="dbo" store:Type="Tables" />
@@ -421,6 +447,10 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <AssociationSet Name="FK__DONOR__MarkerId__2645B050" Association="Self.FK__DONOR__MarkerId__2645B050">
             <End Role="IDENTITYMARKER" EntitySet="IDENTITYMARKER" />
             <End Role="DONOR" EntitySet="DONOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FILES__65370702" Association="Self.FK__FILES__65370702">
+            <End Role="DONATION" EntitySet="DONATION" />
+            <End Role="FILES" EntitySet="FILES" />
           </AssociationSet>
           <AssociationSet Name="FK__NOTES__DonorId__2DE6D218" Association="Self.FK__NOTES__DonorId__2DE6D218">
             <End Role="DONOR" EntitySet="DONOR" />
@@ -548,6 +578,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GrantS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Appeal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FILES" Relationship="DonorManagementDatabaseModel.FK__FILES__65370702" FromRole="DONATION" ToRole="FILES" />
         </EntityType>
         <EntityType Name="DONOR">
           <Key>
@@ -796,6 +827,11 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySet Name="GLS" EntityType="DonorManagementDatabaseModel.GLS" />
           <EntitySet Name="GRANTS" EntityType="DonorManagementDatabaseModel.GRANTS" />
           <EntitySet Name="PROGRAMS" EntityType="DonorManagementDatabaseModel.PROGRAMS" />
+          <EntitySet Name="FILES" EntityType="DonorManagementDatabaseModel.FILES" />
+          <AssociationSet Name="FK__FILES__65370702" Association="DonorManagementDatabaseModel.FK__FILES__65370702">
+            <End Role="DONATION" EntitySet="DONATION" />
+            <End Role="FILES" EntitySet="FILES" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -871,6 +907,32 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="ProgramID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="FILES">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ContentType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DonationId" Type="Int32" />
+          <Property Name="DonorId" Type="Int32" />
+          <NavigationProperty Name="DONATION" Relationship="DonorManagementDatabaseModel.FK__FILES__65370702" FromRole="FILES" ToRole="DONATION" />
+        </EntityType>
+        <Association Name="FK__FILES__65370702">
+          <End Type="DonorManagementDatabaseModel.DONATION" Role="DONATION" Multiplicity="0..1" />
+          <End Type="DonorManagementDatabaseModel.FILES" Role="FILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONATION">
+              <PropertyRef Name="DonationId" />
+              <PropertyRef Name="DonorId" />
+            </Principal>
+            <Dependent Role="FILES">
+              <PropertyRef Name="DonationId" />
+              <PropertyRef Name="DonorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1132,6 +1194,18 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
               <MappingFragment StoreEntitySet="PROGRAMS">
                 <ScalarProperty Name="Program" ColumnName="Program" />
                 <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FILES">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.FILES">
+              <MappingFragment StoreEntitySet="FILES">
+                <ScalarProperty Name="DonorId" ColumnName="DonorId" />
+                <ScalarProperty Name="DonationId" ColumnName="DonationId" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -336,6 +336,10 @@
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DonorViewModel.cs" />
+    <Compile Include="Models\FILES.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileType.cs" />
     <Compile Include="Models\FUNDS.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>

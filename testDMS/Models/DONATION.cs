@@ -14,6 +14,12 @@ namespace testDMS.Models
     
     public partial class DONATION
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DONATION()
+        {
+            this.FILES = new HashSet<FILES>();
+        }
+    
         public int DonationId { get; set; }
         public int DonorId { get; set; }
         public Nullable<decimal> Amount { get; set; }
@@ -33,5 +39,7 @@ namespace testDMS.Models
         public string Appeal { get; set; }
     
         public virtual DONOR DONOR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FILES> FILES { get; set; }
     }
 }

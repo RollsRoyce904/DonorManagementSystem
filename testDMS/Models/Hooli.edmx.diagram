@@ -33,6 +33,8 @@
         <EntityTypeShape EntityType="DonorManagementDatabaseModel.GLS" Width="1.5" PointX="0.75" PointY="12.75" />
         <EntityTypeShape EntityType="DonorManagementDatabaseModel.GRANTS" Width="1.5" PointX="2.75" PointY="12.75" />
         <EntityTypeShape EntityType="DonorManagementDatabaseModel.PROGRAMS" Width="1.5" PointX="12.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.FILES" Width="1.5" PointX="7.5" PointY="14.5" />
+        <AssociationConnector Association="DonorManagementDatabaseModel.FK__FILES__65370702" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
