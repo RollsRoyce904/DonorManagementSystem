@@ -11,7 +11,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using testDMS.DAL;
 using testDMS.Models;
-using PagedList;
 
 namespace testDMS.Controllers
 {
@@ -138,20 +137,17 @@ namespace testDMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image = null)
+        public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image)
         {
             DONATION donation = CDVM.donation;
-            //CODES code = CDVM.code;
 
 
             if (ModelState.IsValid)
             {
+                donation.ImageMimeType = image.ContentType;
+                donation.ImageUpload = new byte[image.ContentLength];
+                image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
 
-                //donation.ImageMimeType = image.ContentType;
-                //donation.ImageUpload = new byte[image.ContentLength];
-                //image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
-
-                //cdRepo.Add(code);
                 dnRepo.Add(donation);
 
                 return RedirectToAction("Index");
