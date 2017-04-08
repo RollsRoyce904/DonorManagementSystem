@@ -140,28 +140,39 @@ namespace testDMS.Controllers
         public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image)
         {
             DONATION donation = CDVM.donation;
-
-
+            
             if (ModelState.IsValid)
             {
-                donation.ImageMimeType = image.ContentType;
-                donation.ImageUpload = new byte[image.ContentLength];
-                image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
+                if (image != null && image.ContentLength > 0)
+                {
+                    var check = new FILES
+                    {
+                        FileName = System.IO.Path.GetFileName(image.FileName),
+                        FileType = FileType.Check,
+                        ContentType = image.ContentType,
+                        DonationId = donation.DonationId,
+                        DonorId = donation.DonorId
+                    };
+
+                    using (var reader = new System.IO.BinaryReader(image.InputStream))
+                    {
+                        check.Content = reader.ReadBytes(image.ContentLength);
+                    }
+
+                    donation.FILES = new List<FILES> { check };
+                }
 
                 dnRepo.Add(donation);
 
                 return RedirectToAction("Index");
             }
 
-
-
-            //ViewBag.CodeId = new SelectList(ddlData.CODES, "CodeId", "Fund", donation.CodeId);
-
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
             ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
 
             ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
+
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
 
             ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
@@ -198,7 +209,7 @@ namespace testDMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddDonation(CreateDonationViewModel CDVM, int id, HttpPostedFileBase image = null)
+        public ActionResult AddDonation(CreateDonationViewModel CDVM, int id, HttpPostedFileBase image)
         {
             DONATION donation = CDVM.donation;
             //DONOR donor = CDVM.donor;
@@ -206,7 +217,15 @@ namespace testDMS.Controllers
 
             if (ModelState.IsValid)
             {
-
+                if (image != null && image.ContentLength > 0 )
+                {
+                    var check = new FILES
+                    {
+                        FileName = System.IO.Path.GetFileName(image.FileName),
+                        FileType = FileType.Check,
+                        ContentType = image.ContentType
+                    };
+                }
                 //donation.ImageMimeType = image.ContentType;
                 //donation.ImageUpload = new byte[image.ContentLength];
                 //image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
@@ -247,19 +266,18 @@ namespace testDMS.Controllers
             }
 
             List<string> TypeOf = new List<string>();
-
             TypeOf.Add("Pledge");
             TypeOf.Add("Cash");
             TypeOf.Add("Bequest");
-
-            ViewBag.TypeOf = new SelectList(TypeOf, "TypeOf");
+            
 
             List<string> GiftMethod = new List<string>();
-
             GiftMethod.Add("Check");
             GiftMethod.Add("ACH Transfer");
             GiftMethod.Add("Credit Card");
             GiftMethod.Add("Cash");
+
+            ViewBag.TypeOf = new SelectList(TypeOf, "TypeOf");
 
             ViewBag.GiftMethod = new SelectList(GiftMethod, "GiftMethod");
 
@@ -284,17 +302,31 @@ namespace testDMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION dONATION, HttpPostedFileBase image = null)
+        public ActionResult Edit([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION dONATION, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
-                if (image != null)
+                if (image != null && image.ContentLength > 0)
                 {
-                    dONATION.ImageMimeType = image.ContentType;
-                    dONATION.ImageUpload = new byte[image.ContentLength];
-                    image.InputStream.Read(dONATION.ImageUpload, 0, image.ContentLength);
+                    var check = new FILES
+                    {
+                        FileName = System.IO.Path.GetFileName(image.FileName),
+                        FileType = FileType.Check,
+                        ContentType = image.ContentType,
+                        DonationId = dONATION.DonationId,
+                        DonorId = dONATION.DonorId
+                    };
+
+                    using (var reader = new System.IO.BinaryReader(image.InputStream))
+                    {
+                        check.Content = reader.ReadBytes(image.ContentLength);
+                    }
+
+                    dONATION.FILES.Add(check);
                 }
+
                 dnRepo.SaveDonation(dONATION);
+
                 return RedirectToAction("Index");
             }
 
@@ -369,9 +401,9 @@ namespace testDMS.Controllers
             {
                 if (image != null)
                 {
-                    dONATION.ImageMimeType = image.ContentType;
-                    dONATION.ImageUpload = new byte[image.ContentLength];
-                    image.InputStream.Read(dONATION.ImageUpload, 0, image.ContentLength);
+                    //dONATION.ImageMimeType = image.ContentType;
+                    //dONATION.ImageUpload = new byte[image.ContentLength];
+                    //image.InputStream.Read(dONATION.ImageUpload, 0, image.ContentLength);
                 }
                 dnRepo.SaveDonation(dONATION);
                 return RedirectToAction("Details", "DONORs", new {id = dONATION.DonorId });
@@ -432,13 +464,48 @@ namespace testDMS.Controllers
             base.Dispose(disposing);
         }
 
-        public FileContentResult GetImage(int donationId, int donorId)
+        public FileContentResult GetImageOne(int donationId, int donorId)
         {
             DONATION donation = dnRepo.FindById(donationId, donorId);
 
-            if (donation != null)
+            IEnumerable<FILES> file = donation.FILES;
+
+            if(file.Count() > 0)
             {
-                return File(donation.ImageUpload, donation.ImageMimeType);
+                byte[] firstPhoto = file.ElementAtOrDefault(0).Content;
+                return File(firstPhoto, "image/png");
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public FileContentResult GetImageTwo(int donationId, int donorId)
+        {
+            DONATION donation = dnRepo.FindById(donationId, donorId);
+            IEnumerable<FILES> file = donation.FILES;
+            if (file.ElementAt(1).Content != null && file.ElementAt(1).Content.Length > 0)
+            {
+                byte[] secPhoto = file.ElementAtOrDefault(1).Content;
+                return File(secPhoto, "image/png");
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
+
+        public ActionResult RemoveImageOne(int donationId, int donorId)
+        {
+            DONATION donation = dnRepo.FindById(donationId, donorId);
+            IEnumerable<FILES> file = donation.FILES;
+            if (file.ElementAt(0).Content != null && file.ElementAt(0).Content.Length > 0)
+            {
+                donation.FILES.Remove(file.ElementAt(0));
+                dnRepo.SaveDonation(donation);
+                return RedirectToAction("Edit", new { ida = donationId, idb = donorId });
             }
             else
             {

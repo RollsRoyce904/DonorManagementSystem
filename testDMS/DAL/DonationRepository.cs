@@ -134,6 +134,7 @@ namespace testDMS.DAL
                     dbEntry.ImageMimeType = d.ImageMimeType;
                     dbEntry.GiftRestrictions = d.GiftRestrictions;
                     dbEntry.Notes = d.Notes;
+                    dbEntry.FILES = d.FILES;
                 }
             }
 

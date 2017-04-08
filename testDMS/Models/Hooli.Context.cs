@@ -47,6 +47,7 @@ namespace testDMS.Models
         public virtual DbSet<GLS> GLS { get; set; }
         public virtual DbSet<GRANTS> GRANTS { get; set; }
         public virtual DbSet<PROGRAMS> PROGRAMS { get; set; }
+        public virtual DbSet<FILES> FILES { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
