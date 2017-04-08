@@ -1,4 +1,5 @@
-﻿@model IEnumerable<testDMS.Models.DONATION>
+﻿@*@model IEnumerable<testDMS.Models.DONATION>*@
+@model PagedList.IPagedList<testDMS.Models.DONATION>
 @using PagedList.Mvc
 @Scripts.Render("~/bundles/mycustomjquery")
 
@@ -44,9 +45,9 @@
             @Html.DisplayName("Amount")
         </th>
 
-        <th>
+        @*<th>
             @Html.ActionLink("Donation", "Index", new { sortOrder = ViewBag.DonationSortParam })
-        </th>
+        </th>*@
 
         <th>
             @Html.ActionLink("Donor", "Index", new { sortOrder = ViewBag.DonationSortParam })
@@ -68,10 +69,6 @@
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.DonationId)
-            </td>
-
-            <td>
                 @Html.DisplayFor(modelItem => item.DONOR.FName)
             </td>
             <td>
@@ -89,7 +86,7 @@
     
     }
 </table>
-@*@Html.PagedListPager(Model.Donations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 <input type="button" onclick="location.href='@Url.Action("ExportToExcel","DONATIONs")'" class="btn btn-default" style="background-image:url('../../Images/excel_icon.png');background-size:cover;width:75px;height:75px" />
 
 

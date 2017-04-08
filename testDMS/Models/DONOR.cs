@@ -41,6 +41,7 @@ namespace testDMS.Models
         public string CompanyName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
+
         [RegularExpression(@"\d{5}$", ErrorMessage = "Invalid Zip Code")]
         public string Zipcode { get; set; }
         [RegularExpression(@"\d{10,11}$", ErrorMessage = "Invalid Phone Number. Please enter a valid 10 or 11 digit phone number without spaces, parentheses, or dashes.")]

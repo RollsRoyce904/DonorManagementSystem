@@ -33,6 +33,7 @@ namespace testDMS.Controllers
             int count = 0;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
+            ViewBag.CurrentSort = sortOrder;
 
             if (searchString == null)
             {
@@ -50,8 +51,8 @@ namespace testDMS.Controllers
 
                 switch (sortOrder)
                 {
-                    case "DonationID":
-                        donations = donations.OrderBy(d => d.DonationId);
+                    case "donationID_desc":
+                        donations = donations.OrderByDescending(d => d.DONOR.FName);
                         break;
                     case "DateGiftRecieved":
                         donations = donations.OrderBy(d => d.DateRecieved);
@@ -60,12 +61,12 @@ namespace testDMS.Controllers
                         donations = donations.OrderByDescending(d => d.DateRecieved);
                         break;
                     default:
-                        donations = donations.OrderByDescending(d => d.DonationId);
+                        donations = donations.OrderBy(d => d.DONOR.FName);
                         break;
 
                 }
-                
-                return View(donations.ToList());
+                //donations.Take(count).ToPagedList(pageNumber, pageSize);
+                return View(donations.Take(count).ToPagedList(pageNumber, pageSize));
             }
             else
             {
