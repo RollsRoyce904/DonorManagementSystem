@@ -39,6 +39,7 @@ namespace testDMS.Models
         public string CompanyName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
+
         [RegularExpression(@"\d{5}$", ErrorMessage = "Invalid Zip Code")]
         public string Zipcode { get; set; }
         public string Phone { get; set; }
