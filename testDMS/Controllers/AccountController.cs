@@ -90,8 +90,11 @@ namespace testDMS.Controllers
             user.UserName = Email;
             user.LastName = LastName;
             user.FirstName = FirstName;
-            user.NewRole = NewRole;
-            data.SaveChanges();
+            if (NewRole != null)
+            {
+                user.NewRole = NewRole;
+            }
+                data.SaveChanges();
             return RedirectToAction("Index");
         }
         public ApplicationSignInManager SignInManager
