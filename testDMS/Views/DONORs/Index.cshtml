@@ -1,6 +1,6 @@
 ﻿@model testDMS.Models.DonorViewModel
 @using PagedList.Mvc
-
+@Scripts.Render("~/bundles/mycustomjquery")
 
 @{
     ViewBag.Title = "Index";
@@ -46,21 +46,28 @@
     <tr style="background-color:#0096D7">
         <th>
             @Html.DisplayName("Donor")
+            @*@Html.ActionLink("Donor", "Index", new { sortOrder = ViewBag.NameSortParm })*@
         </th>
         <th>
             @Html.DisplayName("Email")
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.EmailSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.EmailSortParmDesc })
         </th>
         <th>
             @Html.DisplayName("Phone")
         </th>
         <th>
             @Html.DisplayName("Address")
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.AddressSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.AddressSortParmDesc })
         </th>
         <th>
             @Html.DisplayName("Cell")
         </th>
         <th>
             @Html.DisplayName("Company")
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.CompanySortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.CompanySortParmDesc })
         </th>
     </tr>
 
