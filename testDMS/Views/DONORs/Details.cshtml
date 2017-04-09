@@ -6,14 +6,14 @@
 }
 
 @*<button onclick="formatPhone('@Model.Donors.CELL')">Try it</button>
-<label id="demo"></label>
-<script>
-    function formatPhone(s) {
-        var str = s;
-        var res = str.slice(0, 3) + "-" + str.slice(3, 6) + "-" + str.slice(6, 12);
-        document.getElementById("demo").innerHTML = res;
-    }
-</script>*@
+    <label id="demo"></label>
+    <script>
+        function formatPhone(s) {
+            var str = s;
+            var res = str.slice(0, 3) + "-" + str.slice(3, 6) + "-" + str.slice(6, 12);
+            document.getElementById("demo").innerHTML = res;
+        }
+    </script>*@
 
 <style>
     td.lines {
@@ -55,9 +55,11 @@
             <tr><td class="lines">@Html.DisplayNameFor(model => model.Donors.CONTACT.TypeOf): @Html.DisplayFor(model => model.Donors.CONTACT.TypeOf)</td></tr>
             <tr><td class="lines">@Html.DisplayNameFor(model => model.Donors.IDENTITYMARKER.MarkerType): @Html.DisplayFor(model => model.Donors.IDENTITYMARKER.MarkerType)</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td style="text-align: center">@Html.ActionLink("Edit Record", "Edit", new { id = Model.Donors.DonorId }, new { @class = "btn btn-primary btn-large" })</td></tr>
-            <tr><td style="text-align: right">@Html.ActionLink("Delete", "Delete", new { id = Model.Donors.DonorId })</td></tr>
-
+            @if (@ViewBag.role != "General")
+            {
+                <tr><td style="text-align: center">@Html.ActionLink("Edit Record", "Edit", new { id = Model.Donors.DonorId }, new { @class = "btn btn-primary btn-large" })</td></tr>
+                <tr><td style="text-align: right">@Html.ActionLink("Delete", "Delete", new { id = Model.Donors.DonorId })</td></tr>
+            }
         </table>
 
         <br />
@@ -68,20 +70,37 @@
 
 <div class="panel panel-default col-md-9">
 
-    <div class="panel panel-heading">@Model.Donors.FName's Donations
+    <div class="panel panel-heading">
+        @Model.Donors.FName's Donations
         <div style="display: inline-block;float:right">
-            @Html.ActionLink("Add Donation", "AddDonation", "DONATIONs", new { id = Model.Donors.DonorId }, new { @class = "btn btn-primary btn-large" })
-            </div>
-        </div>
+            @if (@ViewBag.role != "General")
+            {
+                @Html.ActionLink("Add Donation", "AddDonation", "DONATIONs", new { id = Model.Donors.DonorId }, new { @class = "btn btn-primary btn-large" })
 
+            }
+        </div>
+    </div>
     <div class="panel panel-body" style="min-height: 400px; max-height:400px; overflow-y: scroll">
 
         <table class="table table-striped">
-            <tr style="background-color:#0096D7"><th></th><th>Amount</th><th>Type</th><th>Date Made</th><th>Date Received</th><th>Method</th><th>Restrictions</th><th>Code</th><th>Edit Donation</th></tr>
+            <tr style="background-color:#0096D7">
+                <th></th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Date Made</th>
+                <th>Date Received</th>
+                <th>Method</th>
+                <th>Restrictions</th>
+                <th>Code</th>
+                @if (@ViewBag.role != "General")
+                {
+                    <th>Edit Donation</th>
+                }
+            </tr>
 
             @{ int x = 1;
-                foreach (var items in Model.Donations)
-                {
+            foreach (var items in Model.Donations)
+            {
                     <tr>
                         <td>@x:</td>
                         <td>@items.Amount</td>
@@ -92,7 +111,10 @@
                         <td>@items.GiftRestrictions</td>
                         <td>code</td>@*placeholder until code is working.*@
                         @*<td>@items.CODE.Fund</td>*@
-                        <td>@Html.ActionLink("Edit", "EditDonation", "DONATIONs",new { ida = items.DonationId, idb = items.DonorId }, new { @class = "btn btn-default", @style = "background-color:#174B7C;color:white" })</td>
+                        @if (@ViewBag.role != "General")
+                        {
+                            <td>@Html.ActionLink("Edit", "EditDonation", "DONATIONs", new { ida = items.DonationId, idb = items.DonorId }, new { @class = "btn btn-default", @style = "background-color:#174B7C;color:white" })</td>
+                        }
                     </tr>
                     x++;
                 }
@@ -102,22 +124,26 @@
     </div>
 </div>
 
-@using (Html.BeginForm("AddNote", "DONORs", new { id = Model.Donors.DonorId },  FormMethod.Post))
+@using (Html.BeginForm("AddNote", "DONORs", new { id = Model.Donors.DonorId }, FormMethod.Post))
 {
     <div class="panel panel-default col-md-12">
         <div class="panel panel-heading">Notes on @Model.Donors.FName</div>
+
         <div class="panel panel-body">
-            @Html.TextArea("Note", null, new { @class = "form-control", id = "Notes", @style = "max-width: 100%" })
-            <div style="text-align: right;">
-                <input type="submit" class="btn btn-primary btn-large" style="background-color:#0096D7" value="Add Note" />
-                
-            </div>
+            @if (@ViewBag.role != "General")
+            {
+                @Html.TextArea("Note", null, new { @class = "form-control", id = "Notes", @style = "max-width: 100%" })
+                <div style="text-align: right;">
+                    <input type="submit" class="btn btn-primary btn-large" style="background-color:#0096D7" value="Add Note" />
+
+                </div>
+            }
             <hr />
             <h4>Notes History:</h4>
             <table class="table table-striped">
 
                 <tr style="background-color:#0096D7"><th>#</th><th>Date</th><th>Note</th><th></th></tr>
-                @{ 
+                @{
                     int y = 1;
                     foreach (var items in Model.Notes)
                     {
@@ -125,7 +151,10 @@
                             <td>@y:</td>
                             <td>@items.DateMade</td>
                             <td>@items.Note</td>
-                            <td>@Html.ActionLink("Delete Note", "DeleteNote", new { ida = items.NoteId, idb = items.DonorId }, new { @class = "btn btn-primary btn-large", name = "Delete" })</td>
+                            @if (@ViewBag.role != "General")
+                            {
+                                <td>@Html.ActionLink("Delete Note", "DeleteNote", new { ida = items.NoteId, idb = items.DonorId }, new { @class = "btn btn-primary btn-large", name = "Delete" })</td>
+                            }
                         </tr>
                         y++;
                     }
@@ -133,5 +162,4 @@
             </table>
         </div>
     </div>
-}
-
+                    }

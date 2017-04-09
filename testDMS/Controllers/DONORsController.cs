@@ -1,4 +1,5 @@
-﻿using PagedList;
+﻿using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,6 +21,7 @@ namespace testDMS.Controllers
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
         INoteRepository ntRepo;
+        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
 
         public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo, INoteRepository ntRepo)
         {
@@ -51,6 +53,11 @@ namespace testDMS.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
+
+            //used to remove features for non-admin users.
+            string userId = User.Identity.GetUserId();
+            var user = data.AspNetUsers.FirstOrDefault(p => p.Id == userId) ;
+            ViewBag.role = user.NewRole;
 
             //count = drRepo.GetDonors.Count();
             count = donor.Count();
@@ -119,6 +126,11 @@ namespace testDMS.Controllers
                                      select d);
 
             displayData.Notes = note;
+
+            //used to remove features for non-admin users.
+            string userId = User.Identity.GetUserId();
+            var user = data.AspNetUsers.FirstOrDefault(p => p.Id == userId);
+            ViewBag.role = user.NewRole;
 
             if (displayData.Donors == null)
             {
