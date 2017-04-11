@@ -484,7 +484,9 @@ namespace testDMS.Controllers
         public FileContentResult GetImageTwo(int donationId, int donorId)
         {
             DONATION donation = dnRepo.FindById(donationId, donorId);
+
             IEnumerable<FILES> file = donation.FILES;
+
             if (file.ElementAt(1).Content != null && file.ElementAt(1).Content.Length > 0)
             {
                 byte[] secPhoto = file.ElementAtOrDefault(1).Content;
@@ -500,11 +502,15 @@ namespace testDMS.Controllers
         public ActionResult RemoveImageOne(int donationId, int donorId)
         {
             DONATION donation = dnRepo.FindById(donationId, donorId);
+
             IEnumerable<FILES> file = donation.FILES;
+
             if (file.ElementAt(0).Content != null && file.ElementAt(0).Content.Length > 0)
             {
                 donation.FILES.Remove(file.ElementAt(0));
+
                 dnRepo.SaveDonation(donation);
+
                 return RedirectToAction("Edit", new { ida = donationId, idb = donorId });
             }
             else
