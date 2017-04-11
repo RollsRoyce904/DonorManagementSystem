@@ -1,6 +1,6 @@
 ﻿@model testDMS.Models.DonorViewModel
 @using PagedList.Mvc
-
+@Scripts.Render("~/bundles/mycustomjquery")
 
 @{
     ViewBag.Title = "Index";
@@ -17,8 +17,11 @@
 
     </div>
 @*@Html.ActionLink("Create New", "Create")*@
+
 <div style="display: inline-block">
+    @if (@ViewBag.role != "General" ){
     <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONORs")'" />
+    }
     <input type="button" onclick="location.href='@Url.Action("ExportToExcel","DONORs")'" class="btn btn-default" style="background-image:url('../../Images/excel_icon.png');background-size:cover;width:75px;height:75px" />
 </div>
 <div style="display: inline-block;float:right">
@@ -46,21 +49,28 @@
     <tr style="background-color:#0096D7">
         <th>
             @Html.DisplayName("Donor")
+            @*@Html.ActionLink("Donor", "Index", new { sortOrder = ViewBag.NameSortParm })*@
         </th>
         <th>
             @Html.DisplayName("Email")
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.EmailSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.EmailSortParmDesc })
         </th>
         <th>
             @Html.DisplayName("Phone")
         </th>
         <th>
             @Html.DisplayName("Address")
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.AddressSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.AddressSortParmDesc })
         </th>
         <th>
             @Html.DisplayName("Cell")
         </th>
         <th>
             @Html.DisplayName("Company")
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.CompanySortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.CompanySortParmDesc })
         </th>
     </tr>
 

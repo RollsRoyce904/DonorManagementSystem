@@ -1,4 +1,5 @@
-﻿using PagedList;
+﻿using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,6 +21,7 @@ namespace testDMS.Controllers
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
         INoteRepository ntRepo;
+        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
 
         public DONORsController(IDonorRepository drRepo, IDonationRepository dnRepo, INoteRepository ntRepo)
         {
@@ -34,8 +36,14 @@ namespace testDMS.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             ViewBag.CurrentSort = sortOrder;           
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "donorID_desc" : "";
+            ViewBag.CompanySortParm = String.IsNullOrEmpty(sortOrder) ? "company" : "";
+            ViewBag.CompanySortParmDesc = String.IsNullOrEmpty(sortOrder) ? "company_desc" : "";
+            ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email" : "";
+            ViewBag.EmailSortParmDesc = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
+            ViewBag.AddressSortParm = String.IsNullOrEmpty(sortOrder) ? "address" : "";
+            ViewBag.AddressSortParmDesc = String.IsNullOrEmpty(sortOrder) ? "address_desc" : "";
+            //ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
             IEnumerable<DONOR> donor = new List<DONOR>();
 
@@ -52,17 +60,50 @@ namespace testDMS.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
+            //used to remove features for non-admin users.
+            string userId = User.Identity.GetUserId();
+            var user = data.AspNetUsers.FirstOrDefault(p => p.Id == userId) ;
+            ViewBag.role = user.NewRole;
+
             //count = drRepo.GetDonors.Count();
             count = donor.Count();
 
             ViewBag.Count = count;
+
+            switch (sortOrder)
+            {
+                case "donorID_desc":
+                    donor = donor.OrderByDescending(d => d.FName);
+                    break;
+                case "email_desc":
+                    donor = donor.OrderByDescending(d => d.Email);
+                    break;
+                case "email":
+                    donor = donor.OrderBy(d => d.Email);
+                    break;
+                case "company_desc":
+                    donor = donor.OrderByDescending(d => d.CompanyName);
+                    break;
+                case "company":
+                    donor = donor.OrderBy(d => d.CompanyName);
+                    break;
+                case "address_desc":
+                    donor = donor.OrderByDescending(d => d.Address);
+                    break;
+                case "address":
+                    donor = donor.OrderBy(d => d.Address);
+                    break;
+                default:
+                    donor = donor.OrderBy(d => d.LName);
+                    break;
+
+            }
 
             DonorViewModel DonorList = new DonorViewModel
                 {
                     Donors = donor.Take(count).ToPagedList(pageNumber, pageSize)
                 };
 
-            
             return View(DonorList);                        
         }
 
@@ -119,6 +160,11 @@ namespace testDMS.Controllers
                                      select d);
 
             displayData.Notes = note;
+
+            //used to remove features for non-admin users.
+            string userId = User.Identity.GetUserId();
+            var user = data.AspNetUsers.FirstOrDefault(p => p.Id == userId);
+            ViewBag.role = user.NewRole;
 
             if (displayData.Donors == null)
             {

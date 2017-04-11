@@ -65,7 +65,10 @@ namespace testDMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var user = data.AspNetUsers.FirstOrDefault(p => p.Email == UserName);
+            var currentUser = UserManager.FindById(User.Identity.GetUserId());
+            ViewBag.role = currentUser.NewRole;
             //var user = await UserManager.FindByNameAsync(UserName);
             //var userId = user.Id;
             //IEnumerable<AspNetUsers> currentUser = (IEnumerable<AspNetUsers>)data.AspNetUsers.Find(user.Id);
@@ -87,8 +90,11 @@ namespace testDMS.Controllers
             user.UserName = Email;
             user.LastName = LastName;
             user.FirstName = FirstName;
-            user.NewRole = NewRole;
-            data.SaveChanges();
+            if (NewRole != null)
+            {
+                user.NewRole = NewRole;
+            }
+                data.SaveChanges();
             return RedirectToAction("Index");
         }
         public ApplicationSignInManager SignInManager
@@ -223,7 +229,7 @@ namespace testDMS.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
