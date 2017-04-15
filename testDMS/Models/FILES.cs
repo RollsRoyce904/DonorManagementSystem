@@ -20,7 +20,9 @@ namespace testDMS.Models
         public byte[] Content { get; set; }
         public Nullable<int> DonationId { get; set; }
         public Nullable<int> DonorId { get; set; }
-    
+
+        public FileType  FileType { get; set; }
+
         public virtual DONATION DONATION { get; set; }
     }
 }

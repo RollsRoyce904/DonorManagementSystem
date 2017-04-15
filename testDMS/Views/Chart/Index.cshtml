@@ -1,4 +1,6 @@
 ﻿@model testDMS.Models.ChartDispalyViewModel
+@*@model PagedList.IPagedList<testDMS.Models.ChartDispalyViewModel>*@
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Index";
@@ -118,6 +120,7 @@
             </tr>
         }
     </table>
+    @Html.PagedListPager(Model.Donations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
     <div>
         
     </div>
