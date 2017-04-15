@@ -28,7 +28,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.donation.DonorId, "DonorId", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("DonorId", null, htmlAttributes: new { @class = "form-control", Name = "donation.DonorId" })
+                            @Html.DropDownList("DonorId", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.donation.DonorId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.donation.Fund, "Fund", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("Fund", null, htmlAttributes: new { @class = "form-control", Name = "code.Fund" } )
+                            @Html.DropDownList("Fund", null, htmlAttributes: new { @class = "form-control" } )
                             @Html.ValidationMessageFor(model => model.donation.Fund, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.donation.GL, "GL", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("GL", null, htmlAttributes: new { @class = "form-control", Name = "code.GL" } )
+                            @Html.DropDownList("GL", null, htmlAttributes: new { @class = "form-control" } )
                             @Html.ValidationMessageFor(model => model.donation.GL, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.donation.Department, "Department", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("Department", null, htmlAttributes:  new { @class = "form-control", Name = "code.Department" })
+                            @Html.DropDownList("Department", null, htmlAttributes:  new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.donation.Department, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.donation.Program, "Program", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("Program", null, htmlAttributes: new { @class = "form-control", Name = "code.Program" })
+                            @Html.DropDownList("Program", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.donation.Appeal, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.donation.GrantS, "Grants", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("Grant", null, htmlAttributes: new { @class = "form-control", Name = "code.Grants" })
+                            @Html.DropDownList("Grant", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.donation.GrantS, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -146,7 +146,8 @@
                     </div>
                     <div class="form-group">
                         <div style="position:relative;">
-                            <input type="file" id="Check" name="image" />
+                            @*<input type="file" id="Check" name="image" />*@
+                            @Html.TextBox("image", "", new { type = "file", multiple = "true" })
                             <span class="label label-info" id="upload-file-info"></span>
                             </div>
                         </div>

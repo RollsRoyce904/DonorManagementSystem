@@ -26,10 +26,10 @@ namespace testDMS.DAL
         //}
 
         public IEnumerable FindBy(string search)
-        {//d.CODES.Department == search || d.CODES.GL == search || 
+        {//
             var result = (from d in context.DONATION
                           where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
-                            d.DONOR.FName == search || d.DONOR.LName == search || d.DONOR.CompanyName == search
+                            d.DONOR.FName == search || d.DONOR.LName == search || d.DONOR.CompanyName == search || d.Department == search || d.GL == search
                           select d);
             return result;
         }
@@ -45,10 +45,10 @@ namespace testDMS.DAL
 
             //returns data from only search string
             if (search != null && search.Length > 0)
-            { //d.CODES.Department == search || d.CODES.GL == search || 
+            { 
                 var result = (from d in context.DONATION
                               where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
-                                    d.DONOR.FName == search || d.DONOR.LName == search || d.DONOR.CompanyName == search
+                                     d.Department == search || d.GL == search ||d.DONOR.FName == search || d.DONOR.LName == search || d.DONOR.CompanyName == search
                               select d);
 
                 if (amount1 > 0)
@@ -61,15 +61,15 @@ namespace testDMS.DAL
                     result = result.Where(d => (d.DateGiftMade >= date1 && d.DateGiftMade <= date2) || (d.DateRecieved >= date1 & d.DateRecieved <= date2));
                 }
 
-                //if (dep != null && dep.Length > 0)
-                //{
-                //    result = result.Where(d => d.CODES.Department == dep);
-                //}
+                if (dep != null && dep.Length > 0)
+                {
+                    result = result.Where(d => d.Department == dep);
+                }
 
-                //if (gl != null && gl.Length > 0)
-                //{
-                //    result = result.Where(d => d.CODES.GL == gl);
-                //}
+                if (gl != null && gl.Length > 0)
+                {
+                    result = result.Where(d => d.GL == gl);
+                }
 
                 return result;
             }
@@ -86,15 +86,15 @@ namespace testDMS.DAL
                     result = result.Where(d => (d.DateGiftMade >= date1 && d.DateGiftMade <= date2) || (d.DateRecieved >= date1 & d.DateRecieved <= date2));
                 }
 
-                //if (dep != null && dep.Length > 0)
-                //{
-                //    result = result.Where(d => d.CODES.Department == dep);
-                //}
+                if (dep != null && dep.Length > 0)
+                {
+                    result = result.Where(d => d.Department == dep);
+                }
 
-                //if (gl != null && gl.Length > 0)
-                //{
-                //    result = result.Where(d => d.CODES.GL == gl);
-                //}
+                if (gl != null && gl.Length > 0)
+                {
+                    result = result.Where(d => d.GL == gl);
+                }
                 return result;
             }
 
@@ -122,6 +122,7 @@ namespace testDMS.DAL
             else
             {
                 DONATION dbEntry = context.DONATION.Find(d.DonationId, d.DonorId);
+
                 if (dbEntry != null)
                 {
                     dbEntry.Amount = d.Amount;
@@ -129,11 +130,16 @@ namespace testDMS.DAL
                     dbEntry.DateRecieved = d.DateRecieved;
                     dbEntry.GiftMethod = d.GiftMethod;
                     dbEntry.DateGiftMade = d.DateGiftMade;
-                    //dbEntry.CodeId = d.CodeId;
-                    dbEntry.ImageUpload = d.ImageUpload;
-                    dbEntry.ImageMimeType = d.ImageMimeType;
+                    //dbEntry.ImageUpload = d.ImageUpload;
+                    //dbEntry.ImageMimeType = d.ImageMimeType;
                     dbEntry.GiftRestrictions = d.GiftRestrictions;
                     dbEntry.Notes = d.Notes;
+                    dbEntry.Appeal = d.Appeal;
+                    dbEntry.Department = d.Department;
+                    dbEntry.Fund = d.Fund;
+                    dbEntry.GL = d.GL;
+                    dbEntry.GrantS = d.GrantS;
+                    dbEntry.Program = d.Program;
                     dbEntry.FILES = d.FILES;
                 }
             }

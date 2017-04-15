@@ -44,10 +44,7 @@ namespace testDMS.Controllers
                                 select d;
 
                 count = donations.Count();
-
-                DonationViewModel dvm = new DonationViewModel();
-                //dvm.Donations = donations.Take(count).ToPagedList(pageNumber, pageSize);
-
+                
                 switch (sortOrder)
                 {
                     case "donationID_desc":
@@ -64,18 +61,16 @@ namespace testDMS.Controllers
                         break;
 
                 }
-                //donations.Take(count).ToPagedList(pageNumber, pageSize);
+
                 return View(donations.Take(count).ToPagedList(pageNumber, pageSize));
             }
             else
             {
                 IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
+
                 count = donation.Count();
-
-                DonationViewModel dvm = new DonationViewModel();
-                dvm.Donations = donation.Take(count).ToPagedList(pageNumber, pageSize);
-
-                return View(dvm);
+                
+                return View(donation.Take(count).ToPagedList(pageNumber, pageSize));
             }
         }
 
@@ -121,15 +116,15 @@ namespace testDMS.Controllers
 
             ViewBag.GiftMethod = new SelectList(GiftMethod, "GiftMethod");
 
-            ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
+            ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
-            ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
+            ViewBag.GL = new SelectList(ddlData.GLS, "GL", "GL");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
 
-            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "ProgramID", "Program");
+            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "Program", "Program");
 
-            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantID", "GrantName");
+            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
 
             return View();
@@ -137,29 +132,33 @@ namespace testDMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image)
+        public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase[] image)
         {
             DONATION donation = CDVM.donation;
+            FILES files = new FILES();
             
             if (ModelState.IsValid)
             {
-                if (image != null && image.ContentLength > 0)
+                foreach (var item in image)
                 {
-                    var check = new FILES
+                    if (item != null && item.ContentLength > 0)
                     {
-                        FileName = System.IO.Path.GetFileName(image.FileName),
-                        FileType = FileType.Check,
-                        ContentType = image.ContentType,
-                        DonationId = donation.DonationId,
-                        DonorId = donation.DonorId
-                    };
+                        var check = new FILES
+                        {
+                            FileName = System.IO.Path.GetFileName(item.FileName),
+                            ContentType = item.ContentType,
+                            DonationId = donation.DonationId,
+                            DonorId = donation.DonorId
+                        };
 
-                    using (var reader = new System.IO.BinaryReader(image.InputStream))
-                    {
-                        check.Content = reader.ReadBytes(image.ContentLength);
+                        using (var reader = new System.IO.BinaryReader(item.InputStream))
+                        {
+                            check.Content = reader.ReadBytes(item.ContentLength);
+                        }
+
+                        donation.FILES = new List<FILES> { check };
                     }
-
-                    donation.FILES = new List<FILES> { check };
+                    
                 }
 
                 dnRepo.Add(donation);
@@ -173,15 +172,15 @@ namespace testDMS.Controllers
 
             ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
 
-            ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
+            ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
-            ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
+            ViewBag.GL = new SelectList(ddlData.GLS, "GL", "GL");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
 
-            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "ProgramID", "Program");
+            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "Program", "Program");
 
-            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantID", "GrantName");
+            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
 
             return View(donation);
@@ -194,15 +193,15 @@ namespace testDMS.Controllers
             CreateDonationViewModel cdvm = new CreateDonationViewModel();
             cdvm.donor = donor;
 
-            ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
+            ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
-            ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
+            ViewBag.GL = new SelectList(ddlData.GLS, "GL", "GL");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
 
-            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "ProgramID", "Program");
+            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "Program", "Program");
 
-            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantID", "GrantName");
+            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
             return View("~/Views/DONATIONs/DonorCreate.cshtml", cdvm);
         }
@@ -236,15 +235,15 @@ namespace testDMS.Controllers
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
-            ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
+            ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
-            ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
+            ViewBag.GL = new SelectList(ddlData.GLS, "GL", "GL");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
 
-            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "ProgramID", "Program");
+            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "Program", "Program");
 
-            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantID", "GrantName");
+            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
 
             return View(donation);
@@ -281,17 +280,17 @@ namespace testDMS.Controllers
 
             ViewBag.GiftMethod = new SelectList(GiftMethod, "GiftMethod");
 
-            ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
+            ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
-            ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
+            ViewBag.GL = new SelectList(ddlData.GLS, "GL", "GL");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
 
-            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "ProgramID", "Program");
+            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "Program", "Program");
 
-            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantID", "GrantName");
+            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
 
             return View(donation);
@@ -302,7 +301,7 @@ namespace testDMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION dONATION, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,ImageUpload,GiftRestrictions,Notes,ImageMimeType,Fund,GL,Department,Program,GrantS,Appeal")] DONATION dONATION, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
@@ -311,7 +310,6 @@ namespace testDMS.Controllers
                     var check = new FILES
                     {
                         FileName = System.IO.Path.GetFileName(image.FileName),
-                        FileType = FileType.Check,
                         ContentType = image.ContentType,
                         DonationId = dONATION.DonationId,
                         DonorId = dONATION.DonorId
@@ -330,17 +328,17 @@ namespace testDMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
+            ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", dONATION.DonorId);
 
-            ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
+            ViewBag.GL = new SelectList(ddlData.GLS, "GL", "GL");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
 
-            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "ProgramID", "Program");
+            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "Program", "Program");
 
-            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantID", "GrantName");
+            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
 
             return View(dONATION);
@@ -377,17 +375,17 @@ namespace testDMS.Controllers
 
             ViewBag.GiftMethod = new SelectList(GiftMethod, "GiftMethod");
 
-            ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
+            ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
-            ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
+            ViewBag.GL = new SelectList(ddlData.GLS, "GL", "GL");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
 
-            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "ProgramID", "Program");
+            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "Program", "Program");
 
-            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantID", "GrantName");
+            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
 
             return View("~/Views/DONATIONs/DonorEdit.cshtml",donation);
@@ -409,17 +407,17 @@ namespace testDMS.Controllers
                 return RedirectToAction("Details", "DONORs", new {id = dONATION.DonorId });
             }
 
-            ViewBag.Fund = new SelectList(ddlData.FUNDS, "FundID", "Fund");
+            ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", dONATION.DonorId);
 
-            ViewBag.GL = new SelectList(ddlData.GLS, "GLID", "GL");
+            ViewBag.GL = new SelectList(ddlData.GLS, "GL", "GL");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
 
-            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "ProgramID", "Program");
+            ViewBag.Program = new SelectList(ddlData.PROGRAMS, "Program", "Program");
 
-            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantID", "GrantName");
+            ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
 
             return View(dONATION);

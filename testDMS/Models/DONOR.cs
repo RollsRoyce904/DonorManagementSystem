@@ -11,6 +11,7 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class DONOR
     {
@@ -28,6 +29,7 @@ namespace testDMS.Models
         public string LName { get; set; }
         public string Title { get; set; }
         public string Suffix { get; set; }
+        [Required]
         public string Email { get; set; }
         public string Cell { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }

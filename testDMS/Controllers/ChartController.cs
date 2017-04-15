@@ -35,9 +35,9 @@ namespace testDMS.Controllers
         {
             ViewBag.Person = new SelectList(ddlData.DONOR, "DonorId", "FNAME");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
 
-            ViewBag.Gl = new SelectList(ddlData.GLS, "GLID", "GL");
+            ViewBag.Gl = new SelectList(ddlData.GLS, "GL", "GL");
 
             var amountList = new SelectList(new List<SelectListItem>
                 {
@@ -65,7 +65,7 @@ namespace testDMS.Controllers
             ChartDispalyViewModel model = new ChartDispalyViewModel();
             model.Donors = Donors;
             model.Donations = Donations;
-
+            
             return View("~/Views/Chart/Index.cshtml", model);
         }
 

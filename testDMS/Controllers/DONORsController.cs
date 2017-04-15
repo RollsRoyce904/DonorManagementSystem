@@ -62,7 +62,7 @@ namespace testDMS.Controllers
 
             //used to remove features for non-admin users.
             string userId = User.Identity.GetUserId();
-            var user = data.AspNetUsers.FirstOrDefault(p => p.Id == userId) ;
+            var user = data.AspNetUsers.FirstOrDefault(p => p.Id == userId);
             ViewBag.role = user.NewRole;
 
             //count = drRepo.GetDonors.Count();
