@@ -176,7 +176,7 @@
                             }
                             else
                             {
-                                <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImageOne", "DONATIONs", new {Model.DonationId, Model.DonorId})" />
+                                <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImageOne", "DONATIONs", new {Model.DonationId, Model.DonorId})">
                                 @Html.ActionLink("Delete", "RemoveImageOne", new { Model.DonationId, Model.DonorId })
                                 if (Model.FILES.Count > 1)
                                 {
@@ -186,6 +186,7 @@
                                 {
                                     <div class="form-control-static">Only One Image Uploaded</div>
                                 }
+
                             }
                         </div>
                     </div>

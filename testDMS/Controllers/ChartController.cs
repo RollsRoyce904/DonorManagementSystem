@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using testDMS.DAL;
 using testDMS.Models;
 using System.Linq;
+using PagedList;
 
 namespace testDMS.Controllers
 {
@@ -23,10 +24,16 @@ namespace testDMS.Controllers
             this.dnRepo = dnRepo;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            LoadData();
+            
+
+
+
+            LoadData(page);
             LoadSelectList();
+
+
 
             return View();
         }
@@ -35,9 +42,9 @@ namespace testDMS.Controllers
         {
             ViewBag.Person = new SelectList(ddlData.DONOR, "DonorId", "FNAME");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
 
-            ViewBag.Gl = new SelectList(ddlData.GLS, "GL", "GL");
+            ViewBag.Gl = new SelectList(ddlData.GLS, "GLID", "GL");
 
             var amountList = new SelectList(new List<SelectListItem>
                 {
@@ -57,15 +64,30 @@ namespace testDMS.Controllers
             return View("~/Views/Chart/Index.cshtml");
         }
 
-        public ActionResult LoadData()
+        public ActionResult LoadData(int? page)
         {
-            IEnumerable<DONOR> Donors = drRepo.GetDonors;
-            IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.GetDonations();
+            //PagedList.IPagedList<DONOR> Donors = (PagedList.IPagedList<DONOR>)drRepo.GetDonors;
+            //PagedList.IPagedList<DONATION> Donations = (IPagedList<DONATION>)dnRepo.GetDonations();
+
+            int count = 0;
+            int pageSize = 10;
+            int pageNum = (page ?? 1);
+
+            var donations = from DONATION d in dnRepo.GetDonations()
+                            select d;
+
+            var donors = from DONOR d in drRepo.GetDonors
+                            select d;
 
             ChartDispalyViewModel model = new ChartDispalyViewModel();
-            model.Donors = Donors;
-            model.Donations = Donations;
-            
+
+            count = donations.Count();
+
+            model.Donors = donors.Take(count).ToPagedList(pageNum, pageSize);
+            model.Donations = donations.Take(count).ToPagedList(pageNum, pageSize);
+
+            //model.Donations.Take(count).ToPagedList(pageNum, pageSize);
+
             return View("~/Views/Chart/Index.cshtml", model);
         }
 
@@ -115,7 +137,7 @@ namespace testDMS.Controllers
                     break;
             };
 
-            IEnumerable<DONATION> Donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString,
+            PagedList.IPagedList<DONATION> Donations = (PagedList.IPagedList<DONATION>)dnRepo.FindBy(searchString,
                 amount1, amount2, date1, date2, department, gl);
            
 

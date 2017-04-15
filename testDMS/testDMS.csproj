@@ -369,10 +369,12 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\NOTES.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Option.cs" />
+    <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\PROGRAMS.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
