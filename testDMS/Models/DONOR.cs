@@ -11,8 +11,7 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class DONOR
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -29,9 +28,7 @@ namespace testDMS.Models
         public string LName { get; set; }
         public string Title { get; set; }
         public string Suffix { get; set; }
-        [Required]
         public string Email { get; set; }
-        [RegularExpression(@"\d{10,11}$", ErrorMessage = "Invalid Phone Number. Please enter a valid 10 or 11 digit phone number without spaces, parentheses, or dashes.")]
         public string Cell { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public string Gender { get; set; }

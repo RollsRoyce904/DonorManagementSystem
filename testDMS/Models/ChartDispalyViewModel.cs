@@ -5,9 +5,9 @@ namespace testDMS.Models
 {
     public class ChartDispalyViewModel
     {
-        public IEnumerable<DONOR> Donors { get; set; }
+        public PagedList.IPagedList<DONOR> Donors { get; set; }
 
-        public IEnumerable<DONATION> Donations { get; set; }
+        public PagedList.IPagedList<DONATION> Donations { get; set; }
 
         public string searchString { get; set; }
 
