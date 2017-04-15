@@ -26,15 +26,8 @@ namespace testDMS.Controllers
 
         public ActionResult Index(int? page)
         {
-            
-
-
-
             LoadData(page);
             LoadSelectList();
-
-
-
             return View();
         }
 
@@ -42,9 +35,9 @@ namespace testDMS.Controllers
         {
             ViewBag.Person = new SelectList(ddlData.DONOR, "DonorId", "FNAME");
 
-            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "DepartmentID", "Department");
+            ViewBag.Department = new SelectList(ddlData.DEPARTMENTS, "Department", "Department");
 
-            ViewBag.Gl = new SelectList(ddlData.GLS, "GLID", "GL");
+            ViewBag.Gl = new SelectList(ddlData.GLS, "GL", "GL");
 
             var amountList = new SelectList(new List<SelectListItem>
                 {
