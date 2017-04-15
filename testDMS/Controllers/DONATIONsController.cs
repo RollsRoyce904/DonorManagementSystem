@@ -148,7 +148,6 @@ namespace testDMS.Controllers
                     var check = new FILES
                     {
                         FileName = System.IO.Path.GetFileName(image.FileName),
-                        FileType = FileType.Check,
                         ContentType = image.ContentType,
                         DonationId = donation.DonationId,
                         DonorId = donation.DonorId
@@ -222,7 +221,6 @@ namespace testDMS.Controllers
                     var check = new FILES
                     {
                         FileName = System.IO.Path.GetFileName(image.FileName),
-                        FileType = FileType.Check,
                         ContentType = image.ContentType
                     };
                 }
@@ -311,7 +309,6 @@ namespace testDMS.Controllers
                     var check = new FILES
                     {
                         FileName = System.IO.Path.GetFileName(image.FileName),
-                        FileType = FileType.Check,
                         ContentType = image.ContentType,
                         DonationId = dONATION.DonationId,
                         DonorId = dONATION.DonorId

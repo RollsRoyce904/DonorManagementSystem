@@ -18,7 +18,6 @@ namespace testDMS.Models
         public string FileName { get; set; }
         public string ContentType { get; set; }
         public byte[] Content { get; set; }
-        public FileType FileType { get; set; }
         public Nullable<int> DonationId { get; set; }
         public Nullable<int> DonorId { get; set; }
     
