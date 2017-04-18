@@ -132,20 +132,22 @@
                             @Html.ValidationMessageFor(model => model.Appeal, "", new { @class = "text-danger" })
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Notes, "Notes", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextArea("Notes", null, new { @class = "form-control", @style = "max-width: 60%" })
+                            @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Notes, "Notes", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextArea("Notes", null, new { @class = "form-control", @style = "max-width: 60%" } )
-                            @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div style="position:relative;">
+                        <div>
                             @*<input type="file" id="Check" name="image" />*@
                             @Html.TextBox("image", "", new { type = "file", multiple = "true" })
                             <span class="label label-info" id="upload-file-info"></span>
