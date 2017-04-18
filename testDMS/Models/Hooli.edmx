@@ -117,10 +117,8 @@
           <Property Name="DateRecieved" Type="date" />
           <Property Name="GiftMethod" Type="nvarchar" MaxLength="12" />
           <Property Name="DateGiftMade" Type="date" />
-          <Property Name="ImageUpload" Type="varbinary(max)" />
           <Property Name="GiftRestrictions" Type="nvarchar(max)" />
           <Property Name="Notes" Type="varchar(max)" />
-          <Property Name="ImageMimeType" Type="varchar" MaxLength="50" />
           <Property Name="Fund" Type="nvarchar" MaxLength="2" />
           <Property Name="GL" Type="nvarchar" MaxLength="4" />
           <Property Name="Department" Type="nvarchar" MaxLength="2" />
@@ -567,11 +565,9 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <Property Name="DateRecieved" Type="DateTime" Precision="0" />
           <Property Name="GiftMethod" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Name="DateGiftMade" Type="DateTime" Precision="0" />
-          <Property Name="ImageUpload" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="GiftRestrictions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DONOR" Relationship="Self.FK__DONATION__DonorI__2A164134" FromRole="DONATION" ToRole="DONOR" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ImageMimeType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Fund" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="GL" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="Department" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
@@ -1018,7 +1014,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
                 <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="GL" ColumnName="GL" />
                 <ScalarProperty Name="Fund" ColumnName="Fund" />
-                <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="DonationId" ColumnName="DonationId" />
                 <ScalarProperty Name="DonorId" ColumnName="DonorId" />
@@ -1027,7 +1022,6 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
                 <ScalarProperty Name="DateRecieved" ColumnName="DateRecieved" />
                 <ScalarProperty Name="GiftMethod" ColumnName="GiftMethod" />
                 <ScalarProperty Name="DateGiftMade" ColumnName="DateGiftMade" />
-                <ScalarProperty Name="ImageUpload" ColumnName="ImageUpload" />
                 <ScalarProperty Name="GiftRestrictions" ColumnName="GiftRestrictions" />
               </MappingFragment>
             </EntityTypeMapping>

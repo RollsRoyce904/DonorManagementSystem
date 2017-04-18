@@ -147,9 +147,8 @@
                 <td>
                     <div class="form-group">
                         <div>
-                            @*<input type="file" id="Check" name="image" />*@
                             @Html.TextBox("image", "", new { type = "file", multiple = "multiple" })
-                            <span class="label label-info" id="upload-file-info"></span>
+                            @Html.TextBox("image", "", new { type = "file", multiple = "multiple" })
                             </div>
                         </div>
                 </td>
@@ -170,5 +169,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-@*size="40" style="position:absolute; z-index:2; top:0; left:0;
-                filter: alpha(opacity=0); opacity:0; background-color:transparent; color:transparent;"*@

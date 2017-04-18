@@ -11,7 +11,6 @@ namespace testDMS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class DONATION
     {
@@ -25,21 +24,11 @@ namespace testDMS.Models
         public int DonorId { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public string TypeOf { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DateRecieved { get; set; }
-
         public string GiftMethod { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DateGiftMade { get; set; }
-
-        public byte[] ImageUpload { get; set; }
         public string GiftRestrictions { get; set; }
         public string Notes { get; set; }
-        public string ImageMimeType { get; set; }
         public string Fund { get; set; }
         public string GL { get; set; }
         public string Department { get; set; }
@@ -48,7 +37,6 @@ namespace testDMS.Models
         public string Appeal { get; set; }
     
         public virtual DONOR DONOR { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FILES> FILES { get; set; }
     }
