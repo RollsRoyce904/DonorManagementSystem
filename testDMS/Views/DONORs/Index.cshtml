@@ -22,7 +22,7 @@
     @if (@ViewBag.role != "General" ){
     <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONORs")'" />
     }
-    <input type="button" onclick="location.href='@Url.Action("ExportToExcel","DONORs")'" class="btn btn-default" style="background-image:url('../../Images/excel_icon.png');background-size:cover;width:75px;height:75px" />
+    <input type="button" value="Export To Excel" onclick="location.href='@Url.Action("ExportToExcel","DONORs")'" class="btn btn-default"/>
 </div>
 <div style="display: inline-block;float:right">
     @using (Html.BeginForm("Index", "DONORs", FormMethod.Get))
