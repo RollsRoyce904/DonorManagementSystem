@@ -140,15 +140,15 @@
                     <div>
                         @Html.LabelFor(model => model.donation.Notes, "Notes", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.TextArea("Notes", null, new { htmlAttributes = new { @class = "form-control", @style = "max-width: 60%" } })
+                            @Html.TextArea("Notes", "This is a test", new { htmlAttributes = new { @class = "form-control", @style = "max-width: 60%" } })
                             @Html.ValidationMessageFor(model => model.donation.Notes, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div style="position:relative;">
                             @*<input type="file" id="Check" name="image" />*@
-                            @Html.TextBox("image", "", new { type = "file", multiple = "true" })
-                            <span class="label label-info" id="upload-file-info"></span>
+                            @*@Html.TextBox("image", "", new { type = "file", multiple = "true" })
+                            <span class="label label-info" id="upload-file-info"></span>*@
                             </div>
                         </div>
                 </td>
