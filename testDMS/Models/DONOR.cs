@@ -32,6 +32,8 @@ namespace testDMS.Models
         [Required]
         public string Email { get; set; }
         public string Cell { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Birthday { get; set; }
         public string Gender { get; set; }
         public Nullable<int> MarkerId { get; set; }
