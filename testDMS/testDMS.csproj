@@ -426,6 +426,7 @@
     <Content Include="Images\excel_icon.png" />
     <Content Include="Images\HH_LogoStacked_CMYK.jpg" />
     <Content Include="Images\HopeHavenLogo.jpg" />
+    <Content Include="Images\remove-user-icon.jpg" />
     <Content Include="Images\sampleCheck.jpg" />
     <Content Include="Models\Hooli.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
