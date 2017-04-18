@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using testDMS.Models;
 
@@ -25,7 +25,7 @@ namespace testDMS.DAL
         //    context.Entry(d).State = System.Data.Entity.EntityState.Modified;
         //}
 
-        public IEnumerable FindBy(string search)
+        public IEnumerable<DONATION> FindBy(string search)
         {//
             var result = (from d in context.DONATION
                           where d.Amount.ToString() == search || d.DateGiftMade.ToString() == search || d.DateRecieved.ToString() == search ||
@@ -40,7 +40,7 @@ namespace testDMS.DAL
             return result;
         }
 
-        public IEnumerable FindBy(string search, decimal? amount1, decimal? amount2, DateTime? date1, DateTime? date2, string dep, string gl)
+        public IEnumerable<DONATION> FindBy(string search, decimal? amount1, decimal? amount2, DateTime? date1, DateTime? date2, string dep, string gl)
         {
 
             //returns data from only search string
@@ -101,7 +101,7 @@ namespace testDMS.DAL
 
         }
 
-        public IEnumerable GetDonations()
+        public IEnumerable<DONATION> GetDonations()
         {
             return context.DONATION;
         }

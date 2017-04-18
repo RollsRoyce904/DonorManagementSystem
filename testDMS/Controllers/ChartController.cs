@@ -59,9 +59,6 @@ namespace testDMS.Controllers
 
         public ActionResult LoadData(int? page)
         {
-            //PagedList.IPagedList<DONOR> Donors = (PagedList.IPagedList<DONOR>)drRepo.GetDonors;
-            //PagedList.IPagedList<DONATION> Donations = (IPagedList<DONATION>)dnRepo.GetDonations();
-
             int count = 0;
             int pageSize = 10;
             int pageNum = (page ?? 1);
@@ -79,13 +76,14 @@ namespace testDMS.Controllers
             model.Donors = donors.Take(count).ToPagedList(pageNum, pageSize);
             model.Donations = donations.Take(count).ToPagedList(pageNum, pageSize);
 
-            //model.Donations.Take(count).ToPagedList(pageNum, pageSize);
-
             return View("~/Views/Chart/Index.cshtml", model);
         }
 
-        public ActionResult Search(string searchString, int amount, DateTime? date1, DateTime? date2, string department, string gl)
+        public ActionResult Search(string searchString, int amount, DateTime? date1, DateTime? date2, string department, string gl, int? page)
         {
+            int count = 0;
+            int pageSize = 10;
+            int pageNum = (page ?? 1);
 
             int amount1 = 0;
             int amount2 = 0;
@@ -130,14 +128,19 @@ namespace testDMS.Controllers
                     break;
             };
 
-            PagedList.IPagedList<DONATION> Donations = (PagedList.IPagedList<DONATION>)dnRepo.FindBy(searchString,
-                amount1, amount2, date1, date2, department, gl);
-           
+            IEnumerable<DONATION> Donations = new List<DONATION>();
+            
+            if(searchString != null)
+            {
+                page = 1;
+                Donations = dnRepo.FindBy(searchString, amount1, amount2, date1, date2, department, gl);
+            }
 
+            count = Donations.Count();
 
             ChartDispalyViewModel model = new ChartDispalyViewModel();
 
-            model.Donations = Donations;
+            model.Donations = Donations.Take(count).ToPagedList(pageNum, pageSize);
 
             model.searchString = searchString;
             model.amount = amount;
@@ -147,6 +150,7 @@ namespace testDMS.Controllers
             model.gl = gl;
 
             LoadSelectList();
+           
 
             return View("~/Views/Chart/Index.cshtml", model);
         }

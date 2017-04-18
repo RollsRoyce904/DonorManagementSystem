@@ -29,11 +29,13 @@ namespace testDMS.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DateRecieved { get; set; }
+
         public string GiftMethod { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DateGiftMade { get; set; }
+
         public byte[] ImageUpload { get; set; }
         public string GiftRestrictions { get; set; }
         public string Notes { get; set; }

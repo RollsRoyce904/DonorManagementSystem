@@ -22,7 +22,7 @@ namespace testDMS.DAL
 
         DONOR FindById(int? id);
 
-        IEnumerable FindBy(string search);
+        IEnumerable<DONOR> FindBy(string search);
 
         //IEnumerable FindBy(DateTime search);
     }

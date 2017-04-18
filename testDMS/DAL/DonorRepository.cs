@@ -28,7 +28,7 @@ namespace testDMS.DAL
             return result;
         }
 
-        public IEnumerable FindBy(string search)
+        public IEnumerable<DONOR> FindBy(string search)
         {
             var result = (from r in context.DONOR where r.FName == search || r.Gender == search ||
                           r.Email == search || r.LName == search || r.Init == search ||

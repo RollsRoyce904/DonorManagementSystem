@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using testDMS.Models;
 
 namespace testDMS.DAL
@@ -10,9 +10,9 @@ namespace testDMS.DAL
         //void Edit(DONATION d);
         void SaveDonation(DONATION d);
         void Remove(int ida, int idb);
-        IEnumerable GetDonations();
+        IEnumerable<DONATION> GetDonations();
         DONATION FindById(int? idOne, int? idTwo);
-        IEnumerable FindBy(string search);
-        IEnumerable FindBy(string search, decimal? amount1, decimal? amount2, DateTime? date1, DateTime? date2, string dep, string gl);
+        IEnumerable<DONATION> FindBy(string search);
+        IEnumerable<DONATION> FindBy(string search, decimal? amount1, decimal? amount2, DateTime? date1, DateTime? date2, string dep, string gl);
     }
 }

@@ -64,18 +64,14 @@ namespace testDMS.Controllers
                         break;
 
                 }
-                //donations.Take(count).ToPagedList(pageNumber, pageSize);
                 return View(donations.Take(count).ToPagedList(pageNumber, pageSize));
             }
             else
             {
                 IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
                 count = donation.Count();
-
-                DonationViewModel dvm = new DonationViewModel();
-                dvm.Donations = donation.Take(count).ToPagedList(pageNumber, pageSize);
-
-                return View(dvm);
+                
+                return View(donation.Take(count).ToPagedList(pageNumber, pageSize));
             }
         }
 
@@ -104,22 +100,20 @@ namespace testDMS.Controllers
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FName");
 
-            List<string> TypeOf = new List<string>();
+            List<SelectListItem> TypeOf = new List<SelectListItem>();
+            TypeOf.Add(new SelectListItem { Text = "Pledge", Value = "Pledge", Selected = true });
+            TypeOf.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
+            TypeOf.Add(new SelectListItem { Text = "Bequest", Value = "Bequest" });
 
-            TypeOf.Add("Pledge");
-            TypeOf.Add("Cash");
-            TypeOf.Add("Bequest");
+            ViewBag.TypeOf = TypeOf;
 
-            ViewBag.TypeOf = new SelectList(TypeOf, "TypeOf");
+            List<SelectListItem> GiftMethod = new List<SelectListItem>();
+            GiftMethod.Add(new SelectListItem { Text = "Check", Value = "Check", Selected = true });
+            GiftMethod.Add(new SelectListItem { Text = "ACH Transfer", Value = "ACH Transfer" });
+            GiftMethod.Add(new SelectListItem { Text = "Credit Card", Value = "Credit Card" });
+            GiftMethod.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
 
-            List<string> GiftMethod = new List<string>();
-
-            GiftMethod.Add("Check");
-            GiftMethod.Add("ACH Transfer");
-            GiftMethod.Add("Credit Card");
-            GiftMethod.Add("Cash");
-
-            ViewBag.GiftMethod = new SelectList(GiftMethod, "GiftMethod");
+            ViewBag.GiftMethod = GiftMethod;
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
@@ -131,36 +125,38 @@ namespace testDMS.Controllers
 
             ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
-
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateDonationViewModel CDVM, HttpPostedFileBase image)
+        public ActionResult Create(CreateDonationViewModel CDVM, IEnumerable<HttpPostedFileBase> image)
         {
             DONATION donation = CDVM.donation;
             
             if (ModelState.IsValid)
             {
-                if (image != null && image.ContentLength > 0)
+                foreach (var item in image)
                 {
-                    var check = new FILES
+                    if (item != null && item.ContentLength > 0)
                     {
-                        FileName = System.IO.Path.GetFileName(image.FileName),
-                        ContentType = image.ContentType,
-                        DonationId = donation.DonationId,
-                        DonorId = donation.DonorId
-                    };
+                        var check = new FILES
+                        {
+                            FileName = System.IO.Path.GetFileName(item.FileName),
+                            ContentType = item.ContentType,
+                            DonationId = donation.DonationId,
+                            DonorId = donation.DonorId
+                        };
 
-                    using (var reader = new System.IO.BinaryReader(image.InputStream))
-                    {
-                        check.Content = reader.ReadBytes(image.ContentLength);
+                        using (var reader = new System.IO.BinaryReader(item.InputStream))
+                        {
+                            check.Content = reader.ReadBytes(item.ContentLength);
+                        }
+
+                        donation.FILES = new List<FILES> { check };
                     }
-
-                    donation.FILES = new List<FILES> { check };
                 }
-
+                
                 dnRepo.Add(donation);
 
                 return RedirectToAction("Index");
@@ -182,7 +178,6 @@ namespace testDMS.Controllers
 
             ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
-
             return View(donation);
         }
 
@@ -192,6 +187,23 @@ namespace testDMS.Controllers
 
             CreateDonationViewModel cdvm = new CreateDonationViewModel();
             cdvm.donor = donor;
+
+            List<SelectListItem> TypeOf = new List<SelectListItem>();
+
+            TypeOf.Add(new SelectListItem { Text = "Pledge", Value = "Pledge", Selected = true });
+            TypeOf.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
+            TypeOf.Add(new SelectListItem { Text = "Bequest", Value = "Bequest" });
+
+            ViewBag.TypeOf = TypeOf;
+
+            List<SelectListItem> GiftMethod = new List<SelectListItem>();
+
+            GiftMethod.Add(new SelectListItem { Text = "Check", Value = "Check", Selected = true });
+            GiftMethod.Add(new SelectListItem { Text = "ACH Transfer", Value = "ACH Transfer" });
+            GiftMethod.Add(new SelectListItem { Text = "Credit Card", Value = "Credit Card" });
+            GiftMethod.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
+
+            ViewBag.GiftMethod = GiftMethod;
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
@@ -232,6 +244,10 @@ namespace testDMS.Controllers
                 return RedirectToAction("Details", "DONORs", new { id });
             }
 
+            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
+
+            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
+
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
@@ -263,21 +279,22 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            List<string> TypeOf = new List<string>();
-            TypeOf.Add("Pledge");
-            TypeOf.Add("Cash");
-            TypeOf.Add("Bequest");
-            
+            List<SelectListItem> TypeOf = new List<SelectListItem>();
 
-            List<string> GiftMethod = new List<string>();
-            GiftMethod.Add("Check");
-            GiftMethod.Add("ACH Transfer");
-            GiftMethod.Add("Credit Card");
-            GiftMethod.Add("Cash");
+            TypeOf.Add(new SelectListItem { Text = "Pledge", Value = "Pledge", Selected = true });
+            TypeOf.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
+            TypeOf.Add(new SelectListItem { Text = "Bequest", Value = "Bequest" });
 
-            ViewBag.TypeOf = new SelectList(TypeOf, "TypeOf");
+            ViewBag.TypeOf = TypeOf;
 
-            ViewBag.GiftMethod = new SelectList(GiftMethod, "GiftMethod");
+            List<SelectListItem> GiftMethod = new List<SelectListItem>();
+
+            GiftMethod.Add(new SelectListItem { Text = "Check", Value = "Check", Selected = true });
+            GiftMethod.Add(new SelectListItem { Text = "ACH Transfer", Value = "ACH Transfer" });
+            GiftMethod.Add(new SelectListItem { Text = "Credit Card", Value = "Credit Card" });
+            GiftMethod.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
+
+            ViewBag.GiftMethod = GiftMethod;
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
@@ -327,6 +344,10 @@ namespace testDMS.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
+
+            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
+
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", dONATION.DonorId);
@@ -357,22 +378,22 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            List<string> TypeOf = new List<string>();
+            List<SelectListItem> TypeOf = new List<SelectListItem>();
 
-            TypeOf.Add("Pledge");
-            TypeOf.Add("Cash");
-            TypeOf.Add("Bequest");
+            TypeOf.Add(new SelectListItem { Text = "Pledge", Value = "Pledge", Selected = true });
+            TypeOf.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
+            TypeOf.Add(new SelectListItem { Text = "Bequest", Value = "Bequest" });
 
-            ViewBag.TypeOf = new SelectList(TypeOf, "TypeOf");
+            ViewBag.TypeOf = TypeOf;
 
-            List<string> GiftMethod = new List<string>();
+            List<SelectListItem> GiftMethod = new List<SelectListItem>();
 
-            GiftMethod.Add("Check");
-            GiftMethod.Add("ACH Transfer");
-            GiftMethod.Add("Credit Card");
-            GiftMethod.Add("Cash");
+            GiftMethod.Add(new SelectListItem { Text = "Check", Value = "Check", Selected = true });
+            GiftMethod.Add(new SelectListItem { Text = "ACH Transfer", Value = "ACH Transfer" });
+            GiftMethod.Add(new SelectListItem { Text = "Credit Card", Value = "Credit Card" });
+            GiftMethod.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
 
-            ViewBag.GiftMethod = new SelectList(GiftMethod, "GiftMethod");
+            ViewBag.GiftMethod = GiftMethod;
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
@@ -405,6 +426,10 @@ namespace testDMS.Controllers
                 dnRepo.SaveDonation(dONATION);
                 return RedirectToAction("Details", "DONORs", new {id = dONATION.DonorId });
             }
+
+            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
+
+            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 

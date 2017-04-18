@@ -50,7 +50,7 @@ namespace testDMS.Controllers
             if (searchString != null)
             {
                 page = 1;
-                donor = (IEnumerable<DONOR>)drRepo.FindBy(searchString);
+                donor = drRepo.FindBy(searchString);
             }
             else
             {
