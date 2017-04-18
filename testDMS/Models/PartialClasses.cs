@@ -12,4 +12,7 @@ namespace testDMS.Models
         {
         }
     
+    [MetadataType(typeof(DonationMetadata))]
+    public partial class DONATION
+    { }
 }
