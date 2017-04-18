@@ -97,9 +97,8 @@ namespace testDMS.Controllers
         // GET: DONATIONs/Create
         public ActionResult Create()
         {
-
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FName");
-
+            
             List<SelectListItem> TypeOf = new List<SelectListItem>();
             TypeOf.Add(new SelectListItem { Text = "Pledge", Value = "Pledge", Selected = true });
             TypeOf.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
@@ -130,9 +129,9 @@ namespace testDMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateDonationViewModel CDVM, IEnumerable<HttpPostedFileBase> image)
+        public ActionResult Create(DONATION myDonation, IEnumerable<HttpPostedFileBase> image)
         {
-            DONATION donation = CDVM.donation;
+            DONATION donation = myDonation;
             
             if (ModelState.IsValid)
             {
