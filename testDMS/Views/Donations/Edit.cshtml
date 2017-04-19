@@ -167,6 +167,15 @@
                     </div>
 
                     <div class="form-group">
+                        @Html.LabelFor(model => model.Notes, "Notes", htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.TextArea("Notes", Model.Notes, new { @class = "form-control", @style = "max-width: 60%" })
+                            @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
                         <div style="position:relative;">
                             <input type="file" id="Check" name="image" /><br />
                             <span class="label label-info" id="upload-file-info"></span>
