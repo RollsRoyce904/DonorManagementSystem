@@ -11,6 +11,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using testDMS.DAL;
 using testDMS.Models;
+using Microsoft.AspNet.Identity;
 
 namespace testDMS.Controllers
 {
@@ -19,6 +20,7 @@ namespace testDMS.Controllers
         private DonorManagementDatabaseEntities ddlData = new DonorManagementDatabaseEntities();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
+        private DonorManagementDatabaseEntities data = new DonorManagementDatabaseEntities();
 
         public DONATIONsController(IDonorRepository drRepo, IDonationRepository dnRepo)
         {
@@ -44,6 +46,10 @@ namespace testDMS.Controllers
                                 select d;
 
                 count = donations.Count();
+                //used to remove features for non-admin users.
+                string userId = User.Identity.GetUserId();
+                var user = data.AspNetUsers.FirstOrDefault(p => p.Id == userId);
+                ViewBag.role = user.NewRole;
 
                 DonationViewModel dvm = new DonationViewModel();
                 //dvm.Donations = donations.Take(count).ToPagedList(pageNumber, pageSize);
