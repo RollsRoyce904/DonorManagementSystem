@@ -28,7 +28,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.DonorId, "DonorId", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.DonorId, ViewBag.DonorId as SelectList)
+                            @Html.DropDownListFor(model => model.DonorId, ViewBag.DonorId as SelectList, htmlAttributes: new { @class = "form-control" } )
                             @Html.ValidationMessageFor(model => model.DonorId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -84,7 +84,6 @@
                     </div>
                 </td>
                 <td>
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.Fund, "Fund", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
