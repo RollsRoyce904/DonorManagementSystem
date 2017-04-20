@@ -20,6 +20,8 @@ namespace testDMS.Models
             public string Email;
             [RegularExpression(@"\d{10,11}$", ErrorMessage = "Invalid Phone Number. Please enter a valid 10 or 11 digit phone number without spaces, parentheses, or dashes.")]
             public string Cell;
+            [DataType(DataType.Date)]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
             public Nullable<System.DateTime> Birthday;
             public string Gender { get; set; }
             public Nullable<int> MarkerId;

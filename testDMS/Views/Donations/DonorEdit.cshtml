@@ -140,7 +140,7 @@
                 filter: alpha(opacity=0); opacity:0; background-color:transparent; color:transparent;" onchange="$('#upload-file-info').html($(this).val());" />
                             </a>
                             <span class="label label-info" id="upload-file-info"></span>
-                            @if (Model.ImageUpload == null)
+                            @if (Model.FILES == null)
                             {
                                 <div class="form-control-static">No Image Uploaded</div>
                             }

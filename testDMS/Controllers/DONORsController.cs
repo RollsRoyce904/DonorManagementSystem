@@ -96,7 +96,6 @@ namespace testDMS.Controllers
                 default:
                     donor = donor.OrderBy(d => d.LName);
                     break;
-
             }
 
             DonorViewModel DonorList = new DonorViewModel
