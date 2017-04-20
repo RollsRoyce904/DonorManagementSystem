@@ -275,9 +275,9 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.TypeOf = new SelectList(ddlData.TYPEOF, "TypeOf", "TypeOf");
+            ViewBag.TypeOf = new SelectList(ddlData.TYPEOF, "TypeOf", "TypeOf", donation.TypeOf);
 
-            ViewBag.GiftMethod = new SelectList(ddlData.GIFTMETHOD, "GiftMethod", "GiftMethod");
+            ViewBag.GiftMethod = new SelectList(ddlData.GIFTMETHOD, "GiftMethod", "GiftMethod", donation.GiftMethod);
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund", donation.Fund);
 
