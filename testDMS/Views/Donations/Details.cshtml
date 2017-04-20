@@ -5,36 +5,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <style>
     td.lines {
-        padding-bottom: 5px;
-        padding-top: 5px;
-        border-bottom: solid lightgray;
+                padding-bottom: 5px;
+                padding-top: 5px;
+                border-bottom: solid lightgray;
+            }
+
+            th {
+                padding: 15px;
+                text-align: center;
+                width: 50%;
+                background-color: #0096D7;
     }
 
-    th {
-        padding: 15px;
-        text-align: center;
-        width: 50%;
-        background-color: #0096D7;
-    }
+            table {
+                border-collapse: initial;
+            }
 
-    table {
-        border-collapse: initial;
-    }
-
-    input[type=submit] {
-        background: transparent url("../../Images/button_update-donation.png") 0 0 no-repeat;
-        font-weight: bold;
-        display: inline-block;
-        text-align: center;
-        cursor: pointer;
-        height: 70px;
-        width: 201px;
-        border: 3px solid #fff;
+            input[type=submit] {
+                background: transparent url("../../Images/button_update-donation.png") 0 0 no-repeat;
+                font-weight: bold;
+                display: inline-block;
+                text-align: center;
+                cursor: pointer;
+                height: 70px;
+                width: 201px;
+                border: 3px solid #fff;
         border-radius: 2em;
-        color: transparent;
-    }
+                color: transparent;
+            }
 </style>
 <hr />
 <div class="well well-lg">
@@ -57,9 +58,9 @@
             <div class="form-group">
                 <br />
                 @if (Model.FILES.Count == 0)
-                {
+        {
                     <div class="form-control-static">No Image Uploaded</div>
-                }
+    }
                 else
                 { 
                     <img class="img-thumbnail" width="100" height="225" src="@Url.Action("GetImageOne", "DONATIONs", new { Model.DonationId, Model.DonorId })" />

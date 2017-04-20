@@ -310,6 +310,10 @@ namespace testDMS.Controllers
             {
                 return HttpNotFound();
             }
+            if(donor.DONATION != null || donor.NOTES != null)
+            {
+                return RedirectToAction("Details", "DONORs", new { id = id } );
+            }
             return View(donor);
         }
 

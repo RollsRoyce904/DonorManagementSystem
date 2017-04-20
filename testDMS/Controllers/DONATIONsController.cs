@@ -455,6 +455,11 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
+            if (donation.FILES != null)
+            { 
+                return RedirectToAction("Edit", "DONATIONs", new { ida = ida, idb = idb, });
+            }
+
             ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
             ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
 
