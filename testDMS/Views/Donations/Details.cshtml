@@ -49,12 +49,12 @@
     </div>
 </div>
 
-<table border="0">
+<table border="1">
     <tr><th class="lines" style="background-color:#0096D7" colspan="2">Donation Record</th><th>Check Image</th></tr>
     <tr>
         <td class="lines">Donor:  </td>
         <td class="lines">@Html.DisplayFor(model => model.DONOR.FName) @Html.DisplayFor(model => model.DONOR.LName)</td>
-        <td rowspan="7" style="padding:3%">
+        <td rowspan="8" style="padding:3%">
             <div class="form-group">
                 <br />
                 @if (Model.FILES.Count == 0)
@@ -63,10 +63,10 @@
     }
                 else
                 { 
-                    <img class="img-thumbnail" width="100" height="225" src="@Url.Action("GetImageOne", "DONATIONs", new { Model.DonationId, Model.DonorId })" />
+                    <img class="img-thumbnail"  src="@Url.Action("GetImageOne", "DONATIONs", new { Model.DonationId, Model.DonorId })" />
                     if (Model.FILES.Count > 1)
                     {
-                        <img class="img-thumbnail" width="100" height="225" src="@Url.Action("GetImageTwo", "DONATIONs", new { Model.DonationId, Model.DonorId })" />
+                        <img class="img-thumbnail"  src="@Url.Action("GetImageTwo", "DONATIONs", new { Model.DonationId, Model.DonorId })" />
                     }
                     else
                     {
@@ -79,6 +79,7 @@
     <tr>
         <td class="lines">Date Recieved: </td>
         <td class="lines"> @Html.DisplayFor(model => model.DateRecieved)</td>
+        
     </tr>
     <tr><td class="lines">Amount:  </td><td class="lines">@Html.DisplayFor(model => model.Amount)</td></tr>
     <tr><td class="lines">Donation Type: </td><td class="lines"> @Html.DisplayFor(model => model.TypeOf)</td></tr>
