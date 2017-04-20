@@ -35,6 +35,9 @@
         <EntityTypeShape EntityType="DonorManagementDatabaseModel.PROGRAMS" Width="1.5" PointX="12.75" PointY="8.75" />
         <EntityTypeShape EntityType="DonorManagementDatabaseModel.FILES" Width="1.5" PointX="7.5" PointY="14.5" />
         <AssociationConnector Association="DonorManagementDatabaseModel.FK__FILES__65370702" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.GENDER" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.GIFTMETHOD" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DonorManagementDatabaseModel.TYPEOF" Width="1.5" PointX="14.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

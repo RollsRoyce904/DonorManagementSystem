@@ -343,6 +343,12 @@
     <Compile Include="Models\FUNDS.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GENDER.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GIFTMETHOD.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GLS.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
@@ -388,6 +394,9 @@
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>Hooli.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TYPEOF.cs">
       <DependentUpon>Hooli.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRolesDTO.cs" />
