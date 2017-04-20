@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -104,21 +105,10 @@ namespace testDMS.Controllers
         public ActionResult Create()
         {
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FName");
-            
-            List<SelectListItem> TypeOf = new List<SelectListItem>();
-            TypeOf.Add(new SelectListItem { Text = "Pledge", Value = "Pledge", Selected = true });
-            TypeOf.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
-            TypeOf.Add(new SelectListItem { Text = "Bequest", Value = "Bequest" });
 
-            ViewBag.TypeOf = TypeOf;
+            ViewBag.TypeOf = new SelectList(ddlData.TYPEOF, "TypeOf", "TypeOf");
 
-            List<SelectListItem> GiftMethod = new List<SelectListItem>();
-            GiftMethod.Add(new SelectListItem { Text = "Check", Value = "Check", Selected = true });
-            GiftMethod.Add(new SelectListItem { Text = "ACH Transfer", Value = "ACH Transfer" });
-            GiftMethod.Add(new SelectListItem { Text = "Credit Card", Value = "Credit Card" });
-            GiftMethod.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
-
-            ViewBag.GiftMethod = GiftMethod;
+            ViewBag.GiftMethod = new SelectList(ddlData.GIFTMETHOD, "GiftMethod", "GiftMethod");
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
@@ -138,14 +128,14 @@ namespace testDMS.Controllers
         public ActionResult Create(DONATION myDonation, IEnumerable<HttpPostedFileBase> image)
         {
             DONATION donation = myDonation;
-            
+            List<FILES> myList = new List<FILES>();
             if (ModelState.IsValid)
             {
                 foreach (var item in image)
                 {
                     if (item != null && item.ContentLength > 0)
                     {
-                        var check = new FILES
+                        var myImage = new FILES
                         {
                             FileName = System.IO.Path.GetFileName(item.FileName),
                             ContentType = item.ContentType,
@@ -155,11 +145,14 @@ namespace testDMS.Controllers
 
                         using (var reader = new System.IO.BinaryReader(item.InputStream))
                         {
-                            check.Content = reader.ReadBytes(item.ContentLength);
+                            myImage.Content = reader.ReadBytes(item.ContentLength);
                         }
-
-                        donation.FILES = new List<FILES> { check };
+                        
+                        myList.Add(myImage);
+                       
                     }
+                    
+                     donation.FILES = myList;
                 }
                 
                 dnRepo.Add(donation);
@@ -169,9 +162,9 @@ namespace testDMS.Controllers
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
-            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
+            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf", "TypeOf");
 
-            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
+            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod", "GiftMethod");
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
@@ -189,26 +182,14 @@ namespace testDMS.Controllers
         public ActionResult AddDonation(int id)
         {
             DONOR donor = drRepo.FindById(id);
+            ViewBag.DonorId = id;
+            ViewBag.DonorName = donor.FName;
+            //CreateDonationViewModel cdvm = new CreateDonationViewModel();
+            //cdvm.donor = donor;
 
-            CreateDonationViewModel cdvm = new CreateDonationViewModel();
-            cdvm.donor = donor;
-
-            List<SelectListItem> TypeOf = new List<SelectListItem>();
-
-            TypeOf.Add(new SelectListItem { Text = "Pledge", Value = "Pledge", Selected = true });
-            TypeOf.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
-            TypeOf.Add(new SelectListItem { Text = "Bequest", Value = "Bequest" });
-
-            ViewBag.TypeOf = TypeOf;
-
-            List<SelectListItem> GiftMethod = new List<SelectListItem>();
-
-            GiftMethod.Add(new SelectListItem { Text = "Check", Value = "Check", Selected = true });
-            GiftMethod.Add(new SelectListItem { Text = "ACH Transfer", Value = "ACH Transfer" });
-            GiftMethod.Add(new SelectListItem { Text = "Credit Card", Value = "Credit Card" });
-            GiftMethod.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
-
-            ViewBag.GiftMethod = GiftMethod;
+            ViewBag.TypeOf = new SelectList(ddlData.TYPEOF, "TypeOf", "TypeOf");
+            
+            ViewBag.GiftMethod = new SelectList(ddlData.GIFTMETHOD, "GiftMethod", "GiftMethod");
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
@@ -220,38 +201,48 @@ namespace testDMS.Controllers
 
             ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
-            return View("~/Views/DONATIONs/DonorCreate.cshtml", cdvm);
+            return View("~/Views/DONATIONs/DonorCreate.cshtml");//, cdvm
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddDonation(CreateDonationViewModel CDVM, int id, HttpPostedFileBase image)
+        public ActionResult AddDonation(DONATION myDonation, IEnumerable<HttpPostedFileBase> image)
         {
-            DONATION donation = CDVM.donation;
-            //DONOR donor = CDVM.donor;
-            donation.DonorId = id;
-
+            DONATION donation = myDonation;
+            List<FILES> myList = new List<FILES>();
             if (ModelState.IsValid)
             {
-                if (image != null && image.ContentLength > 0 )
+                foreach (var item in image)
                 {
-                    var check = new FILES
+                    if (item != null && item.ContentLength > 0)
                     {
-                        FileName = System.IO.Path.GetFileName(image.FileName),
-                        ContentType = image.ContentType
-                    };
+                        var myImage = new FILES
+                        {
+                            FileName = System.IO.Path.GetFileName(item.FileName),
+                            ContentType = item.ContentType,
+                            DonationId = donation.DonationId,
+                            DonorId = donation.DonorId
+                        };
+
+                        using (var reader = new System.IO.BinaryReader(item.InputStream))
+                        {
+                            myImage.Content = reader.ReadBytes(item.ContentLength);
+                        }
+
+                        myList.Add(myImage);
+
+                    }
+
+                    donation.FILES = myList;
                 }
-                //donation.ImageMimeType = image.ContentType;
-                //donation.ImageUpload = new byte[image.ContentLength];
-                //image.InputStream.Read(donation.ImageUpload, 0, image.ContentLength);
 
                 dnRepo.Add(donation);
-                return RedirectToAction("Details", "DONORs", new { id });
+                return RedirectToAction("Details", "DONORs", new { donation.DonorId });
             }
 
-            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
+            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf", "TypeOf");
 
-            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
+            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod", "GiftMethod");
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
@@ -266,7 +257,7 @@ namespace testDMS.Controllers
             ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
 
-            return View(donation);
+            return View("~/Views/DONATIONs/DonorCreate.cshtml", donation); 
         }
 
         // GET: DONATIONs/Edit/5
@@ -284,22 +275,9 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            List<SelectListItem> TypeOf = new List<SelectListItem>();
+            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf", "TypeOf");
 
-            TypeOf.Add(new SelectListItem { Text = "Pledge", Value = "Pledge", Selected = true });
-            TypeOf.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
-            TypeOf.Add(new SelectListItem { Text = "Bequest", Value = "Bequest" });
-
-            ViewBag.TypeOf = TypeOf;
-
-            List<SelectListItem> GiftMethod = new List<SelectListItem>();
-
-            GiftMethod.Add(new SelectListItem { Text = "Check", Value = "Check", Selected = true });
-            GiftMethod.Add(new SelectListItem { Text = "ACH Transfer", Value = "ACH Transfer" });
-            GiftMethod.Add(new SelectListItem { Text = "Credit Card", Value = "Credit Card" });
-            GiftMethod.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
-
-            ViewBag.GiftMethod = GiftMethod;
+            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod", "GiftMethod");
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund", donation.Fund);
 
@@ -322,28 +300,33 @@ namespace testDMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,GiftRestrictions,Notes,Fund,GL,Department,Program,GrantS,Appeal")] DONATION dONATION, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,GiftRestrictions,Notes,Fund,GL,Department,Program,GrantS,Appeal")] DONATION dONATION, IEnumerable<HttpPostedFileBase> image)
         {
+            List<FILES> myList = new List<FILES>();
             if (ModelState.IsValid)
             {
-                if (image != null && image.ContentLength > 0)
+                foreach (var item in image)
                 {
-                    var check = new FILES
+                    if (item != null && item.ContentLength > 0)
                     {
-                        FileName = System.IO.Path.GetFileName(image.FileName),
-                        ContentType = image.ContentType,
-                        DonationId = dONATION.DonationId,
-                        DonorId = dONATION.DonorId
-                    };
+                        var check = new FILES
+                        {
+                            FileName = System.IO.Path.GetFileName(item.FileName),
+                            ContentType = item.ContentType,
+                            DonationId = dONATION.DonationId,
+                            DonorId = dONATION.DonorId
+                        };
 
-                    using (var reader = new System.IO.BinaryReader(image.InputStream))
-                    {
-                        check.Content = reader.ReadBytes(image.ContentLength);
+                        using (var reader = new System.IO.BinaryReader(item.InputStream))
+                        {
+                            check.Content = reader.ReadBytes(item.ContentLength);
+                        }
+
+                        myList.Add(check);
                     }
-
-                    dONATION.FILES.Add(check);
+                    dONATION.FILES = myList;
                 }
-
+                
                 dnRepo.SaveDonation(dONATION);
 
                 return RedirectToAction("Index");
@@ -383,22 +366,9 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            List<SelectListItem> TypeOf = new List<SelectListItem>();
+            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf", "TypeOf");
 
-            TypeOf.Add(new SelectListItem { Text = "Pledge", Value = "Pledge", Selected = true });
-            TypeOf.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
-            TypeOf.Add(new SelectListItem { Text = "Bequest", Value = "Bequest" });
-
-            ViewBag.TypeOf = TypeOf;
-
-            List<SelectListItem> GiftMethod = new List<SelectListItem>();
-
-            GiftMethod.Add(new SelectListItem { Text = "Check", Value = "Check", Selected = true });
-            GiftMethod.Add(new SelectListItem { Text = "ACH Transfer", Value = "ACH Transfer" });
-            GiftMethod.Add(new SelectListItem { Text = "Credit Card", Value = "Credit Card" });
-            GiftMethod.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
-
-            ViewBag.GiftMethod = GiftMethod;
+            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod", "GiftMethod");
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund", donation.Fund);
 
@@ -418,23 +388,41 @@ namespace testDMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditDonation([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,CodeId,ImageUpload,GiftRestrictions")] DONATION dONATION, HttpPostedFileBase image = null)
+        public ActionResult EditDonation([Bind(Include = "DonationId,DonorId,Amount,TypeOf,DateRecieved,GiftMethod,DateGiftMade,GiftRestrictions,Notes,Fund,GL,Department,Program,GrantS,Appeal")] DONATION dONATION, IEnumerable<HttpPostedFileBase> image)
         {
+            List<FILES> myList = new List<FILES>();
             if (ModelState.IsValid)
             {
-                if (image != null)
+                foreach (var item in image)
                 {
-                    //dONATION.ImageMimeType = image.ContentType;
-                    //dONATION.ImageUpload = new byte[image.ContentLength];
-                    //image.InputStream.Read(dONATION.ImageUpload, 0, image.ContentLength);
+                    if (item != null && item.ContentLength > 0)
+                    {
+                        var check = new FILES
+                        {
+                            FileName = System.IO.Path.GetFileName(item.FileName),
+                            ContentType = item.ContentType,
+                            DonationId = dONATION.DonationId,
+                            DonorId = dONATION.DonorId
+                        };
+
+                        using (var reader = new System.IO.BinaryReader(item.InputStream))
+                        {
+                            check.Content = reader.ReadBytes(item.ContentLength);
+                        }
+
+                        myList.Add(check);
+                    }
+
+                    dONATION.FILES = myList;
                 }
+                
                 dnRepo.SaveDonation(dONATION);
                 return RedirectToAction("Details", "DONORs", new {id = dONATION.DonorId });
             }
 
-            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
+            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf", "TypeOf");
 
-            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
+            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod", "GiftMethod");
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
@@ -465,6 +453,11 @@ namespace testDMS.Controllers
             if (donation == null)
             {
                 return HttpNotFound();
+            }
+
+            if (donation.FILES != null)
+            { 
+                return RedirectToAction("Edit", "DONATIONs", new { ida = ida, idb = idb, });
             }
 
             ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");

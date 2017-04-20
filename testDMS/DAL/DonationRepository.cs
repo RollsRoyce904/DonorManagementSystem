@@ -130,8 +130,6 @@ namespace testDMS.DAL
                     dbEntry.DateRecieved = d.DateRecieved;
                     dbEntry.GiftMethod = d.GiftMethod;
                     dbEntry.DateGiftMade = d.DateGiftMade;
-                    //dbEntry.ImageUpload = d.ImageUpload;
-                    //dbEntry.ImageMimeType = d.ImageMimeType;
                     dbEntry.GiftRestrictions = d.GiftRestrictions;
                     dbEntry.Notes = d.Notes;
                     dbEntry.Appeal = d.Appeal;

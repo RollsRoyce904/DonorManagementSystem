@@ -167,6 +167,20 @@
           <Property Name="FundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Fund" Type="nvarchar" MaxLength="2" />
         </EntityType>
+        <EntityType Name="GENDER">
+          <Key>
+            <PropertyRef Name="GenderID" />
+          </Key>
+          <Property Name="GenderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="GIFTMETHOD">
+          <Key>
+            <PropertyRef Name="GiftMethodID" />
+          </Key>
+          <Property Name="GiftMethodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GiftMethod" Type="nvarchar" MaxLength="12" />
+        </EntityType>
         <EntityType Name="GLS">
           <Key>
             <PropertyRef Name="GLID" />
@@ -222,6 +236,13 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TYPEOF">
+          <Key>
+            <PropertyRef Name="TypeOfID" />
+          </Key>
+          <Property Name="TypeOfID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeOf" Type="nvarchar" MaxLength="7" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -417,6 +438,8 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySet Name="DONOR" EntityType="Self.DONOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FILES" EntityType="Self.FILES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FUNDS" EntityType="Self.FUNDS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GENDER" EntityType="Self.GENDER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GIFTMETHOD" EntityType="Self.GIFTMETHOD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GLS" EntityType="Self.GLS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GRANTS" EntityType="Self.GRANTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IDENTITYMARKER" EntityType="Self.IDENTITYMARKER" Schema="dbo" store:Type="Tables" />
@@ -424,6 +447,7 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
           <EntitySet Name="PROGRAMS" EntityType="Self.PROGRAMS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RELATIVES" EntityType="Self.RELATIVES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TYPEOF" EntityType="Self.TYPEOF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
             <DefiningQuery>SELECT 
     [database_firewall_rules].[id] AS [id], 
@@ -828,6 +852,9 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             <End Role="DONATION" EntitySet="DONATION" />
             <End Role="FILES" EntitySet="FILES" />
           </AssociationSet>
+          <EntitySet Name="GENDER" EntityType="DonorManagementDatabaseModel.GENDER" />
+          <EntitySet Name="GIFTMETHOD" EntityType="DonorManagementDatabaseModel.GIFTMETHOD" />
+          <EntitySet Name="TYPEOF" EntityType="DonorManagementDatabaseModel.TYPEOF" />
         </EntityContainer>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -929,6 +956,27 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GENDER">
+          <Key>
+            <PropertyRef Name="GenderID" />
+          </Key>
+          <Property Name="GenderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender1" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GIFTMETHOD">
+          <Key>
+            <PropertyRef Name="GiftMethodID" />
+          </Key>
+          <Property Name="GiftMethodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GiftMethod" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TYPEOF">
+          <Key>
+            <PropertyRef Name="TypeOfID" />
+          </Key>
+          <Property Name="TypeOfID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeOf" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1200,6 +1248,30 @@ warning 6002: The table/view 'DonorManagementDatabase.sys.database_firewall_rule
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="FileId" ColumnName="FileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GENDER">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.GENDER">
+              <MappingFragment StoreEntitySet="GENDER">
+                <ScalarProperty Name="Gender1" ColumnName="Gender" />
+                <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GIFTMETHOD">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.GIFTMETHOD">
+              <MappingFragment StoreEntitySet="GIFTMETHOD">
+                <ScalarProperty Name="GiftMethod" ColumnName="GiftMethod" />
+                <ScalarProperty Name="GiftMethodID" ColumnName="GiftMethodID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TYPEOF">
+            <EntityTypeMapping TypeName="DonorManagementDatabaseModel.TYPEOF">
+              <MappingFragment StoreEntitySet="TYPEOF">
+                <ScalarProperty Name="TypeOf" ColumnName="TypeOf" />
+                <ScalarProperty Name="TypeOfID" ColumnName="TypeOfID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

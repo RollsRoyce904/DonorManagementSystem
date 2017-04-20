@@ -147,8 +147,8 @@
                 <td>
                     <div class="form-group">
                         <div>
-                            @Html.TextBox("image", "", new { type = "file", multiple = "multiple" })
-                            @Html.TextBox("image", "", new { type = "file", multiple = "multiple" })
+                            @Html.TextBox("image", "", new { type = "file", name = "image[0]", multiple = "multiple" })
+                            @Html.TextBox("image", "", new { type = "file", name = "image[1]", multiple = "multiple" })
                             </div>
                         </div>
                 </td>
