@@ -10,6 +10,15 @@
         padding-top: 5px;
         border-bottom: solid lightgray;
     }
+    td img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width:60%;
+    }
+    td, th{
+        padding-left:1%;
+    }
     
 </style>
 <hr />
@@ -19,7 +28,7 @@
     </div>
 
     <div style="display: inline-block;float:right">
-        @Html.ActionLink("Back to List", "Details", new { id = Model.DonorId }, new { @class = "btn btn-primary btn-large" })
+        @Html.ActionLink("Back to Donor", "Details", new { id = Model.DonorId }, new { @class = "btn btn-primary btn-large" })
     </div>
 </div>
 
@@ -29,19 +38,19 @@
 
     <div class="panel panel-body" >
         <table border="0">
-            <tr><th class="lines" style="background-color:#0096D7"> @Html.DisplayFor(model => model.Title) @Html.DisplayFor(model => model.FName) @Html.DisplayFor(model => model.Init) @Html.DisplayFor(model => model.LName) @Html.DisplayFor(model => model.Suffix)</th></tr>
-            <tr><td>Email Address:</td></tr>
-            <tr><td class="lines"><a href="mailto:@Html.DisplayFor(model => model.Email)" target="_top">@Html.DisplayFor(model => model.Email)</a></td></tr>
+            <tr><th class="lines" style="background-color:#0096D7"> <br />@Html.DisplayFor(model => model.Title) @Html.DisplayFor(model => model.FName) @Html.DisplayFor(model => model.Init) @Html.DisplayFor(model => model.LName) @Html.DisplayFor(model => model.Suffix)<br /></th><th></th></tr>
+            <tr><td>Email Address:</td><td rowspan="12" style="width:50%"><img src="~/Images/remove-user-icon.jpg" alt="user icon" /></td></tr>
+            <tr><td class="lines">@Html.DisplayFor(model => model.Email)</td></tr>
             <tr><td class="lines">Phone Number: @Html.DisplayFor(model => model.Cell) </td></tr>
             <tr><td class="lines">Birthday: @Html.DisplayFor(model => model.Birthday)</td></tr>
             <tr><td class="lines">Gender: @Html.DisplayFor(model => model.Gender)</td></tr>
             <tr><td></td></tr>
-            <tr><th class="lines" style="background-color:#0096D7">Codes</th></tr>
+            <tr><th class="lines" style="background-color:#0096D7"><br />Codes<br /></th></tr>
             <tr><td class="lines">@Html.DisplayNameFor(model => model.CompanyName): @Html.DisplayFor(model => model.CompanyName)</td></tr>
             <tr><td class="lines">@Html.DisplayNameFor(model => model.CONTACT.TypeOf): @Html.DisplayFor(model => model.CONTACT.TypeOf)</td></tr>
             <tr><td class="lines">@Html.DisplayNameFor(model => model.IDENTITYMARKER.MarkerType):@Html.DisplayFor(model => model.IDENTITYMARKER.MarkerType)</td></tr>
             <tr><td>&nbsp;</td></tr>
-            <tr><td>@Html.ActionLink("Back to List", "Details", new { id = Model.DonorId }, new { @class = "btn btn-primary btn-large" })</td></tr>
+            <tr><td>@Html.ActionLink("Back to Donor", "Details", new { id = Model.DonorId }, new { @class = "btn btn-primary btn-large" })</td></tr>
 
 
         </table>

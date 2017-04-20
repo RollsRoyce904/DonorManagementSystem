@@ -19,15 +19,21 @@
     <div style="display: inline-block">
         <h4>Donation Information</h4>
     </div>
-        <div style="display: inline-block;float:right">
-            @Html.ActionLink("Back to Home", "Index", "Home", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
-        </div>
+    <div style="display: inline-block;float:right">
+        @Html.ActionLink("Back to Home", "Index", "Home", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
     </div>
+</div>
 
 <div style="display: inline-block">
-    <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New Donation" onclick="location.href='@Url.Action("Create", "DONATIONs")'" />
-    <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Edit Codes" onclick="location.href='@Url.Action("Create", "CODELISTs")'" />
-    <input type="button" onclick="location.href='@Url.Action("ExportToExcel","DONATIONs")'" class="btn btn-default" style="background-image:url('../../Images/excel_icon.png');background-size:cover;width:75px;height:75px" />
+    @if (ViewBag.Role != "General")
+    {
+        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New Donation" onclick="location.href='@Url.Action("Create", "DONATIONs")'" />
+    }
+    @if (ViewBag.Role == "Administrator")
+    {
+        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Edit Codes" onclick="location.href='@Url.Action("Create", "CODELISTs")'" />
+    }
+    <input type="button" value="Export To Excel" onclick="location.href='@Url.Action("ExportToExcel","DONATIONs")'" class="btn btn-default" />
 </div>
 <div style="display: inline-block;float:right">
     @using (Html.BeginForm("Index", "DONATIONs", FormMethod.Get))
@@ -40,15 +46,15 @@
         </p>
     }
 </div><br /><br />
-<table  class="table table-striped" id="table" border="0">
+<table class="table table-striped" id="table" border="0">
     <tr style="background-color:#0096D7">
         <th style="padding-left:2%">
             @Html.DisplayName("Amount")
         </th>
 
         @*<th>
-            @Html.ActionLink("Donation", "Index", new { sortOrder = ViewBag.DonationSortParam })
-        </th>*@
+                @Html.ActionLink("Donation", "Index", new { sortOrder = ViewBag.DonationSortParam })
+            </th>*@
 
         <th>
             @Html.ActionLink("Donor", "Index", new { sortOrder = ViewBag.DonationSortParam })
@@ -78,13 +84,16 @@
             <td>
                 @*@Html.DisplayFor(modelItem => item.CODES.Appeal)*@
             </td>
-            <td style="text-align:center"> 
-                @Html.ActionLink("Details", "Details", new { ida = item.DonationId, idb = item.DonorId }, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" }) 
-                @Html.ActionLink("  Edit  ", "Edit", new { ida = item.DonationId, idb = item.DonorId }, new { @class = "btn btn-default", @style = "background-color:#174B7C;color:white" })
-                @Html.ActionLink("Delete", "Delete", new { ida = item.DonationId, idb = item.DonorId }, new { @class = "btn btn-default", @style = "background-color:#e31b23;color:white" })
+            <td style="text-align:center">
+                @Html.ActionLink("Details", "Details", new { ida = item.DonationId, idb = item.DonorId }, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
+                @if (ViewBag.Role != "General")
+                {
+                    @Html.ActionLink("  Edit  ", "Edit", new { ida = item.DonationId, idb = item.DonorId }, new { @class = "btn btn-default", @style = "background-color:#174B7C;color:white" })
+                    @Html.ActionLink("Delete", "Delete", new { ida = item.DonationId, idb = item.DonorId }, new { @class = "btn btn-default", @style = "background-color:#e31b23;color:white" })
+                }
             </td>
         </tr>
-    
+
     }
 </table>
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
