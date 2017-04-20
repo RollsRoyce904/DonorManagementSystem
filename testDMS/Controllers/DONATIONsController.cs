@@ -240,9 +240,9 @@ namespace testDMS.Controllers
                 return RedirectToAction("Details", "DONORs", new { donation.DonorId });
             }
 
-            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf", "TypeOf");
+            ViewBag.TypeOf = new SelectList(ddlData.TYPEOF, "TypeOf", "TypeOf");
 
-            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod", "GiftMethod");
+            ViewBag.GiftMethod = new SelectList(ddlData.GIFTMETHOD, "GiftMethod", "GiftMethod");
 
             ViewBag.DonorId = new SelectList(ddlData.DONOR, "DONORID", "FNAME", donation.DonorId);
 
@@ -275,9 +275,9 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf", "TypeOf");
+            ViewBag.TypeOf = new SelectList(ddlData.TYPEOF, "TypeOf", "TypeOf");
 
-            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod", "GiftMethod");
+            ViewBag.GiftMethod = new SelectList(ddlData.GIFTMETHOD, "GiftMethod", "GiftMethod");
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund", donation.Fund);
 
@@ -456,9 +456,11 @@ namespace testDMS.Controllers
             }
 
             if (donation.FILES != null)
-            { 
+            {
                 return RedirectToAction("Edit", "DONATIONs", new { ida = ida, idb = idb, });
             }
+
+            else
 
             ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
             ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
