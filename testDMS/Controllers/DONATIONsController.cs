@@ -455,7 +455,7 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            if (donation.FILES != null)
+            if (donation.FILES.Count > 0)
             {
                 return RedirectToAction("Edit", "DONATIONs", new { ida = ida, idb = idb, });
             }
