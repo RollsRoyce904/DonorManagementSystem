@@ -87,7 +87,7 @@
     <tr><td class="lines">Gift Date:  </td><td class="lines">@Html.DisplayFor(model => model.DateGiftMade)</td></tr>
     <tr><td class="lines">Restrictions: </td><td class="lines"> @Html.DisplayFor(model => model.GiftRestrictions)</td></tr>
     <tr><td class="lines">Donation Notes: </td><td class="lines"> @Html.DisplayFor(model => model.Notes)</td></tr>
-    @*<tr><td class="lines">Code:  </td><td class="lines">@Html.DisplayFor(model => model.CODES.Fund)</td></tr>*@
+    <tr><td class="lines">Code:  </td><td class="lines">@Html.DisplayFor(model => model.Fund)-@Html.DisplayFor(model => model.GL)-@Html.DisplayFor(model => model.Department)@Html.Display(" ")@Html.DisplayFor(model => model.Program)-@Html.DisplayFor(model => model.GrantS)</td></tr>
     <tr><td colspan="3"><br />&nbsp;<input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Back" onclick="location.href='@Url.Action("Index", "DONATIONs")'" /></td></tr>
 
 
