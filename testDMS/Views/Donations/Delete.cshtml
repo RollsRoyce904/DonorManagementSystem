@@ -49,9 +49,6 @@
                 <td rowspan="7" style="padding:3%">
                     <div class="form-group">
                         <br />
-                        @* Need to specify width/height of image when it gets working *@
-                        <label for="Upload"></label>
-                        <img src="~/Images/sampleCheck.jpg" alt="check image" />
                     </div>
                 </td>
             </tr>
@@ -65,7 +62,6 @@
             <tr><td class="lines">Method of Gift: </td><td class="lines"> @Html.DisplayFor(model => model.GiftMethod)</td></tr>
             <tr><td class="lines">Gift Date:  </td><td class="lines">@Html.DisplayFor(model => model.DateGiftMade)</td></tr>
             <tr><td class="lines">Restrictions: </td><td class="lines"> @Html.DisplayFor(model => model.GiftRestrictions)</td></tr>
-            @*<tr><td class="lines">Code:  </td><td class="lines">@Html.DisplayFor(model => model.CODES.Fund)</td></tr>*@
 
             <tr><td colspan="3"><br />&nbsp;<input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Back" onclick="location.href='@Url.Action("Index", "DONATIONs")'" /></td></tr>
 
