@@ -125,6 +125,7 @@ namespace testDMS.Controllers
 
             List<string> Gender = new List<string>();
 
+            Gender.Add("-");
             Gender.Add("M");
             Gender.Add("F");
 
@@ -268,6 +269,7 @@ namespace testDMS.Controllers
 
             List<string> Gender = new List<string>();
 
+            Gender.Add("-");
             Gender.Add("M");
             Gender.Add("F");
             
