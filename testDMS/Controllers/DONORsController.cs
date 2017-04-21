@@ -125,8 +125,26 @@ namespace testDMS.Controllers
 
             List<string> Gender = new List<string>();
 
-            Gender.Add("M");
-            Gender.Add("F");
+//yes- I built this weak solution, sorry guys but this was the easy way.
+//makes a different list depending on the current value. 
+            string defaultGender = donor.Gender;
+            if (donor.Gender == "M")
+            {
+                Gender.Add("M");
+                Gender.Add("F");
+                Gender.Add("-");
+            } else if (donor.Gender == "F")
+            {
+                Gender.Add("F");
+                Gender.Add("M");
+                Gender.Add("-");
+            }else
+            {
+                Gender.Add("-");
+                Gender.Add("M");
+                Gender.Add("F");
+            }
+
 
             ViewBag.Gender = new SelectList(Gender, "Gender");
 
