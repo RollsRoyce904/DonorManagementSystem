@@ -6,23 +6,26 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <hr />
 <div class="well well-lg">
     <div style="display: inline-block">
         <h4>Donor Information</h4>
-        </div>
-        <div style="display: inline-block;float:right">
-            @Html.ActionLink("Back to Home", "Index", "Home", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
-        </div>
-
     </div>
+    <div style="display: inline-block;float:right">
+        @Html.ActionLink("Back to Home", "Index", "Home", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
+    </div>
+
+</div>
 @*@Html.ActionLink("Create New", "Create")*@
 
 <div style="display: inline-block">
-    @if (@ViewBag.role != "General" ){
-    <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONORs")'" />
+    @if (@ViewBag.role != "General")
+    {
+        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Create New" onclick="location.href='@Url.Action("Create", "DONORs")'" />
     }
-    <input type="button" value="Export To Excel" onclick="location.href='@Url.Action("ExportToExcel","DONORs")'" class="btn btn-default"/>
+    <input type="button" value="Export To Excel" onclick="location.href='@Url.Action("ExportToExcel","DONORs")'" class="btn btn-default" />
 </div>
 <div style="display: inline-block;float:right">
     @using (Html.BeginForm("Index", "DONORs", FormMethod.Get))
@@ -32,42 +35,42 @@
             Search Donors: @Html.TextBox("SearchString")&nbsp
             <input type="submit" value="Filter" />
             <input type="button" value="Clear Search" onclick="location.href='@Url.Action("Index", "DONORs")'" />
-            
+
             <script type="text/javascript">
                 @if (ViewBag.Count == 0){
                     <text>alert("No results for this search! Please try another!") </text>
             };
-            </script>          
-            
+            </script>
+
             <br />
-            
-        </p>        
+
+        </p>
     }
 </div><br /><br />
 
 <table class="table table-striped">
     <tr style="background-color:#0096D7">
-        <th>
+        <th style="width:20%" >
             @Html.DisplayName("Donor")
             @*@Html.ActionLink("Donor", "Index", new { sortOrder = ViewBag.NameSortParm })*@
         </th>
-        <th>
+        <th style="width:20%">
             @Html.DisplayName("Email")
             @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.EmailSortParm })
             @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.EmailSortParmDesc })
         </th>
-        <th>
+        <th style="width:10%">
             @Html.DisplayName("Phone")
         </th>
-        <th>
+        <th style="width:20%">
             @Html.DisplayName("Address")
             @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.AddressSortParm })
             @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.AddressSortParmDesc })
         </th>
-        <th>
+        <th style="width:10%">
             @Html.DisplayName("Cell")
         </th>
-        <th>
+        <th style="width:20%">
             @Html.DisplayName("Company")
             @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.CompanySortParm })
             @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.CompanySortParmDesc })
@@ -99,13 +102,19 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone)
+            @if (item.Phone != null)
+                {
+                @String.Format("{0:(###) ###-####}", Double.Parse(item.Phone))
+            }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cell)
+                @if (item.Cell != null)
+                {
+                    @String.Format("{0:(###) ###-####}", Double.Parse(item.Cell))
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CompanyName)

@@ -237,7 +237,7 @@ namespace testDMS.Controllers
                 }
 
                 dnRepo.Add(donation);
-                return RedirectToAction("Details", "DONORs", new { donation.DonorId });
+                return RedirectToAction("Details", "DONORs", new { id = donation.DonorId });
             }
 
             ViewBag.TypeOf = new SelectList(ddlData.TYPEOF, "TypeOf", "TypeOf");

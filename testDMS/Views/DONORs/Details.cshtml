@@ -5,21 +5,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<button onclick="formatPhone('@Model.Donors.CELL')">Try it</button>
-    <label id="demo"></label>
-    <script>
-        function formatPhone(s) {
-            var str = s;
-            var res = str.slice(0, 3) + "-" + str.slice(3, 6) + "-" + str.slice(6, 12);
-            document.getElementById("demo").innerHTML = res;
-        }
-    </script>*@
+
+
+<script>
+    window.onload = function () {
+        formatPhone('@Model.Donors.Cell');
+    };
+
+    function formatPhone(s) {
+        var str = s;
+        var res = str.slice(0, 3) + "-" + str.slice(3, 6) + "-" + str.slice(6, 12);
+        document.getElementById("demo").innerHTML = res;
+    }
+
+</script>
 
 <style>
     td.lines {
         padding-bottom: 5px;
         padding-top: 5px;
         border-bottom: solid lightgray;
+    }
+
+    label {
+        font-weight: normal !important;
     }
 </style>
 <hr />
@@ -45,9 +54,14 @@
             <tr><th class="lines" style="background-color:#0096D7">@Model.Donors.Title @Model.Donors.FName @Model.Donors.Init @Model.Donors.LName @Model.Donors.Suffix</th></tr>
             <tr><td>Email Address:</td></tr>
             <tr><td class="lines"><a href="mailto:@Model.Donors.Email" target="_top">@Model.Donors.Email</a></td></tr>
-            <tr><td class="lines">Phone Number: @Model.Donors.Cell</td></tr>
+            <tr><td class="lines">Phone Number: <label id="demo"></label></td></tr>
             <tr><td class="lines">Address: @Model.Donors.Address</td></tr>
-            <tr><td class="lines">Birthday: @Model.Donors.Birthday</td></tr>
+            <tr>
+                <td class="lines">
+                    Birthday: @if (Model.Donors.Birthday.HasValue)
+            { @Model.Donors.Birthday.Value.ToString("MM/dd/yyyy")}
+                </td>
+            </tr>
             <tr><td class="lines">Gender: @Model.Donors.Gender</td></tr>
             <tr><td></td></tr>
             <tr><th class="lines" style="background-color:#0096D7">Codes</th></tr>
@@ -103,10 +117,17 @@
             {
                     <tr>
                         <td>@x:</td>
-                        <td>@items.Amount</td>
+                        <td>@string.Format("{0:C}", @items.Amount)
+                        </td>
                         <td>@items.TypeOf</td>
-                        <td>@items.DateGiftMade</td>
-                        <td>@items.DateRecieved</td>
+                        <td>
+                            @if (items.DateGiftMade.HasValue)
+                            { @items.DateGiftMade.Value.ToString("MM/dd/yyyy")}
+                        </td>
+                        <td>
+                            @if (items.DateRecieved.HasValue)
+                            { @items.DateRecieved.Value.ToString("MM/dd/yyyy")}
+                        </td>
                         <td>@items.GiftMethod</td>
                         <td>@items.GiftRestrictions</td>
                         <td>code</td>@*placeholder until code is working.*@

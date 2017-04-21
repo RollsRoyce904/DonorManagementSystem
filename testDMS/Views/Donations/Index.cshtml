@@ -72,7 +72,8 @@
     {
         <tr>
             <td style="padding-left:2%">
-                @Html.DisplayFor(modelItem => item.Amount)
+                @string.Format("{0:C}", @item.Amount)
+                @*@Html.DisplayFor(modelItem => item.Amount)*@
             </td>
 
             <td>
