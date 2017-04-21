@@ -15,6 +15,6 @@ namespace testDMS.Models
     public partial class GENDER
     {
         public int GenderID { get; set; }
-        public string Gender1 { get; set; }
+        public string Gender { get; set; }
     }
 }
