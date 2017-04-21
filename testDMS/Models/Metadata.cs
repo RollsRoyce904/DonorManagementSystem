@@ -41,7 +41,8 @@ namespace testDMS.Models
         public int DonationId { get; set; }
         public int DonorId { get; set; }
         [Required]
-        [RegularExpression("([0-9]+)", ErrorMessage = "Please enter valid Number")]
+        //[RegularExpression("([0-9]+)", ErrorMessage = "Please enter valid Number")]
+        [RegularExpression(@"^\d+.\d{0,2}$", ErrorMessage = "Price can't have more than 2 decimal places")]
         public Nullable<decimal> Amount { get; set; }
         public string TypeOf { get; set; }
 
