@@ -332,9 +332,9 @@ namespace testDMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
+            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf", "TypeOf", dONATION.TypeOf);
 
-            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
+            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod", dONATION.GiftMethod);
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
 
@@ -366,9 +366,9 @@ namespace testDMS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf", "TypeOf");
+            ViewBag.TypeOf = new SelectList(ddlData.TYPEOF, "TypeOf", "TypeOf", donation.TypeOf);
 
-            ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod", "GiftMethod");
+            ViewBag.GiftMethod = new SelectList(ddlData.GIFTMETHOD, "GiftMethod", "GiftMethod", donation.GiftMethod);
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund", donation.Fund);
 
