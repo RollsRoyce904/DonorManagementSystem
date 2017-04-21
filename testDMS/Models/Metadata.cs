@@ -15,7 +15,6 @@ namespace testDMS.Models
             public string LName;
             public string Title;
             public string Suffix;
-            [Required]
             [DataType(DataType.EmailAddress)]
             public string Email;
             [RegularExpression(@"\d{10,11}$", ErrorMessage = "Invalid Phone Number. Please enter a valid 10 or 11 digit phone number without spaces, parentheses, or dashes.")]
@@ -31,6 +30,7 @@ namespace testDMS.Models
             public string City;
             [RegularExpression(@"\d{5}$", ErrorMessage = "Invalid Zip Code")]
             public string Zipcode;
+            [DataType(DataType.PhoneNumber)]
             [RegularExpression(@"\d{10,11}$", ErrorMessage = "Invalid Phone Number. Please enter a valid 10 or 11 digit phone number without spaces, parentheses, or dashes.")]
             public string Phone;
             public string State;
@@ -40,6 +40,8 @@ namespace testDMS.Models
     {
         public int DonationId { get; set; }
         public int DonorId { get; set; }
+        [Required]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Please enter valid Number")]
         public Nullable<decimal> Amount { get; set; }
         public string TypeOf { get; set; }
 
