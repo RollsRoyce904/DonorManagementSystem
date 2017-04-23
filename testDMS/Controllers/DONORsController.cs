@@ -246,7 +246,9 @@ namespace testDMS.Controllers
             }
             if(donor.DONATION.Count > 0 || donor.NOTES.Count > 0)
             {
-                return RedirectToAction("Details", "DONORs", new { id = id } );
+
+                return RedirectToAction("DeleteDonorError", "DONORs", new { id = id } );
+
             }
             return View(donor);
         }
@@ -269,6 +271,12 @@ namespace testDMS.Controllers
             base.Dispose(disposing);
         }
 
+        //error page if deleted donor has records.  Routes back to donor details.
+        public ActionResult DeleteDonorError(int? id)
+        {
+            ViewBag.Id = id;
+            return View(id);
+        }
         public ActionResult ExportToExcel()
         {
             // Step 1 - get the data from database
