@@ -551,6 +551,7 @@
     <Content Include="Views\CODELISTs\Index.cshtml" />
     <Content Include="Views\DONORs\TeamHooli.cshtml" />
     <Content Include="Views\DONATIONs\DonorEdit.cshtml" />
+    <Content Include="Views\Account\DeleteUserError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

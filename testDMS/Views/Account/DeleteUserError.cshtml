@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "DeleteUserError";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<hr />
+<div class="well well-lg">
+    <div style="display: inline-block">
+        <h4>Administrator Delete Error</h4>
+    </div>
+    <div style="display: inline-block;float:right">
+        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Back to Account Index" onclick="location.href='@Url.Action("Index", "Account")'" />
+    </div>
+</div>
+<hr />
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:#E31B23;color:white;">Delete Error!</div>
+    <div class="panel-body">Error Details:<br />You have attempted to delete all the Administrator accounts.<br />The system requires at least one active administrator account.<br /> 
+    Click the button below to return to the account Index.<br /><br /><input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Back to Account Index" onclick="location.href='@Url.Action("Index", "Account")'" /></div>
+</div>
+

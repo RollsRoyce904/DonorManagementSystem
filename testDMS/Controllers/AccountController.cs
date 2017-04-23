@@ -314,6 +314,8 @@ namespace testDMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(string Id, string Email)
         {
+            
+
             // Check for for both ID and Role and exit if not found
             if (Id == null)
             {
@@ -327,6 +329,15 @@ namespace testDMS.Controllers
             if (user == null)
             {
                 return HttpNotFound();
+            }
+            //check to see if last admin account
+            //var userCount = data.AspNetUsers.Count();
+
+            var count = data.AspNetUsers.GroupBy(s => s.NewRole).Select(g => g.Count()).ToArray();
+
+            if (count[0] <= 1)
+            {
+                return RedirectToAction("DeleteUserError");
             }
 
             // Remove user from UserStore
@@ -342,6 +353,10 @@ namespace testDMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+        }
+        public ActionResult DeleteUserError()
+        {
+            return View();
         }
 
         //
