@@ -1,0 +1,55 @@
+﻿@model testDMS.Models.GLS
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .panel > .panel-heading {
+        background-image: none;
+        background-color: #0096d7;
+        color: white;
+    }
+</style>
+<hr />
+<div class="well well-lg">
+    <div style="display: inline-block">
+        <h4>Create New GL Code</h4>
+    </div>
+    <div style="display: inline-block;float:right">
+        @Html.ActionLink("Back to GL Codes", "Index", "Fund", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
+    </div>
+</div>
+
+<br /><br />
+<div class="panel panel-default">
+    <div class="panel-heading">Enter a new GL code:</div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+<br /><br />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GL, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GL, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GL, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" style="background-color:#0096d7;color:white"  />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to GL Codes", "Index", "Fund", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
+</div>

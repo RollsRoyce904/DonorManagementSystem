@@ -1,0 +1,61 @@
+﻿@model testDMS.Models.GLS
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .panel > .panel-heading {
+        background-image: none;
+        background-color: #0096d7;
+        color: white;
+    }
+</style>
+
+<hr />
+<div class="well well-lg">
+    <div style="display: inline-block">
+        <h4>Delete GL Code</h4>
+    </div>
+    <div style="display: inline-block;float:right">
+        @Html.ActionLink("Back to GL Codes", "Index", "Fund", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
+    </div>
+</div>
+
+<br /><br />
+<div class="panel panel-default">
+    <div class="panel-heading">Delete GL Code:</div>
+    <div class="panel-body">
+        <h3 style="color:#E31B23">Are you sure you want to delete this?</h3>
+        <div>
+            <br /><br />
+            <table class="table table-bordered" style="max-width:40%;font-size:large;" >
+                <tr>
+                    <td style="padding:6%">
+                        GL Code:
+                    </td>
+                    <td style="padding:6%">
+                        @Html.DisplayFor(model => model.GL)
+                    </td>
+                </tr>
+            </table>
+                   
+
+            <br /><br />
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <div style="display: inline-block">
+                        @Html.ActionLink("Back to GL Codes", "Index", "Fund", null, new { @class = "btn btn-default", @style = "background-color:#0096d7;color:white" })
+                    </div>
+                    <div style="display: inline-block;float:right">
+                        <input type="submit" value="Delete" class="btn btn-default" style="background-color:#E31B23" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

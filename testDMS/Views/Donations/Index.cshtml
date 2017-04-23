@@ -31,9 +31,9 @@
     }
     @if (ViewBag.Role == "Administrator")
     {
-        @*<input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Edit Codes" onclick="location.href='@Url.Action("Create", "CODELISTs")'" />*@
+        <input type="button" style="background-color:#0096D7;" class="btn btn-info" value="Edit GL Codes" onclick="location.href='@Url.Action("Index", "Fund")'" />
     }
-    <input type="button" value="Export To Excel" onclick="location.href='@Url.Action("ExportToExcel","DONATIONs")'" class="btn btn-default" />
+    <input type="button" style="background-color:#0096D7;" value="Export To Excel" onclick="location.href='@Url.Action("ExportToExcel","DONATIONs")'" class="btn btn-info" />
 </div>
 <div style="display: inline-block;float:right">
     @using (Html.BeginForm("Index", "DONATIONs", FormMethod.Get))

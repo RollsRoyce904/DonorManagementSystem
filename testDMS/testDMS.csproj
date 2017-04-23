@@ -249,6 +249,7 @@
     <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\DONATIONsController.cs" />
     <Compile Include="Controllers\DONORsController.cs" />
+    <Compile Include="Controllers\FundController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DAL\DonationRepository.cs" />
@@ -553,6 +554,9 @@
     <Content Include="Views\DONATIONs\DonorEdit.cshtml" />
     <Content Include="Views\Account\DeleteUserError.cshtml" />
     <Content Include="Views\DONORs\DeleteDonorError.cshtml" />
+    <Content Include="Views\Fund\Index.cshtml" />
+    <Content Include="Views\Fund\Create.cshtml" />
+    <Content Include="Views\Fund\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
