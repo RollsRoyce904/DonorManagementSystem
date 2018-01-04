@@ -21,5 +21,8 @@ namespace testDMS.Models
 
         public string gl { get; set; }
 
+
+
+
     }
 }

@@ -133,7 +133,7 @@ namespace testDMS.Controllers
                     new StaticPagedList<ExpandedUserDTO>
                     (
                         col_UserDTO, intPage, intPageSize, intTotalPageCount
-                        );
+                    );
                 return View(_UserDTOAsIPagedList);
             }
             catch (Exception ex)

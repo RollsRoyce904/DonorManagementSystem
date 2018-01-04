@@ -56,6 +56,7 @@
         </th>
         <th style="width:20%">
             @Html.DisplayName("Email")
+            @*@Html.ActionLink("Donation", "Index", new { sortOrder = ViewBag.EmailSortParam })*@
             @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.EmailSortParm })
             @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.EmailSortParmDesc })
         </th>

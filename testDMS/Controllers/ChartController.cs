@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using testDMS.DAL;
 using testDMS.Models;
 using System.Linq;
+using Microsoft.Ajax.Utilities;
 using PagedList;
 
 namespace testDMS.Controllers
@@ -17,6 +18,18 @@ namespace testDMS.Controllers
         private DonorManagementDatabaseEntities ddlData = new DonorManagementDatabaseEntities();
         IDonorRepository drRepo;
         IDonationRepository dnRepo;
+        public Dictionary<int, int[]> amountList = new Dictionary<int, int[]>()
+        {
+            { 1, new []{1, 100} },
+            { 2, new []{101, 500} },
+            { 3, new []{501,  1000} },
+            { 4, new []{1000, 2000 }},
+            { 5, new []{2001, 4000} },
+            { 6, new []{4001, 7000} },
+            { 7, new []{7001, 10000} },
+            { 8, new []{10001, 1000000} }
+        };
+
 
         public ChartController(IDonorRepository drRepo, IDonationRepository dnRepo)
         {
@@ -59,6 +72,7 @@ namespace testDMS.Controllers
 
         public ActionResult LoadData(int? page)
         {
+
             int count = 0;
             int pageSize = 10;
             int pageNum = (page ?? 1);
@@ -67,7 +81,7 @@ namespace testDMS.Controllers
                             select d;
 
             var donors = from DONOR d in drRepo.GetDonors
-                            select d;
+                         select d;
 
             ChartDispalyViewModel model = new ChartDispalyViewModel();
 
@@ -88,49 +102,19 @@ namespace testDMS.Controllers
             int amount1 = 0;
             int amount2 = 0;
 
-            switch (amount)
-            {
-                case 0:
-                    break;
-                case 1:
-                    amount1 = 1;
-                    amount2 = 100;
-                    break;
-                case 2:
-                    amount1 = 101;
-                    amount2 = 500;
-                    break;
-                case 3:
-                    amount1 = 501;
-                    amount2 = 1000;
-                    break;
-                case 4:
-                    amount1 = 1001;
-                    amount2 = 2000;
-                    break;
-                case 5:
-                    amount1 = 2001;
-                    amount2 = 4000;
-                    break;
-                case 6:
-                    amount1 = 4001;
-                    amount2 = 7000;
-                    break;
-                case 7:
-                    amount1 = 7001;
-                    amount2 = 10000;
-                    break;
-                case 8:
-                    amount1 = 10001;
-                    amount2 = 1000000;
-                    break;
-                default:
-                    break;
-            };
+
+            var tempArray = new int[2];
+
+            tempArray = amountList[amount];
+
+            amount1 = tempArray.ElementAt(0);
+
+            amount2 = tempArray.ElementAt(1);
+
 
             IEnumerable<DONATION> Donations = new List<DONATION>();
-            
-            if(searchString != null)
+
+            if (searchString != null)
             {
                 page = 1;
                 Donations = dnRepo.FindBy(searchString, amount1, amount2, date1, date2, department, gl);
@@ -150,7 +134,7 @@ namespace testDMS.Controllers
             model.gl = gl;
 
             LoadSelectList();
-           
+
 
             return View("~/Views/Chart/Index.cshtml", model);
         }
@@ -161,51 +145,62 @@ namespace testDMS.Controllers
             int amount1 = 0;
             int amount2 = 0;
 
-            switch (amount)
-            {
-                case 0:
-                    break;
-                case 1:
-                    amount1 = 1;
-                    amount2 = 100;
-                    break;
-                case 2:
-                    amount1 = 101;
-                    amount2 = 500;
-                    break;
-                case 3:
-                    amount1 = 501;
-                    amount2 = 1000;
-                    break;
-                case 4:
-                    amount1 = 1001;
-                    amount2 = 2000;
-                    break;
-                case 5:
-                    amount1 = 2001;
-                    amount2 = 4000;
-                    break;
-                case 6:
-                    amount1 = 4001;
-                    amount2 = 7000;
-                    break;
-                case 7:
-                    amount1 = 7001;
-                    amount2 = 10000;
-                    break;
-                case 8:
-                    amount1 = 10001;
-                    amount2 = 1000000;
-                    break;
-                default:
-                    break;
-            };
+            /* switch (amount)
+             {
+                 case 0:
+                     break;
+                 case 1:
+                     amount1 = 1;
+                     amount2 = 100;
+                     break;
+                 case 2:
+                     amount1 = 101;
+                     amount2 = 500;
+                     break;
+                 case 3:
+                     amount1 = 501;
+                     amount2 = 1000;
+                     break;
+                 case 4:
+                     amount1 = 1001;
+                     amount2 = 2000;
+                     break;
+                 case 5:
+                     amount1 = 2001;
+                     amount2 = 4000;
+                     break;
+                 case 6:
+                     amount1 = 4001;
+                     amount2 = 7000;
+                     break;
+                 case 7:
+                     amount1 = 7001;
+                     amount2 = 10000;
+                     break;
+                 case 8:
+                     amount1 = 10001;
+                     amount2 = 1000000;
+                     break;
+                 default:
+                     break;
+             };*/
+
+
+
+
+            var tempArray = new int[2];
+
+            tempArray = amountList[amount.GetValueOrDefault()];
+
+            amount1 = tempArray.ElementAt(0);
+
+            amount2 = tempArray.ElementAt(1);
 
             var Donations = (IEnumerable<DONATION>)dnRepo.FindBy(searchString,
                 amount1, amount2, date1, date2, department, gl);
-            
+
             BindingList<CHARTDATA> bList = new BindingList<CHARTDATA>();
-           
+
             foreach (var item in Donations)
             {
                 var cData = new CHARTDATA

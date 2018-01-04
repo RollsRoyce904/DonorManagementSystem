@@ -77,7 +77,7 @@ namespace testDMS.Controllers
             {
                 IEnumerable<DONATION> donation = (IEnumerable<DONATION>)dnRepo.FindBy(searchString);
                 count = donation.Count();
-                
+
                 return View(donation.Take(count).ToPagedList(pageNumber, pageSize));
             }
         }
@@ -147,14 +147,14 @@ namespace testDMS.Controllers
                         {
                             myImage.Content = reader.ReadBytes(item.ContentLength);
                         }
-                        
+
                         myList.Add(myImage);
-                       
+
                     }
-                    
-                     donation.FILES = myList;
+
+                    donation.FILES = myList;
                 }
-                
+
                 dnRepo.Add(donation);
 
                 return RedirectToAction("Index");
@@ -188,7 +188,7 @@ namespace testDMS.Controllers
             //cdvm.donor = donor;
 
             ViewBag.TypeOf = new SelectList(ddlData.TYPEOF, "TypeOf", "TypeOf");
-            
+
             ViewBag.GiftMethod = new SelectList(ddlData.GIFTMETHOD, "GiftMethod", "GiftMethod");
 
             ViewBag.Fund = new SelectList(ddlData.FUNDS, "Fund", "Fund");
@@ -257,7 +257,7 @@ namespace testDMS.Controllers
             ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName");
 
 
-            return View("~/Views/DONATIONs/DonorCreate.cshtml", donation); 
+            return View("~/Views/DONATIONs/DonorCreate.cshtml", donation);
         }
 
         // GET: DONATIONs/Edit/5
@@ -326,7 +326,7 @@ namespace testDMS.Controllers
                     }
                     dONATION.FILES = myList;
                 }
-                
+
                 dnRepo.SaveDonation(dONATION);
 
                 return RedirectToAction("Index");
@@ -383,7 +383,7 @@ namespace testDMS.Controllers
             ViewBag.Grant = new SelectList(ddlData.GRANTS, "GrantName", "GrantName", donation.GrantS);
 
 
-            return View("~/Views/DONATIONs/DonorEdit.cshtml",donation);
+            return View("~/Views/DONATIONs/DonorEdit.cshtml", donation);
         }
 
         [HttpPost]
@@ -415,9 +415,9 @@ namespace testDMS.Controllers
 
                     dONATION.FILES = myList;
                 }
-                
+
                 dnRepo.SaveDonation(dONATION);
-                return RedirectToAction("Details", "DONORs", new {id = dONATION.DonorId });
+                return RedirectToAction("Details", "DONORs", new { id = dONATION.DonorId });
             }
 
             ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf", "TypeOf");
@@ -462,7 +462,7 @@ namespace testDMS.Controllers
 
             else
 
-            ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
+                ViewBag.TypeOf = new SelectList(ddlData.DONATION, "TypeOf");
             ViewBag.GiftMethod = new SelectList(ddlData.DONATION, "GiftMethod");
 
             return View(donation);
@@ -492,7 +492,7 @@ namespace testDMS.Controllers
 
             IEnumerable<FILES> file = donation.FILES;
 
-            if(file.Count() > 0)
+            if (file.Count() > 0)
             {
                 byte[] firstPhoto = file.ElementAtOrDefault(0).Content;
                 return File(firstPhoto, "image/png");
@@ -518,7 +518,7 @@ namespace testDMS.Controllers
             {
                 return null;
             }
-            
+
         }
 
         public ActionResult RemoveImageOne(int donationId, int donorId)
